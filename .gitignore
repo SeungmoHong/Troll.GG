@@ -1,5 +1,6 @@
 # seumgmo add
 keys/
+99. test/
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
 __pycache__/

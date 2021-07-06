@@ -4,12 +4,12 @@ import json
 import pandas as pd
 from urllib.request import urlopen
 
-champion_df = pd.read_csv('../00. data/champions.csv', index_col = 0)
-item_df = pd.read_csv('../00. data/items.csv', index_col = 0)
+champion_df = pd.read_csv('./00. data/champions.csv', index_col = 0)
+item_df = pd.read_csv('./00. data/items.csv', index_col = 0)
 
 
-def riot_api(): # api_key로 header불러오기
-    key_fd = open('../keys/api_key.txt', mode='r')
+def headers(): # api_key로 header불러오기
+    key_fd = open('./keys/api_key.txt', mode='r')
     api_key = key_fd.read(100)
     key_fd.close()
     request_headers = {
@@ -57,14 +57,15 @@ def new_datas(version) : # 새버전의 데이터 불러오기(챔피언, 아이
         name_list.append(name)
         gold_list.append(gold)
         tags_list.append(tags)
-        item_df = pd.DataFrame({
-        'name' : name_list,
-        'key' : itemKey_list,
-        'gold' : gold_list,
-        'tags' : tags_list,
+
+    item_df = pd.DataFrame({
+    'name' : name_list,
+    'key' : itemKey_list,
+    'gold' : gold_list,
+    'tags' : tags_list,
     })
-    champion_df.to_csv('../00. data/champions.csv')
-    item_df.to_csv('../00. data/items.csv')
+    champion_df.to_csv('./00. data/champions.csv')
+    item_df.to_csv('./00. data/items.csv')
 
     return champion_df, item_df
 
@@ -98,4 +99,95 @@ def searchChampion(championKey):
 # 아이템키로 아이템 이름 불러오는 함수
 def searchItem(itemKey):
     item = item_df['name'][item_df['name'][item_df['key'] == itemKey].index[0]]
-    return item  
+    return item 
+# 한 매치의결과창을 불러오는 함수
+def match_record(headers, matchId):
+    match_record = requests.get('https://kr.api.riotgames.com/lol/match/v4/matches/' + str(matchId), headers=headers).json()
+    users_record = match_record['participants']
+    users_info = match_record['participantIdentities']
+    user_list = []
+    for user_info in users_info:
+        user_name = user_info['player']['summonerName']
+        user_list.append(user_name)
+    users_champion = []
+    users_kda = []
+    users_items = []
+    users_lane = []
+    users_ornament =[]
+    for user_record in users_record:
+        user_champion = searchChampion(user_record['championId'])
+        user_kda = str(user_record['stats']['kills']) + '/' + str(user_record['stats']['deaths']) + '/' + str(user_record['stats']['assists'])
+        user_items = []
+        for i in range(6):
+            itemKey = user_record['stats']['item'+str(i)]
+            if itemKey == 0:
+                pass
+            else:
+                user_items.append(searchItem(user_record['stats']['item'+str(i)]))
+        user_ornament = searchItem(user_record['stats']['item6'])
+        user_items = ', '.join(user_items)
+        user_lane = user_record['timeline']['lane']
+        users_champion.append(user_champion)
+        users_kda.append(user_kda)
+        users_items.append(user_items)
+        users_ornament.append(user_ornament)
+        users_lane.append(user_lane)
+    df = pd.DataFrame({
+    'nickname' : user_list,
+    'champion' : users_champion,
+    'lane' : users_lane,
+    'kda' : users_kda,
+    'result_items' : users_items,
+    'ornament' : users_ornament
+    })
+    # 트롤링 추가
+    df['trolling'] = df.apply(lambda r : True if str(r.result_items) == '' or str(r.result_items.split(', ')[0]) == str(r.result_items.split(', ')[-1]) else False, axis=1)
+    return df
+
+# 한 유저의 최근 매치 결과를 불러오는 함수
+
+def userMatches_record(headers, user):
+    userId, accountId, userPuuid = searchUserId(headers, user)
+    match_list = searchMatchId(headers, accountId)[:10]
+    users_champion = []
+    users_kda = []
+    users_items = []
+    users_lane = []
+    users_ornament =[]
+    for match in match_list:
+        match_info = requests.get('https://kr.api.riotgames.com/lol/match/v4/matches/' + str(match), headers=headers).json()
+        users_info = match_info['participantIdentities']
+        user_list = []
+        for user_info in users_info:
+                user_name = user_info['player']['summonerName']
+                user_list.append(user_name)
+        user_index = user_list.index(user)
+        user_record = match_info['participants'][user_index]
+        user_champion = searchChampion(user_record['championId'])
+        user_kda = str(user_record['stats']['kills']) + '/' + str(user_record['stats']['deaths']) + '/' + str(user_record['stats']['assists'])
+        user_items = []
+        for i in range(6):
+            itemKey = user_record['stats']['item'+str(i)]
+            if itemKey == 0:
+                pass
+            else:
+                user_items.append(searchItem(user_record['stats']['item'+str(i)]))
+        user_ornament = searchItem(user_record['stats']['item6'])
+        user_items = ', '.join(user_items)
+        user_lane = user_record['timeline']['lane']
+        users_champion.append(user_champion)
+        users_kda.append(user_kda)
+        users_items.append(user_items)
+        users_ornament.append(user_ornament)
+        users_lane.append(user_lane)
+        
+    df = pd.DataFrame({
+    'champion' : users_champion,
+    'lane' : users_lane,
+    'kda' : users_kda,
+    'result_items' : users_items,
+    'ornament' : users_ornament
+    })
+    df['trolling'] = df.apply(lambda r : True if str(r.result_items) == '' or str(r.result_items.split(', ')[0]) == str(r.result_items.split(', ')[-1]) else False, axis=1)
+    
+    return df

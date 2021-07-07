@@ -182,6 +182,7 @@ def userMatches_record(headers, user):
         users_lane.append(user_lane)
         
     df = pd.DataFrame({
+    'nickname' : user,
     'champion' : users_champion,
     'lane' : users_lane,
     'kda' : users_kda,

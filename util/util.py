@@ -206,6 +206,7 @@ def userMatches_record(user, number):
     'lane' : users_lane,
     'kda' : users_kda,
     'result_items' : users_items,
+    
     'ornament' : users_ornament,
     'result' : users_win
     })
@@ -219,6 +220,9 @@ def recentHistory(df):
     winningRate = str(round(df['result'].value_counts()['승리']/ len(df) * 100)) + '%'
     mostChampion = ', '.join(df['champion'].value_counts().index[:5])
     mostLane = ', '.join(df['lane'].value_counts().index[:2])
-    trolling = str(round(df['trolling'].value_counts()[True]/ len(df) * 100)) + '%'
+    if df['trolling'].value_counts()[True] == 0:
+        trolling = '0%'
+    else :
+        trolling = str(round(df['trolling'].value_counts()[True]/ len(df) * 100)) + '%'
     recentHistory = f'최근승률 : {winningRate}, 최근 가장 많이 사용한 챔피언 : {mostChampion}, 최근 주 라인 : {mostLane}, 최근 트롤링 빈도 : {trolling}'
     return recentHistory

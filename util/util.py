@@ -6,6 +6,7 @@ from urllib.request import urlopen
 
 champion_df = pd.read_csv('./00. data/champions.csv', index_col = 0)
 item_df = pd.read_csv('./00. data/items.csv', index_col = 0)
+spell_df = pd.read_csv('./00. data/spell.csv', index_col = 0)
 
 
 def headers(): # api_key로 header불러오기
@@ -30,6 +31,8 @@ def new_datas(version) : # 새버전의 데이터 불러오기(챔피언, 아이
     response = urlopen(f"http://ddragon.leagueoflegends.com/cdn/{version}/data/ko_KR/item.json").read().decode('utf-8')
     item_data = json.loads(response)
     itemKey_list = list(item_data['data'])
+    response = urlopen(f"https://ddragon.leagueoflegends.com/cdn/{version}/data/ko_KR/summoner.json").read().decode('utf-8')
+    spell_data = json.loads(response)
     name_list = []
     key_list = []
     tags_list = []
@@ -64,10 +67,33 @@ def new_datas(version) : # 새버전의 데이터 불러오기(챔피언, 아이
     'gold' : gold_list,
     'tags' : tags_list,
     })
+    
+    spell_names = []
+    spell_descriptions = []
+    spell_keys = []
+    for spell in spell_data['data']:
+        spell_name = spell_data['data'][spell]['name']
+        spell_description = spell_data['data'][spell]['description']
+        spell_key = spell_data['data'][spell]['key']
+        if spell == 'SummonerSmite' :
+            spell_description = spell_description.replace('@SmiteBaseDamage@의','') # 수치 제거
+        spell_names.append(spell_name)
+        spell_descriptions.append(spell_description)
+        spell_keys.append(spell_key)
+    
+    spell_df = pd.DataFrame({
+    'name' : spell_names,
+    'description' : spell_descriptions,
+    'key' : spell_keys
+    })
+    
+
+
     champion_df.to_csv('./00. data/champions.csv')
     item_df.to_csv('./00. data/items.csv')
+    spell_df.to_csv('./00. data/spell.csv')
 
-    return champion_df, item_df
+    return champion_df, item_df, spell_df
 
 def searchUserId(nickname) : # 유저의 암호화된 아이디를 불러오는 함수 유저의 암호화된 아이디를 불러오는 함수
         user_data = requests.get("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + parse.quote(nickname), headers=headers).json()
@@ -100,6 +126,10 @@ def searchChampion(championKey):
 def searchItem(itemKey):
     item = item_df['name'][item_df['name'][item_df['key'] == itemKey].index[0]]
     return item 
+# 아이템키로 아이템 이름 불러오는 함수
+def searchSpell(spellKey):
+    spell = spell_df['name'][spell_df['name'][spell_df['key'] == spellKey].index[0]]
+    return spell 
 # 한 매치의결과창을 불러오는 함수
 def match_record(matchId):
     match_record = requests.get('https://kr.api.riotgames.com/lol/match/v4/matches/' + str(matchId), headers=headers).json()
@@ -112,6 +142,7 @@ def match_record(matchId):
     users_champion = []
     users_kda = []
     users_items = []
+    users_spell = []
     users_lane = []
     users_ornament =[]
     users_win =[]
@@ -127,6 +158,8 @@ def match_record(matchId):
                 user_items.append(searchItem(user_record['stats']['item'+str(i)]))
         user_ornament = searchItem(user_record['stats']['item6'])
         user_items = ', '.join(user_items)
+        user_spell = [searchSpell(user_record['spell1Id']), searchSpell(user_record['spell2Id'])]
+        user_spell = ', '.join(user_spell)
         user_lane = user_record['timeline']['lane']
         user_win = user_record['stats']['win']
         if user_win == True:
@@ -137,11 +170,13 @@ def match_record(matchId):
         users_kda.append(user_kda)
         users_items.append(user_items)
         users_ornament.append(user_ornament)
+        users_spell.append(user_spell)
         users_lane.append(user_lane)
         users_win.append(user_win)
     df = pd.DataFrame({
     'nickname' : user_list,
     'champion' : users_champion,
+    'spell' : users_spell,
     'lane' : users_lane,
     'kda' : users_kda,
     'result_items' : users_items,
@@ -167,6 +202,7 @@ def userMatches_record(user, number):
     users_champion = []
     users_kda = []
     users_items = []
+    users_spell = []
     users_lane = []
     users_ornament =[]
     users_win =[]
@@ -187,6 +223,8 @@ def userMatches_record(user, number):
                 user_items.append(searchItem(user_record['stats']['item'+str(i)]))
         user_ornament = searchItem(user_record['stats']['item6'])
         user_items = ', '.join(user_items)
+        user_spell = [searchSpell(user_record['spell1Id']), searchSpell(user_record['spell2Id'])]
+        user_spell = ', '.join(user_spell)
         user_lane = user_record['timeline']['lane']
         user_win = user_record['stats']['win']
         if user_win == True: 
@@ -197,16 +235,17 @@ def userMatches_record(user, number):
         users_kda.append(user_kda)
         users_items.append(user_items)
         users_ornament.append(user_ornament)
+        users_spell.append(user_spell)
         users_lane.append(user_lane)
         users_win.append(user_win)
         
     df = pd.DataFrame({
     'nickname' : user,
     'champion' : users_champion,
+    'spell' : users_spell,
     'lane' : users_lane,
     'kda' : users_kda,
     'result_items' : users_items,
-    
     'ornament' : users_ornament,
     'result' : users_win
     })

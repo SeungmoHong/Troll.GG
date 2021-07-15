@@ -34,7 +34,7 @@ def new_datas(version) : # 새버전의 데이터 불러오기(챔피언, 아이
     response = urlopen(f"https://ddragon.leagueoflegends.com/cdn/{version}/data/ko_KR/summoner.json").read().decode('utf-8')
     spell_data = json.loads(response)
     name_list = []
-    chams_list = []
+    cham_list = []
     key_list = []
     tags_list = []
     for cham in cham_list:
@@ -42,15 +42,15 @@ def new_datas(version) : # 새버전의 데이터 불러오기(챔피언, 아이
         key = champion_data['data'][cham]['key']
         tags = champion_data['data'][cham]['tags']
         tags = ', '.join(tags)
-        chams_list.append(cham)
+        cham_list.append(cham)
         name_list.append(name)
         key_list.append(key)
         tags_list.append(tags)
     champion_df = pd.DataFrame({
         'name' : name_list,
+        'eng_name' : cham_list,
         'key' : key_list,
         'tags' : tags_list,
-        'eng_name' : cham_list
     })
     name_list = []
     gold_list = []
@@ -74,7 +74,6 @@ def new_datas(version) : # 새버전의 데이터 불러오기(챔피언, 아이
     spell_names = []
     spell_descriptions = []
     spell_keys = []
-    spells = []
     for spell in spell_data['data']:
         spell_name = spell_data['data'][spell]['name']
         spell_description = spell_data['data'][spell]['description']
@@ -84,13 +83,11 @@ def new_datas(version) : # 새버전의 데이터 불러오기(챔피언, 아이
         spell_names.append(spell_name)
         spell_descriptions.append(spell_description)
         spell_keys.append(spell_key)
-        spells.append(spell)
     
     spell_df = pd.DataFrame({
     'name' : spell_names,
     'description' : spell_descriptions,
-    'key' : spell_keys,
-    'eng' : spells
+    'key' : spell_keys
     })
     
 

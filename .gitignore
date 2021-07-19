@@ -3,6 +3,9 @@ keys/
 99. test/
 test.ipynb
 test.py
+test.csv
+test.png
+test/
 fontawesome-free-5.15.1-web/
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/

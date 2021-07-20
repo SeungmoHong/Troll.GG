@@ -4,13 +4,13 @@ import json
 import pandas as pd
 from urllib.request import urlopen
 
-champion_df = pd.read_csv('./00. data/champions.csv', index_col = 0)
-item_df = pd.read_csv('./00. data/items.csv', index_col = 0)
-spell_df = pd.read_csv('./00. data/spell.csv', index_col = 0)
+champion_df = pd.read_csv('../00. data/champions.csv', index_col = 0)
+item_df = pd.read_csv('../00. data/items.csv', index_col = 0)
+spell_df = pd.read_csv('../00. data/spell.csv', index_col = 0)
 
 
 def headers(): # api_key로 header불러오기
-    key_fd = open('./keys/api_key.txt', mode='r')
+    key_fd = open('../keys/api_key.txt', mode='r')
     api_key = key_fd.read(100)
     key_fd.close()
     request_headers = {
@@ -22,7 +22,13 @@ def headers(): # api_key로 header불러오기
     }
     return request_headers
 headers = headers()
-def new_datas(version) : # 새버전의 데이터 불러오기(챔피언, 아이템)
+def check_version():
+    response = urlopen("https://ddragon.leagueoflegends.com/api/versions.json").read().decode('utf-8')
+    version_data = json.loads(response)
+    return version_data[0]
+
+version = check_version()
+def new_datas() : # 새버전의 데이터 불러오기(챔피언, 아이템, 스펠, 룬)
     # 챔피언 데이터
     response = urlopen(f"http://ddragon.leagueoflegends.com/cdn/{version}/data/ko_KR/champion.json").read().decode('utf-8')
     champion_data = json.loads(response)
@@ -31,10 +37,14 @@ def new_datas(version) : # 새버전의 데이터 불러오기(챔피언, 아이
     response = urlopen(f"http://ddragon.leagueoflegends.com/cdn/{version}/data/ko_KR/item.json").read().decode('utf-8')
     item_data = json.loads(response)
     itemKey_list = list(item_data['data'])
+    # 스펠 데이터
     response = urlopen(f"https://ddragon.leagueoflegends.com/cdn/{version}/data/ko_KR/summoner.json").read().decode('utf-8')
     spell_data = json.loads(response)
+    # 룬 데이터
+    response = urlopen(f"https://ddragon.leagueoflegends.com/cdn/{version}/data/ko_KR/runesReforged.json").read().decode('utf-8')
+    rune_data = json.loads(response)
     name_list = []
-    cham_list = []
+    chams_list = []
     key_list = []
     tags_list = []
     for cham in cham_list:
@@ -42,15 +52,15 @@ def new_datas(version) : # 새버전의 데이터 불러오기(챔피언, 아이
         key = champion_data['data'][cham]['key']
         tags = champion_data['data'][cham]['tags']
         tags = ', '.join(tags)
-        cham_list.append(cham)
+        chams_list.append(cham)
         name_list.append(name)
         key_list.append(key)
         tags_list.append(tags)
     champion_df = pd.DataFrame({
         'name' : name_list,
-        'eng_name' : cham_list,
         'key' : key_list,
         'tags' : tags_list,
+        'eng_name' : cham_list
     })
     name_list = []
     gold_list = []
@@ -74,6 +84,7 @@ def new_datas(version) : # 새버전의 데이터 불러오기(챔피언, 아이
     spell_names = []
     spell_descriptions = []
     spell_keys = []
+    spells = []
     for spell in spell_data['data']:
         spell_name = spell_data['data'][spell]['name']
         spell_description = spell_data['data'][spell]['description']
@@ -83,20 +94,44 @@ def new_datas(version) : # 새버전의 데이터 불러오기(챔피언, 아이
         spell_names.append(spell_name)
         spell_descriptions.append(spell_description)
         spell_keys.append(spell_key)
+        spells.append(spell)
     
     spell_df = pd.DataFrame({
     'name' : spell_names,
     'description' : spell_descriptions,
-    'key' : spell_keys
+    'key' : spell_keys,
+    'eng' : spells
     })
     
-
-
+    name_list, key_list =[], []
+    for i in range(5):
+        rune_name = rune_data[i]['name']
+        rune_key = rune_data[i]['id']
+        name_list.append(rune_name)
+        key_list.append(rune_key)
+        for k in range(4):
+            rune_len = len(rune_data[i]['slots'][k]['runes'])
+            for l in range(rune_len):
+                rune_name = rune_data[i]['slots'][k]['runes'][l]['name']
+                rune_key = rune_data[i]['slots'][k]['runes'][l]['id']
+                name_list.append(rune_name)
+                key_list.append(rune_key)
+    sub_names = ['체력 + 15~90(레벨에 비례)', '방어력 + 9', '마법저항력 + 8', '공격속도 + 10%', '스킬가속 + 8', '적응형 능력치 + 9']
+    sub_keys = [5001, 5002, 5003, 5005, 5007, 5008]
+    for i in range(6):
+        name_list.append(sub_names[i])
+        key_list.append(sub_keys[i])
+    rune_df = pd.DataFrame({
+    'name' : name_list,
+    'key' : key_list,
+    })
+    
     champion_df.to_csv('./00. data/champions.csv')
     item_df.to_csv('./00. data/items.csv')
     spell_df.to_csv('./00. data/spell.csv')
+    rune_df.to_csv('./00. data/runes.csv')
 
-    return champion_df, item_df, spell_df
+    return champion_df, item_df, spell_df, rune_df
 
 def searchUserId(nickname) : # 유저의 암호화된 아이디를 불러오는 함수 유저의 암호화된 아이디를 불러오는 함수
         user_data = requests.get("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + parse.quote(nickname), headers=headers).json()
@@ -129,7 +164,7 @@ def searchChampion(championKey):
 def searchItem(itemKey):
     item = item_df['name'][item_df['name'][item_df['key'] == itemKey].index[0]]
     return item 
-# 아이템키로 아이템 이름 불러오는 함수
+# 스펠키로 아이템 이름 불러오는 함수
 def searchSpell(spellKey):
     spell = spell_df['name'][spell_df['name'][spell_df['key'] == spellKey].index[0]]
     return spell 

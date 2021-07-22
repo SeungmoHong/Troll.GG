@@ -137,8 +137,10 @@ def searchUserId(nickname) : # 유저의 암호화된 아이디를 불러오는 
         user_data = requests.get("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + parse.quote(nickname), headers=headers).json()
         userId = user_data['id']
         userAccountId = user_data['accountId']
-        userPuuid = user_data['puuid'] 
-        return userId, userAccountId, userPuuid
+        userPuuid = user_data['puuid']
+        nickname = user_data['name']
+        userLevel = user_data['summonerLevel']
+        return userId, userAccountId, userPuuid, nickname, userLevel
 
 def searchChampMatchId(accountId, champion): # 한유저의 특정 챔피언 매치ID들을 불러오는 함수
     championKey = champion_df['key'][champion_df['key'][champion_df['name'] == champion].index[0]] # 챔피언 키구하기

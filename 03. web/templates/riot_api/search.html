@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/jquery-ui.min.css')}}">
+    <style>
+        th, td {
+            text-align: center;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+{% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+    <strong>검색 결과</strong>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-8">
+        <table class="table-borderless table-sm">
+            <tr>
+                <td>
+                    <img src={{result[7]}} alt="소환사 아이콘" width="80px;">
+                </td>
+                <td>
+                    {{result[0]}} <br>
+                    레벨 : {{result[1]}}
+                </td>
+                <td>
+                    <img src="{{tier_img | safe()}}" width="80px;">
+                </td>
+                <td>
+                    {{result[2]}} {{result[3]}}<br>
+                    {{result[4]}}승 {{result[5]}}패 ({{result[6]}}%)
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="col-4"></div>
+    <div class="col-10">
+        <table class="table-bordered table-sm">
+            {% for i in range(10) %}
+            <tr>
+                <td><img src="{{url_list[0] + url_list[1] + matches_info['champion'][i]+ '.png'}}" 
+                    alt="{{matches_info['champion'][i]}}" width="40"></td>
+                <td>{{matches_info['result'][i]}}</td>
+                <td>{{matches_info['lane'][i]}}</td>
+                <td>{{matches_info['kda'][i]}}</td>
+                <td>
+                    {% for k in range(10) %}
+                    <img src="{{url_list[0] + url_list[1] + matches_info['all_champions'][i][k]+ '.png'}}" 
+                    alt="{{matches_info['champion'][i][k]}}" width="20">
+                    {% if k == 4 %}
+                    <br>
+                    {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <img src="{{img_url + matches_info['runes'][i][0] | safe()}}" 
+                    alt="룬" width="20">
+                    <img src="{{url_list[0] + url_list[3] + matches_info['spell'][i][0] + '.png'}}" alt="스펠"  width="20"><br>
+                    <img src="{{img_url + matches_info['runes'][i][1] | safe()}}" 
+                    alt="룬" width="20">
+                    <img src="{{url_list[0] + url_list[3] + matches_info['spell'][i][1] + '.png'}}" alt="스펠"  width="20">
+                </td>
+                <td>
+                    {% for item in matches_info['result_items'][i] %}
+                    <img src="{{url_list[0] + url_list[2] + item + '.png' | safe()}}" 
+                    alt="{{아이템}}" width="20">
+                    {% endfor %}
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

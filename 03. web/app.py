@@ -1,4 +1,5 @@
 from flask import Flask, render_template, session
+from riot_api.riot_api import riot_api
 import os, json
 import pandas as pd
 from util.util import *
@@ -8,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = 'qwert12345'
 app.config['SESSION_COOKIE_PATH'] = '/'
 
-
+app.register_blueprint(riot_api, url_prefix='/riotapi')
 
 @app.route('/')
 def index():

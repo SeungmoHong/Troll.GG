@@ -7,6 +7,7 @@ from urllib.request import urlopen
 champion_df = pd.read_csv('../00. data/champions.csv', index_col = 0)
 item_df = pd.read_csv('../00. data/items.csv', index_col = 0)
 spell_df = pd.read_csv('../00. data/spell.csv', index_col = 0)
+rune_df = pd.read_csv('../00. data/runes.csv', index_col = 0)
 
 
 def headers(): # api_key로 header불러오기
@@ -126,19 +127,33 @@ def new_datas() : # 새버전의 데이터 불러오기(챔피언, 아이템, �
     'key' : key_list,
     })
     
-    champion_df.to_csv('./00. data/champions.csv')
-    item_df.to_csv('./00. data/items.csv')
-    spell_df.to_csv('./00. data/spell.csv')
-    rune_df.to_csv('./00. data/runes.csv')
+    champion_df.to_csv('../00. data/champions.csv')
+    item_df.to_csv('../00. data/items.csv')
+    spell_df.to_csv('../00. data/spell.csv')
+    rune_df.to_csv('../00. data/runes.csv')
 
     return champion_df, item_df, spell_df, rune_df
 
-def searchUserId(nickname) : # 유저의 암호화된 아이디를 불러오는 함수 유저의 암호화된 아이디를 불러오는 함수
+def searchUserId(nickname) : # 유저의 암호화된 아이디를 불러오는 함수 유저의 암호화된 아이디와 정보를 불러오는 함수
         user_data = requests.get("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + parse.quote(nickname), headers=headers).json()
         userId = user_data['id']
         userAccountId = user_data['accountId']
-        userPuuid = user_data['puuid'] 
-        return userId, userAccountId, userPuuid
+        userPuuid = user_data['puuid']
+        nickname = user_data['name']
+        userLevel = user_data['summonerLevel']
+        profileIconId = user_data['profileIconId']
+        return userId, userAccountId, userPuuid, nickname, userLevel, profileIconId
+
+def userInfo(id): # 유저의 랭크티어와 승,패 정보를 받아오는 함수
+    user_data = requests.get('https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/'+ parse.quote(id), headers=headers).json()
+    tier = user_data[0]['tier']
+    rank = user_data[0]['rank']
+    wins = user_data[0]['wins']
+    losses = user_data[0]['losses']
+
+    return tier, rank, wins, losses
+
+
 
 def searchChampMatchId(accountId, champion): # 한유저의 특정 챔피언 매치ID들을 불러오는 함수
     championKey = champion_df['key'][champion_df['key'][champion_df['name'] == champion].index[0]] # 챔피언 키구하기
@@ -156,19 +171,23 @@ def searchMatchId(accountId):
         match = match_data[i]['gameId']
         match_list.append(match)
     return match_list
-# 챔피언키로 챔피언 이름 불러오는 함수
+# 챔피언키로 챔피언 영문이름을 불러오는 함수
 def searchChampion(championKey):
-    champ = champion_df['name'][champion_df['name'][champion_df['key'] == championKey].index[0]]
+    champ = champion_df['eng_name'][champion_df['eng_name'][champion_df['key'] == championKey].index[0]]
     return champ  
 # 아이템키로 아이템 이름 불러오는 함수
 def searchItem(itemKey):
     item = item_df['name'][item_df['name'][item_df['key'] == itemKey].index[0]]
     return item 
-# 스펠키로 아이템 이름 불러오는 함수
+# 스펠키로 스펠 이름 불러오는 함수
 def searchSpell(spellKey):
     spell = spell_df['name'][spell_df['name'][spell_df['key'] == spellKey].index[0]]
-    return spell 
-# 한 매치의결과창을 불러오는 함수
+    return spell
+# 스펠키로 스펠 영문 이름 불러오는 함수
+def searchEngSpell(spellKey):
+    spell = spell_df['eng'][spell_df['eng'][spell_df['key'] == spellKey].index[0]]
+    return spell
+# 한 매치의결과창을 불러오는 함수 현재 사용안함
 def match_record(matchId):
     match_record = requests.get('https://kr.api.riotgames.com/lol/match/v4/matches/' + str(matchId), headers=headers).json()
     users_record = match_record['participants']
@@ -232,18 +251,24 @@ def userIndex(user, users_info):
         user_list.append(user_name)
     user_index = user_list.index(user)
     return user_index
-# 한 유저의 최근 매치 결과를 불러오는 함수
+# 한 유저의 최근 매치 결과를 불러오는 함수 사용중
 
-def userMatches_record(user, number):
-    userId, accountId, userPuuid = searchUserId(user)
-    match_list = searchMatchId(accountId)[:number] # nuber = 원하는 매치의 수
+def userMatches_record(user):
+    userId, userAccountId, userPuuid, nickname, userLevel, profileIconId = searchUserId(user)
+    match_list = searchMatchId(userAccountId)[:10] 
     users_champion = []
+    all_champions = []
     users_kda = []
     users_items = []
     users_spell = []
+    users_runes = []
     users_lane = []
     users_ornament =[]
     users_win =[]
+    users_gold = []
+    users_level = []
+    users_cs = []
+    
     for match in match_list:
         match_info = requests.get('https://kr.api.riotgames.com/lol/match/v4/matches/' + str(match), headers=headers).json()
         users_info = match_info['participantIdentities']
@@ -254,42 +279,63 @@ def userMatches_record(user, number):
         user_kda = str(user_record['stats']['kills']) + '/' + str(user_record['stats']['deaths']) + '/' + str(user_record['stats']['assists'])
         user_items = []
         for i in range(6):
-            itemKey = user_record['stats']['item'+str(i)]
+            itemKey = str(user_record['stats']['item'+str(i)]) + '.png'
             if itemKey == 0:
                 pass
             else:
-                user_items.append(searchItem(user_record['stats']['item'+str(i)]))
-        user_ornament = searchItem(user_record['stats']['item6'])
-        user_items = ', '.join(user_items)
-        user_spell = [searchSpell(user_record['spell1Id']), searchSpell(user_record['spell2Id'])]
-        user_spell = ', '.join(user_spell)
+                user_items.append(user_record['stats']['item'+str(i)])
+        champion_list = []
+        for i in range(10):
+            champId = match_info['participants'][i]['championId']
+            champion_list.append(champId)
+        champion_list = [searchChampion(champ) for champ in champion_list]          
+        user_ornament = user_record['stats']['item6']
+        user_spell = [searchEngSpell(user_record['spell1Id']), searchEngSpell(user_record['spell2Id'])]
+        user_runes = [str(user_record['stats']['perkPrimaryStyle']) + '.png', str(user_record['stats']['perkSubStyle']) + '.png']
         user_lane = user_record['timeline']['lane']
         user_win = user_record['stats']['win']
         if user_win == True: 
-            user_win = '승리'
+            user_win = '승'
         else :
-            user_win = '패배'
+            user_win = '패'
+        user_gold = user_record['stats']['goldEarned']
+        user_level = user_record['stats']['champLevel']
+        user_cs = user_record['stats']['totalMinionsKilled'] + user_record['stats']['neutralMinionsKilled']
+
+
         users_champion.append(user_champion)
+        all_champions.append(champion_list)
         users_kda.append(user_kda)
         users_items.append(user_items)
         users_ornament.append(user_ornament)
         users_spell.append(user_spell)
+        users_runes.append(user_runes)
         users_lane.append(user_lane)
         users_win.append(user_win)
-        
-    df = pd.DataFrame({
-    'nickname' : user,
+        users_gold.append(user_gold)
+        users_level.append(user_level)
+        users_cs.append(user_cs)
+
+    result = {
     'champion' : users_champion,
+    'all_champions' : all_champions,
     'spell' : users_spell,
+    'runes' : users_runes,
     'lane' : users_lane,
+    'gold' : users_gold,
+    'level' : users_level,
+    'cs' : users_cs,
     'kda' : users_kda,
     'result_items' : users_items,
     'ornament' : users_ornament,
     'result' : users_win
-    })
-    df['trolling'] = df.apply(lambda r : True if str(r.result_items) == '' or str(r.result_items.split(', ')[0]) == str(r.result_items.split(', ')[-1]) else False, axis=1)
+    }
+        
+
+    # df['trolling'] = df.apply(lambda r : True if str(r.result_items) == '' or str(r.result_items.split(', ')[0]) == str(r.result_items.split(', ')[-1]) else False, axis=1)
     
-    return df
+        
+    return result
 
 
 # 최근 유저의 전적을 정리 하는 함수 

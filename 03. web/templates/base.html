@@ -23,21 +23,34 @@
             <li class="nav-item mr-4">
                 <a class="nav-link {% if menu.ho %}active{% endif %}" 
                    href="{% if menu.ho %}#{% else %}/{% endif %}">
-                    <i class="fa fa-home text-dark"></i> Home
+                    <i class="fa fa-home text-dark"> Home</i> 
                 </a>
             </li>
             <li class="nav-item mr-3">
-                <a class="nav-link {% if menu.da %}active{% endif %}" href="#">
+                <a class="nav-link {% if menu.ri %}active{% endif %}" href="#">
                     <i class="fas fa-search text-dark"> Riot API</i> 
                 </a>
             </li>
             <li class="nav-item mr-3">
-                <a class="nav-link {% if menu.da %}active{% endif %}" href="#">
+                <a class="nav-link {% if menu.op %}active{% endif %}" href="#">
                     <i class="fas fa-search text-dark">OP.GG 크롤링</i>
                 </a>
             </li>
         </ul>
-        <div class="navbar-text text-dark">
+        <div>
+            <form action="/riotapi/search" method="POST">
+                <table>
+                    <td>
+                        <input class="form-control" type="text" name="nickname" id="nickname">
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-search text-dark"></i></button>
+                    </td>
+                </table>
+            </form>
+        </div>
+         
+        <div class="navbar-text text-dark" style="margin-left: 50px;">
             <strong>현재 LOL 버전 : {{version}}</strong>
         </div>
     </nav>
@@ -47,7 +60,7 @@
             <div class="col-2">
                 <ul class="nav flex-column nav-pills">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {% if menu.se %}active{% endif %}" 
+                        <a class="nav-link dropdown-toggle {% if menu.da %}active{% endif %}" 
                            data-toggle="dropdown" href="#">데이터</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">아이템</a>
@@ -56,13 +69,16 @@
                         </div>
                     </li>
                     <div class="dropdown-divider"></div>
-                    <li class="nav-item">
-                        <a class="nav-link {% if menu.st %}active{% endif %}" 
-                           href="#">Riot API</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if menu.ris %}active{% endif %}" 
+                           data-toggle="dropdown" href="#">Riot API</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/riotapi/search">전적 검색</a>
+                        </div>
                     </li>
                     <div class="dropdown-divider"></div>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {% if menu.se %}active{% endif %}" 
+                        <a class="nav-link dropdown-toggle {% if menu.opg %}active{% endif %}" 
                            data-toggle="dropdown" href="#">OP.GG 크롤링</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">성능 좋은 챔피언</a>

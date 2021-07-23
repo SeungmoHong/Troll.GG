@@ -31,10 +31,23 @@ def search():
         tier_img = f"/static/img/Emblem_{tier}.png"
         img_url = f"/static/img/" 
         result = [userNickname, userLevel, tier, rank, wins, losses, winning_rate, profileIcon]
-
         matches_info = userMatches_record(userNickname)
-        
 
         
-        return render_template('riot_api/search.html', menu=menu, result = result, tier_img=tier_img, matches_info=matches_info, url_list = url_list, img_url = img_url)
+
+        if matches_info['result'].count('승') == 0:
+            winning_rate = 0
+        else:
+            winning_rate = round(matches_info['result'].count('승') / len(matches_info['result']) * 100,2)
+
+        if matches_info['trolling'].count(True) == 0:
+            trolling = 0
+        else:
+            trolling = round(matches_info['trolling'].count(True) / len(matches_info['trolling']) * 100,2)
+
+
+        recentHistory = [matches_info['result'].count('승'), matches_info['result'].count('패'), winning_rate, trolling]
+
+        
+        return render_template('riot_api/search.html', menu=menu, version= version, result = result, tier_img=tier_img, matches_info=matches_info, url_list = url_list, img_url = img_url, recentHistory=recentHistory)
 

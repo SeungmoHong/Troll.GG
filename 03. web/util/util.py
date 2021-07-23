@@ -146,10 +146,15 @@ def searchUserId(nickname) : # 유저의 암호화된 아이디를 불러오는 
 
 def userInfo(id): # 유저의 랭크티어와 승,패 정보를 받아오는 함수
     user_data = requests.get('https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/'+ parse.quote(id), headers=headers).json()
-    tier = user_data[0]['tier']
-    rank = user_data[0]['rank']
-    wins = user_data[0]['wins']
-    losses = user_data[0]['losses']
+    if user_data[0]['queueType'] == 'RANKED_SOLO_5x5':
+        num = 0
+    else:
+        num = 1
+
+    tier = user_data[num]['tier']
+    rank = user_data[num]['rank']
+    wins = user_data[num]['wins']
+    losses = user_data[num]['losses']
 
     return tier, rank, wins, losses
 
@@ -251,11 +256,17 @@ def userIndex(user, users_info):
         user_list.append(user_name)
     user_index = user_list.index(user)
     return user_index
+# 매치의 플레이시간을 불러오는 함수
+def playingTime(matchId):
+    match_data = requests.get('https://kr.api.riotgames.com/lol/match/v4/timelines/by-match/' + str(matchId), headers=headers).json()
+    playingTime = round(match_data['frames'][-1]['timestamp'] / 60000)
+
+    return playingTime
 # 한 유저의 최근 매치 결과를 불러오는 함수 사용중
 
 def userMatches_record(user):
     userId, userAccountId, userPuuid, nickname, userLevel, profileIconId = searchUserId(user)
-    match_list = searchMatchId(userAccountId)[:10] 
+    match_list = searchMatchId(userAccountId)[:30] 
     users_champion = []
     all_champions = []
     users_kda = []
@@ -268,7 +279,13 @@ def userMatches_record(user):
     users_gold = []
     users_level = []
     users_cs = []
-    
+    users_visionWardsBoughtInGame =[]
+    users_wardsPlaced = []
+    users_wardsKilled = []
+    users_trolling = []
+
+    #users_playingTimes = [] #시간이 너무 오래걸려서 생략
+
     for match in match_list:
         match_info = requests.get('https://kr.api.riotgames.com/lol/match/v4/matches/' + str(match), headers=headers).json()
         users_info = match_info['participantIdentities']
@@ -279,17 +296,17 @@ def userMatches_record(user):
         user_kda = str(user_record['stats']['kills']) + '/' + str(user_record['stats']['deaths']) + '/' + str(user_record['stats']['assists'])
         user_items = []
         for i in range(6):
-            itemKey = str(user_record['stats']['item'+str(i)]) + '.png'
+            itemKey = user_record['stats']['item'+str(i)]
             if itemKey == 0:
-                pass
+                user_items.append('0')
             else:
-                user_items.append(user_record['stats']['item'+str(i)])
+                user_items.append(str(itemKey) + '.png')
         champion_list = []
         for i in range(10):
             champId = match_info['participants'][i]['championId']
             champion_list.append(champId)
         champion_list = [searchChampion(champ) for champ in champion_list]          
-        user_ornament = user_record['stats']['item6']
+        user_ornament = str(user_record['stats']['item6']) + '.png'
         user_spell = [searchEngSpell(user_record['spell1Id']), searchEngSpell(user_record['spell2Id'])]
         user_runes = [str(user_record['stats']['perkPrimaryStyle']) + '.png', str(user_record['stats']['perkSubStyle']) + '.png']
         user_lane = user_record['timeline']['lane']
@@ -301,6 +318,15 @@ def userMatches_record(user):
         user_gold = user_record['stats']['goldEarned']
         user_level = user_record['stats']['champLevel']
         user_cs = user_record['stats']['totalMinionsKilled'] + user_record['stats']['neutralMinionsKilled']
+        user_visionWardsBoughtInGame = user_record['stats']['visionWardsBoughtInGame']
+        user_wardsPlaced = user_record['stats']['wardsPlaced']
+        user_wardsKilled = user_record['stats']['wardsKilled']
+        # user_playingTime = playingTime(match) #시간이 너무 오래걸려서 생략
+        if user_items.count(0) == 6 or user_items.count(user_items[0]) == 6:
+            user_trolling = True
+        else:
+            user_trolling = False
+        
 
 
         users_champion.append(user_champion)
@@ -315,6 +341,13 @@ def userMatches_record(user):
         users_gold.append(user_gold)
         users_level.append(user_level)
         users_cs.append(user_cs)
+        users_visionWardsBoughtInGame.append(user_visionWardsBoughtInGame)
+        users_wardsPlaced.append(user_wardsPlaced)
+        users_wardsKilled.append(user_wardsKilled)
+        users_trolling.append(user_trolling)
+        #users_playingTimes.append(user_playingTime) #시간이 너무 오래걸려서 생략
+
+    
 
     result = {
     'champion' : users_champion,
@@ -325,9 +358,14 @@ def userMatches_record(user):
     'gold' : users_gold,
     'level' : users_level,
     'cs' : users_cs,
+    'visionWardsBoughtInGame': users_visionWardsBoughtInGame,
+    'wardsPlaced' : users_wardsPlaced,
+    'wardsKilled' : users_wardsKilled,
     'kda' : users_kda,
     'result_items' : users_items,
     'ornament' : users_ornament,
+    #'playingTime' : users_playingTimes,
+    'trolling' : users_trolling,
     'result' : users_win
     }
         

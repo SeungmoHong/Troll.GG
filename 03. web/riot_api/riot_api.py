@@ -33,7 +33,16 @@ def search():
         result = [userNickname, userLevel, tier, rank, wins, losses, winning_rate, profileIcon]
         matches_info = userMatches_record(userNickname)
 
-        
+        kor_champions = [translationChampion(champ) for champ in matches_info['champion']]
+        kor_all_champions = []
+        for i in range(len(matches_info['all_champions'])):
+            kor_all_champion = [translationChampion(champ) for champ in matches_info['all_champions'][i]]
+            kor_all_champions.append(kor_all_champion)
+        main_runes = {'8000.png' : '정밀', '8100.png' : '지배', '8200.png' : '마법', '8300.png' : '영감', '8400.png' : '결의'}
+        kor_main_spells = []
+        for i i in range(len(matches_info['spell'])):
+            kor_main_spell = [translationSpell(eng) for eng in matches_info['spell'][i]]
+            kor_main_spells.append(kor_main_spell)
 
         if matches_info['result'].count('승') == 0:
             winning_rate = 0
@@ -45,9 +54,17 @@ def search():
         else:
             trolling = round(matches_info['trolling'].count(True) / len(matches_info['trolling']) * 100,2)
 
+        win_consecutive = 0
+        for recentData in matches_info['result']:
+            if matches_info['result'][0] == recentData:
+                win_consecutive += 1
+            else:
+                break
 
-        recentHistory = [matches_info['result'].count('승'), matches_info['result'].count('패'), winning_rate, trolling]
+        recentHistory = [matches_info['result'].count('승'), matches_info['result'].count('패'), winning_rate, win_consecutive, trolling]
 
         
-        return render_template('riot_api/search.html', menu=menu, version= version, result = result, tier_img=tier_img, matches_info=matches_info, url_list = url_list, img_url = img_url, recentHistory=recentHistory)
+        return render_template('riot_api/search.html', menu=menu, version= version, 
+        result = result, tier_img=tier_img, matches_info=matches_info, url_list = url_list, img_url = img_url, recentHistory=recentHistory,
+        kor_champions= kor_champions, kor_all_champions=kor_all_champions, main_runes=main_runes, kor_main_spells=kor_main_spells)
 

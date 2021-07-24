@@ -180,6 +180,10 @@ def searchMatchId(accountId):
 def searchChampion(championKey):
     champ = champion_df['eng_name'][champion_df['eng_name'][champion_df['key'] == championKey].index[0]]
     return champ  
+# 영문 챔피언 이름으로 챔피언 이름을 불러오는 함수
+def translationChampion(championKey):
+    champ = champion_df['name'][champion_df['name'][champion_df['eng_name'] == championKey].index[0]]
+    return champ  
 # 아이템키로 아이템 이름 불러오는 함수
 def searchItem(itemKey):
     item = item_df['name'][item_df['name'][item_df['key'] == itemKey].index[0]]
@@ -187,6 +191,10 @@ def searchItem(itemKey):
 # 스펠키로 스펠 이름 불러오는 함수
 def searchSpell(spellKey):
     spell = spell_df['name'][spell_df['name'][spell_df['key'] == spellKey].index[0]]
+    return spell
+# 스펠 영문이름으로 스펠 이름 불러오는 함수
+def translationSpell(eng):
+    spell = spell_df['name'][spell_df['name'][spell_df['eng'] == eng].index[0]]
     return spell
 # 스펠키로 스펠 영문 이름 불러오는 함수
 def searchEngSpell(spellKey):

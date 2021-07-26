@@ -40,7 +40,7 @@ def search():
             kor_all_champions.append(kor_all_champion)
         main_runes = {'8000.png' : '정밀', '8100.png' : '지배', '8200.png' : '마법', '8300.png' : '영감', '8400.png' : '결의'}
         kor_main_spells = []
-        for i i in range(len(matches_info['spell'])):
+        for i  in range(len(matches_info['spell'])):
             kor_main_spell = [translationSpell(eng) for eng in matches_info['spell'][i]]
             kor_main_spells.append(kor_main_spell)
 

@@ -84,10 +84,10 @@
                 <td>
                     <img data-toggle="tooltip" title="{{main_runes[matches_info['runes'][i][0]]}}" src="{{img_url + matches_info['runes'][i][0] | safe()}}" 
                     alt="{{main_runes[matches_info['runes'][i][0]]}}" width="20">
-                    <img src="{{url_list[0] + url_list[3] + matches_info['spell'][i][0] + '.png'}}" alt="스펠"  width="20"><br>
+                    <img data-toggle="tooltip" title="{{kor_main_spells[i][0]}}" src="{{url_list[0] + url_list[3] + matches_info['spell'][i][0] + '.png'}}" alt="{{kor_main_spells[i][0]}}"  width="20"><br>
                     <img data-toggle="tooltip" title="{{main_runes[matches_info['runes'][i][1]]}}" src="{{img_url + matches_info['runes'][i][1] | safe()}}" 
                     alt="{{main_runes[matches_info['runes'][i][1]]}}" width="20">
-                    <img src="{{url_list[0] + url_list[3] + matches_info['spell'][i][1] + '.png'}}" alt="스펠"  width="20">
+                    <img data-toggle="tooltip" title="{{kor_main_spells[i][1]}}" src="{{url_list[0] + url_list[3] + matches_info['spell'][i][1] + '.png'}}" alt="{{kor_main_spells[i][1]}}"  width="20">
                 </td>
                 <td>
                     {% for k in range(6) %}

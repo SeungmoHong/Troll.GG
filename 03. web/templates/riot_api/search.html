@@ -15,17 +15,16 @@
 {% block weather %} {{ weather|safe() }} {% endblock %}
 {% block subtitle %}
     <strong>검색 결과</strong>
-    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Hooray!">Bottom</a>
 {% endblock %}
 {% block content %}
 <div class="row">
-    <div class="col-11">
-        <table class="table-borderless table-sm">
+    <div class="col-10">
+        <table class="row table-borderless table-sm">
             <tr>
                 <td>
                     <img src={{result[7]}} alt="소환사 아이콘" width="80px;">
                 </td>
-                <td>
+                <td class="col-2">
                     {{result[0]}} <br>
                     레벨 : {{result[1]}}
                 </td>
@@ -36,13 +35,13 @@
                     {{result[2]}} {{result[3]}}<br>
                     {{result[4]}}승 {{result[5]}}패 ({{result[6]}}%)
                 </td>
-                <td>
+                <td class="col-1.5">
                      최근 30전<br>
                     {{recentHistory[0]}}승 {{recentHistory[1]}}패 ({{recentHistory[2]}}%) <br>
                      최근 {{recentHistory[3]}}연{{matches_info['result'][0]}}중
                 </td>
-                <td>
-                    트롤링 빈도 <br>
+                <td class="col-2">
+                    최근트롤링 <br>
                     {{recentHistory[4]}}%
                 </td>
             </tr>
@@ -94,13 +93,18 @@
                     {% if matches_info['result_items'][i][k] == '0' %}
                     <img src="/static/img/blank.png" alt="blank" width="20">
                     {% else %}
-                    <img src="{{url_list[0] + url_list[2] + matches_info['result_items'][i][k]  | safe()}}" 
-                    alt="{{아이템}}" width="20">
+                    <img data-toggle="tooltip" title="{{kor_items[i][k]}}" src="{{url_list[0] + url_list[2] + matches_info['result_items'][i][k]  | safe()}}" 
+                    alt="{{kor_items[i][k]}}" width="20">
                     {% endif %}
                     {% if k == 2 %}
-                    <img src="{{url_list[0] + url_list[2] + matches_info['ornament'][i] | safe()}}" 
-                    alt="{{아이템}}" width="20">
+                    {% if kor_ornaments[i] == '0' %}
+                    <img src="/static/img/blank.png" alt="blank" width="20">
                     <br>
+                    {% else %}
+                    <img data-toggle="tooltip" title="{{kor_ornaments[i]}}" src="{{url_list[0] + url_list[2] + matches_info['ornament'][i] | safe()}}" 
+                    alt="{{kor_ornaments[i]}}" width="20">
+                    <br>
+                    {% endif %}
                     {% endif %}
                     {% endfor %}
                     <img src="/static/img/blank.png" alt="blank" width="20">

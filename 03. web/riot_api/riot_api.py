@@ -44,6 +44,25 @@ def search():
             kor_main_spell = [translationSpell(eng) for eng in matches_info['spell'][i]]
             kor_main_spells.append(kor_main_spell)
 
+        kor_items = []
+        for i in range(len(matches_info['result_items'])):
+            tmp =[]
+            for item in matches_info['result_items'][i]:
+                if item == '0':
+                    kor = '0'
+                else:
+                    kor = searchItem(int(item.replace('.png','')))
+                tmp.append(kor)
+            
+            kor_items.append(tmp)
+        kor_ornaments = []
+        for ornament in matches_info['ornament']:
+            if ornament == '0':
+                kor = '0'
+            else:
+                kor = searchItem(int(ornament.replace('.png','')))
+            kor_ornaments.append(kor)
+
         if matches_info['result'].count('승') == 0:
             winning_rate = 0
         else:
@@ -66,5 +85,6 @@ def search():
         
         return render_template('riot_api/search.html', menu=menu, version= version, 
         result = result, tier_img=tier_img, matches_info=matches_info, url_list = url_list, img_url = img_url, recentHistory=recentHistory,
-        kor_champions= kor_champions, kor_all_champions=kor_all_champions, main_runes=main_runes, kor_main_spells=kor_main_spells)
+        kor_champions= kor_champions, kor_all_champions=kor_all_champions, main_runes=main_runes, kor_main_spells=kor_main_spells,
+        kor_items=kor_items, kor_ornaments=kor_ornaments)
 

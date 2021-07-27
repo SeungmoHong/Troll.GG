@@ -314,7 +314,10 @@ def userMatches_record(user):
             champId = match_info['participants'][i]['championId']
             champion_list.append(champId)
         champion_list = [searchChampion(champ) for champ in champion_list]          
-        user_ornament = str(user_record['stats']['item6']) + '.png'
+        if user_record['stats']['item6'] == 0:
+            user_ornament = '0'
+        else:
+            user_ornament = str(user_record['stats']['item6']) + '.png'
         user_spell = [searchEngSpell(user_record['spell1Id']), searchEngSpell(user_record['spell2Id'])]
         user_runes = [str(user_record['stats']['perkPrimaryStyle']) + '.png', str(user_record['stats']['perkSubStyle']) + '.png']
         user_lane = user_record['timeline']['lane']

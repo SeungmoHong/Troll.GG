@@ -155,8 +155,9 @@ def userInfo(id): # 유저의 랭크티어와 승,패 정보를 받아오는 함
     rank = user_data[num]['rank']
     wins = user_data[num]['wins']
     losses = user_data[num]['losses']
+    point = user_data[num]['leaguePoints']
 
-    return tier, rank, wins, losses
+    return tier, rank, wins, losses, point
 
 
 

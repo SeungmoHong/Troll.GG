@@ -16,7 +16,7 @@ def search():
     if request.method == 'POST':
         nickname = request.form['nickname']
         userId, userAccountId, userPuuid, userNickname, userLevel, profileIconId = searchUserId(nickname)
-        tier, rank, wins, losses = userInfo(userId)
+        tier, rank, wins, losses, leaguePoints = userInfo(userId)
         tier = tier.lower().capitalize()
         winning_rate = round(wins / (wins + losses) * 100, 2)
 
@@ -30,7 +30,7 @@ def search():
         
         tier_img = f"/static/img/Emblem_{tier}.png"
         img_url = f"/static/img/" 
-        result = [userNickname, userLevel, tier, rank, wins, losses, winning_rate, profileIcon]
+        result = [userNickname, userLevel, tier, rank, wins, losses, winning_rate, leaguePoints ,profileIcon]
         matches_info = userMatches_record(userNickname)
 
         kor_champions = [translationChampion(champ) for champ in matches_info['champion']]

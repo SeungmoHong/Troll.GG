@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block additional_head %}
-    <link rel="stylesheet" href="{{url_for('static', filename='css/jquery-ui.min.css')}}">
     <style>
         th, td {
             text-align: center;
@@ -22,7 +21,7 @@
         <table class="row table-borderless table-sm">
             <tr>
                 <td>
-                    <img src={{result[7]}} alt="소환사 아이콘" width="80px;">
+                    <img src={{result[8]}} alt="소환사 아이콘" width="80px;">
                 </td>
                 <td class="col-2">
                     {{result[0]}} <br>
@@ -33,6 +32,7 @@
                 </td>
                 <td>
                     {{result[2]}} {{result[3]}}<br>
+                    {{result[7]}} LP <br>
                     {{result[4]}}승 {{result[5]}}패 ({{result[6]}}%)
                 </td>
                 <td class="col-1.5">

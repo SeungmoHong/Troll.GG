@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, session
 from flask import current_app
 from util.util import *
-import os, json
+
 
 
 riot_api = Blueprint('riot_api', __name__)

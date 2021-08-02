@@ -1,3 +1,4 @@
+<!-- <img  class="bg-primary" src="//opgg-static.akamaized.net/logo/20210726052915.87be48acb5b84220b84e73b16c3e4c82.png" alt="" width="200px"><br> -->
 {% extends "base.html" %}
 {% block additional_head %}
     <style>
@@ -16,9 +17,100 @@
     
 {% endblock %}
 {% block content %}
-<div class="row">
-    <div class="col-10">
-        <img  class="bg-primary" src="//opgg-static.akamaized.net/logo/20210726052915.87be48acb5b84220b84e73b16c3e4c82.png" alt="" width="200px">
+<div class="row" style="font-size: 11px;">
+    <div class="col-2" >
+        <table class="table-bordered table-sm">
+            <thead>
+                <tr>
+                    <td colspan="5">탑</td>
+                </tr>
+            </thead>
+            {% for i in range(top_count) %}
+            <tr>
+                <td>{{i+1}}</td>
+                <td><img src="{{img_link + eng_champion_dict['TOP'][i]+'.png'}}" alt="{{champion_dict['TOP'][i]}}" width="20"></td>
+                <td>{{winRate_dict['TOP'][i]}}</td>
+                <td>{{pickRate_dict['TOP'][i]}}</td>
+                <td>{{tier_dict['TOP'][i]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-2">
+        <table class="table-bordered table-sm">
+            <thead>
+                <tr>
+                    <td colspan="5">정글</td>
+                </tr>
+            </thead>
+            {% for i in range(jg_count) %}
+            <tr>
+                <td>{{i+1}}</td>
+                <td><img src="{{img_link + eng_champion_dict['JUNGLE'][i]+'.png'}}" alt="{{champion_dict['JUNGLE'][i]}}" width="20"></td>
+                <td>{{winRate_dict['JUNGLE'][i]}}</td>
+                <td>{{pickRate_dict['JUNGLE'][i]}}</td>
+                <td>{{tier_dict['JUNGLE'][i]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-2">
+        <table class="table-bordered table-sm">
+            <thead>
+                <tr>
+                    <td colspan="5">미드</td>
+                </tr>
+            </thead>
+            {% for i in range(mid_count) %}
+            <tr>
+                <td>{{i+1}}</td>
+                <td><img src="{{img_link + eng_champion_dict['MID'][i]+'.png'}}" alt="{{champion_dict['MID'][i]}}" width="20"></td>
+                <td>{{winRate_dict['MID'][i]}}</td>
+                <td>{{pickRate_dict['MID'][i]}}</td>
+                <td>{{tier_dict['MID'][i]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-2">
+        <table class="table-bordered table-sm">
+            <thead>
+                <tr>
+                    <td colspan="5">원딜</td>
+                </tr>
+            </thead>
+            {% for i in range(adc_count) %}
+            <tr>
+                <td>{{i+1}}</td>
+                <td><img src="{{img_link + eng_champion_dict['ADC'][i]+'.png'}}" alt="{{champion_dict['ADC'][i]}}" width="20"></td>
+                <td>{{winRate_dict['ADC'][i]}}</td>
+                <td>{{pickRate_dict['ADC'][i]}}</td>
+                <td>{{tier_dict['ADC'][i]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-2">
+        <table class="table-bordered table-sm">
+            <thead>
+                <tr>
+                    <td colspan="5">서포터</td>
+                </tr>
+            </thead>
+            {% for i in range(sup_count) %}
+            <tr>
+                <td>{{i+1}}</td>
+                <td><img src="{{img_link + eng_champion_dict['SUPPORT'][i]+'.png'}}" alt="{{champion_dict['SUPPORT'][i]}}" width="20"></td>
+                <td>{{winRate_dict['SUPPORT'][i]}}</td>
+                <td>{{pickRate_dict['SUPPORT'][i]}}</td>
+                <td>{{tier_dict['SUPPORT'][i]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
+
+        
     </div>
     
 

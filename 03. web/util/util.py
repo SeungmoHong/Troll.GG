@@ -188,6 +188,10 @@ def searchChampion(championKey):
 def translationChampion(championKey):
     champ = champion_df['name'][champion_df['name'][champion_df['eng_name'] == championKey].index[0]]
     return champ  
+# 챔피언 이름으로 영문 챔피언 이름을 불러오는 함수
+def translationChampion2(kor):
+    champ = champion_df['eng_name'][champion_df['eng_name'][champion_df['name'] == kor].index[0]]
+    return champ 
 # 아이템키로 아이템 이름 불러오는 함수
 def searchItem(itemKey):
     item = item_df['name'][item_df['name'][item_df['key'] == itemKey].index[0]]
@@ -413,7 +417,7 @@ def translation_champion(eng):
         if eng == 'Wukong' :
             champion = '오공'
         elif eng == 'Nunu &amp; Willump':
-            champion = '누누와 월럼프'
+            champion = '누누와 윌럼프'
         else :
             eng = eng.lower().replace(' ','').replace('.','')
             champion = champion_df['name'][champion_df['name'][champion_df['lower_name'] == eng].index[0]]
@@ -445,12 +449,31 @@ def tier_list():
     html = requests.get(url).text
     soup = BeautifulSoup(html, 'html.parser')
     lanes = ['TOP', 'JUNGLE', 'MID', 'ADC', 'SUPPORT']
-    tier_list_dict = {}
+    champion_dict ={}
+    winRate_dict ={}
+    pickRate_dict ={}
+    tier_dict = {}
     for lane in lanes:
-        tmp = soup.find(attrs={'class':f'tabItem champion-trend-tier-{lane}'}).select('.champion-index-table__name')[:10]
-        tier_list = removeTags(tmp).replace("'",'')
-        tier_list = tier_list.split(', ')
-        kor_champions = [translation_champion(champ) for champ in tier_list]
-        tier_list_dict[lane] = kor_champions
-    
-    return tier_list_dict
+        tmp = soup.find(attrs={'class':f'tabItem champion-trend-tier-{lane}'})
+        champion_tags = tmp.select('.champion-index-table__name')
+        champion_list = removeTags(champion_tags).replace("'",'')
+        champion_list = champion_list.split(', ')
+        kor_champions = [translation_champion(champ) for champ in champion_list]
+        
+        winRate_list = []
+        pickRate_list = []
+        tiers_list = []
+        for i in range(len(tmp.find_all('tr'))):
+            tags = tmp.find_all('tr')[i].select('.champion-index-table__cell.champion-index-table__cell--value')
+            winRate = removeTags(tags).split(', ')[0]
+            pickRate = removeTags(tags).split(', ')[1]
+            tier = tags[2].find('img').attrs['src'][-5]
+            winRate_list.append(winRate)
+            pickRate_list.append(pickRate)
+            tiers_list.append(tier)
+
+        champion_dict[lane] = kor_champions
+        winRate_dict[lane] = winRate_list
+        pickRate_dict[lane] = pickRate_list
+        tier_dict[lane] = tiers_list
+    return champion_dict, winRate_dict, pickRate_dict, tier_dict

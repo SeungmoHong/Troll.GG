@@ -2,9 +2,12 @@ import requests
 from urllib import parse
 import json
 import pandas as pd
+import re
+from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
 champion_df = pd.read_csv('../00. data/champions.csv', index_col = 0)
+champion_df['lower_name'] = champion_df['eng_name'].apply(lambda r : r.lower()) # OP.GG의 챔피언 찾기를 위해 소문자화
 item_df = pd.read_csv('../00. data/items.csv', index_col = 0)
 spell_df = pd.read_csv('../00. data/spell.csv', index_col = 0)
 rune_df = pd.read_csv('../00. data/runes.csv', index_col = 0)
@@ -399,3 +402,55 @@ def recentHistory(df):
         trolling = str(round(df['trolling'].value_counts()[True]/ len(df) * 100)) + '%'
     recentHistory = f'최근승률 : {winningRate}, 최근 가장 많이 사용한 챔피언 : {mostChampion}, 최근 주 라인 : {mostLane}, 최근 트롤링 빈도 : {trolling}'
     return recentHistory
+
+
+# OP.GG 크롤링 ///
+
+
+# 챔피언의 영문이름을 한글로 바꿔주는 함수
+def translation_champion(eng):
+    try :
+        if eng == 'Wukong' :
+            champion = '오공'
+        elif eng == 'Nunu &amp; Willump':
+            champion = '누누와 월럼프'
+        else :
+            eng = eng.lower().replace(' ','').replace('.','')
+            champion = champion_df['name'][champion_df['name'][champion_df['lower_name'] == eng].index[0]]
+    except:
+        champion = eng 
+    return champion
+# 태그 지우는 함수
+def removeTags(strings):
+    strings = re.sub('<.+?>', '', str(strings), 0).strip().replace('[','').replace(']','')
+    return strings
+
+# OP.GG 아이템이미지의 키를 구하는 함수 + 룬
+def findItem(itemLink):
+    items = re.findall(r'\d\d\d\d.png', str(itemLink))
+    items = [item.strip('.png') for item in items]
+    
+    return items
+
+# OP.GG 스킬이미지의 영문 이름을 구하는 함수
+def findSkill(link):
+    name = re.findall(r'spell/.*png', str(link))
+    name = ''.join(name).strip('spell/').strip('.png')
+    return name
+
+
+# 라인별 티어리스트를 가져오는 함수
+def tier_list():
+    url = 'https://www.op.gg/champion/statistics'
+    html = requests.get(url).text
+    soup = BeautifulSoup(html, 'html.parser')
+    lanes = ['TOP', 'JUNGLE', 'MID', 'ADC', 'SUPPORT']
+    tier_list_dict = {}
+    for lane in lanes:
+        tmp = soup.find(attrs={'class':f'tabItem champion-trend-tier-{lane}'}).select('.champion-index-table__name')[:10]
+        tier_list = removeTags(tmp).replace("'",'')
+        tier_list = tier_list.split(', ')
+        kor_champions = [translation_champion(champ) for champ in tier_list]
+        tier_list_dict[lane] = kor_champions
+    
+    return tier_list_dict

@@ -28,7 +28,7 @@
             {% for i in range(top_count) %}
             <tr>
                 <td>{{i+1}}</td>
-                <td><img src="{{img_link + eng_champion_dict['TOP'][i]+'.png'}}" alt="{{champion_dict['TOP'][i]}}" width="20"></td>
+                <td><img data-toggle="tooltip" title="{{champion_dict['TOP'][i]}}" src="{{img_link + eng_champion_dict['TOP'][i]+'.png'}}" alt="{{champion_dict['TOP'][i]}}" width="20"></td>
                 <td>{{winRate_dict['TOP'][i]}}</td>
                 <td>{{pickRate_dict['TOP'][i]}}</td>
                 <td>{{tier_dict['TOP'][i]}}</td>
@@ -46,7 +46,7 @@
             {% for i in range(jg_count) %}
             <tr>
                 <td>{{i+1}}</td>
-                <td><img src="{{img_link + eng_champion_dict['JUNGLE'][i]+'.png'}}" alt="{{champion_dict['JUNGLE'][i]}}" width="20"></td>
+                <td><img data-toggle="tooltip" title="{{champion_dict['JUNGLE'][i]}}" src="{{img_link + eng_champion_dict['JUNGLE'][i]+'.png'}}" alt="{{champion_dict['JUNGLE'][i]}}" width="20"></td>
                 <td>{{winRate_dict['JUNGLE'][i]}}</td>
                 <td>{{pickRate_dict['JUNGLE'][i]}}</td>
                 <td>{{tier_dict['JUNGLE'][i]}}</td>
@@ -64,7 +64,7 @@
             {% for i in range(mid_count) %}
             <tr>
                 <td>{{i+1}}</td>
-                <td><img src="{{img_link + eng_champion_dict['MID'][i]+'.png'}}" alt="{{champion_dict['MID'][i]}}" width="20"></td>
+                <td><img data-toggle="tooltip" title="{{champion_dict['MID'][i]}}" src="{{img_link + eng_champion_dict['MID'][i]+'.png'}}" alt="{{champion_dict['MID'][i]}}" width="20"></td>
                 <td>{{winRate_dict['MID'][i]}}</td>
                 <td>{{pickRate_dict['MID'][i]}}</td>
                 <td>{{tier_dict['MID'][i]}}</td>
@@ -82,7 +82,7 @@
             {% for i in range(adc_count) %}
             <tr>
                 <td>{{i+1}}</td>
-                <td><img src="{{img_link + eng_champion_dict['ADC'][i]+'.png'}}" alt="{{champion_dict['ADC'][i]}}" width="20"></td>
+                <td><img data-toggle="tooltip" title="{{champion_dict['ADC'][i]}}" src="{{img_link + eng_champion_dict['ADC'][i]+'.png'}}" alt="{{champion_dict['ADC'][i]}}" width="20"></td>
                 <td>{{winRate_dict['ADC'][i]}}</td>
                 <td>{{pickRate_dict['ADC'][i]}}</td>
                 <td>{{tier_dict['ADC'][i]}}</td>
@@ -100,7 +100,7 @@
             {% for i in range(sup_count) %}
             <tr>
                 <td>{{i+1}}</td>
-                <td><img src="{{img_link + eng_champion_dict['SUPPORT'][i]+'.png'}}" alt="{{champion_dict['SUPPORT'][i]}}" width="20"></td>
+                <td><img data-toggle="tooltip" title="{{champion_dict['SUPPORT'][i]}}" src="{{img_link + eng_champion_dict['SUPPORT'][i]+'.png'}}" alt="{{champion_dict['SUPPORT'][i]}}" width="20"></td>
                 <td>{{winRate_dict['SUPPORT'][i]}}</td>
                 <td>{{pickRate_dict['SUPPORT'][i]}}</td>
                 <td>{{tier_dict['SUPPORT'][i]}}</td>

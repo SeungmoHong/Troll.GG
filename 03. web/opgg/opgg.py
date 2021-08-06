@@ -29,3 +29,14 @@ def statistics():
     img_link=img_link, champion_dict=champion_dict, winRate_dict=winRate_dict, pickRate_dict=pickRate_dict,
     tier_dict=tier_dict, eng_champion_dict=eng_champion_dict, top_count=top_count, jg_count=jg_count, mid_count=mid_count,
     adc_count=adc_count, sup_count=sup_count)
+
+@opgg_crawling.route('/statistics/<lane>/<champion>')
+def championStatistics(lane,champion):
+    lane = lane
+    champion = champion
+    url = f'https://www.op.gg/champion/{champion}/statistics/{lane}'
+    html = requests.get(url).text
+    soup = BeautifulSoup(html, 'html.parser')
+    win_rank = soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text
+    pick_rank = soup.select('.champion-stats-trend-rank')[1].find('b').text + soup.select('.champion-stats-trend-rank')[1].find('span').text
+    pass

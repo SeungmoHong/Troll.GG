@@ -1,0 +1,27 @@
+<!-- <img  class="bg-primary" src="//opgg-static.akamaized.net/logo/20210726052915.87be48acb5b84220b84e73b16c3e4c82.png" alt="" width="200px"><br> -->
+{% extends "base.html" %}
+{% block additional_head %}
+    <style>
+        th, td {
+            text-align: center;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();   
+        });
+    </script>
+{% endblock %}
+{% block subtitle %}
+<strong>OP.GG {{lane}} {{champion}} 통계</strong>
+{% endblock %}
+{% block content %}
+{{pick_rank}} {{win_rank}}
+<div class="row">
+
+</div>
+    
+
+
+
+{% endblock %}

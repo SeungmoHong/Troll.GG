@@ -34,9 +34,13 @@ def statistics():
 def championStatistics(lane,champion):
     lane = lane
     champion = champion
+    
+    lane_dict = {'TOP' : '탑', 'JUNGLE' : '정글', 'MID' : '미드', 'ADC' : '원딜', 'SUPPORT' : '서포터' }
     url = f'https://www.op.gg/champion/{champion}/statistics/{lane}'
     html = requests.get(url).text
     soup = BeautifulSoup(html, 'html.parser')
     win_rank = soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text
     pick_rank = soup.select('.champion-stats-trend-rank')[1].find('b').text + soup.select('.champion-stats-trend-rank')[1].find('span').text
-    pass
+
+    return render_template('opgg/champion_statistics.html', menu=menu, version=version,
+    lane=lane, champion=champion, win_rank=win_rank, pick_rank=pick_rank)

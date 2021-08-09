@@ -15,8 +15,7 @@ app.register_blueprint(opgg_crawling, url_prefix='/opgg')
 
 @app.route('/')
 def index():
-    menu = {'ho':1, 'da':0, 'ml':0, 'se':0, 'co':0, 'cg':0, 'cr':0, 'wc':0,
-            'cf':0, 'ac':0, 'rg':0, 'cl':0}
+    menu = {'ho':1}
     
     return render_template('main.html', menu=menu, version=check_version())
 

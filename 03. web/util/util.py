@@ -477,3 +477,25 @@ def tier_list():
         pickRate_dict[lane] = pickRate_list
         tier_dict[lane] = tiers_list
     return champion_dict, winRate_dict, pickRate_dict, tier_dict
+
+def champion_statistics(lane, champion):
+    url = f'https://www.op.gg/champion/{champion}/statistics/{lane}'
+    html = requests.get(url).text
+    soup = BeautifulSoup(html, 'html.parser')
+    data_dict = {}
+    data_dict['win_rank'] = soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text
+    data_dict['win_rate'] = soup.select('.champion-stats-trend-rate')[0].text.replace('\n\t\t\t','').replace('\n\t\t','')
+    data_dict['pick_rank'] = soup.select('.champion-stats-trend-rank')[1].find('b').text + soup.select('.champion-stats-trend-rank')[1].find('span').text
+    data_dict['pick_rate'] = soup.select('.champion-stats-trend-rate')[1].text.replace('\n\t\t\t','').replace('\n\t\t','')
+    data_dict['trend_spell1'] = [findSkill(soup.select('ul.champion-stats__list')[0].find_all('img')[0]), 
+        findSkill(soup.select('ul.champion-stats__list')[0].find_all('img')[1]),
+        soup.select('.champion-overview__stats.champion-overview__stats--pick')[0].find('strong').text,
+        soup.select('.champion-overview__stats.champion-overview__stats--pick')[0].find('span').text,
+        soup.select('.champion-overview__stats.champion-overview__stats--win')[0].find('strong').text]
+    data_dict['trend_spell2'] = [findSkill(soup.select('ul.champion-stats__list')[1].find_all('img')[0]),
+        findSkill(soup.select('ul.champion-stats__list')[1].find_all('img')[1]),
+        soup.select('.champion-overview__stats.champion-overview__stats--pick')[1].find('strong').text,
+        soup.select('.champion-overview__stats.champion-overview__stats--pick')[1].find('span').text,
+        soup.select('.champion-overview__stats.champion-overview__stats--win')[1].find('strong').text
+        ]
+    return data_dict

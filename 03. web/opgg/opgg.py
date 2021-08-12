@@ -36,6 +36,7 @@ def championStatistics(lane,champion):
     champion = champion
     
     lane_dict = {'TOP' : '탑', 'JUNGLE' : '정글', 'MID' : '미드', 'ADC' : '원딜', 'SUPPORT' : '서포터' }
+    lane = lane_dict[lane]
     url = f'https://www.op.gg/champion/{champion}/statistics/{lane}'
     html = requests.get(url).text
     soup = BeautifulSoup(html, 'html.parser')

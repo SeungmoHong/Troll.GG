@@ -482,20 +482,48 @@ def champion_statistics(lane, champion):
     url = f'https://www.op.gg/champion/{champion}/statistics/{lane}'
     html = requests.get(url).text
     soup = BeautifulSoup(html, 'html.parser')
-    data_dict = {}
-    data_dict['win_rank'] = soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text
-    data_dict['win_rate'] = soup.select('.champion-stats-trend-rate')[0].text.replace('\n\t\t\t','').replace('\n\t\t','')
-    data_dict['pick_rank'] = soup.select('.champion-stats-trend-rank')[1].find('b').text + soup.select('.champion-stats-trend-rank')[1].find('span').text
-    data_dict['pick_rate'] = soup.select('.champion-stats-trend-rate')[1].text.replace('\n\t\t\t','').replace('\n\t\t','')
-    data_dict['trend_spell1'] = [findSkill(soup.select('ul.champion-stats__list')[0].find_all('img')[0]), 
+    skillSeq = []
+    for i in range(3):
+        skill = findSkill(soup.select('ul.champion-stats__list')[2].find_all('img')[i*2])
+        skillSeq.append(skill.lower().split(champion)[1])
+    trend_items = []
+    for i in range(10):
+        tmp = soup.select('td.champion-overview__data.champion-overview__border.champion-overview__border--first')[i].find_all('img')
+        items = ','.join(findItem(tmp))
+        # items = [searchItem(int(key)) for key in keys]
+        # items = ', '.join(items)
+        pickRate = soup.select('.champion-overview__stats.champion-overview__stats--pick.champion-overview__border')[i].find('strong').text
+        pickTotal = soup.select('.champion-overview__stats.champion-overview__stats--pick.champion-overview__border')[i].find('span').text
+        winRate = soup.select('.champion-overview__stats.champion-overview__stats--win.champion-overview__border')[i].find('strong').text
+        if i < 2:
+            msg = '시작아이템 :'
+        elif i >= 2 and i < 7:
+            msg = '추천 빌드 :'
+        else:
+            msg = '신발 :'
+        trend_items.append([msg + items, pickRate, pickTotal, winRate])
+    data_dict = {
+        'win_rank' : soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text,
+        'win_rate' : soup.select('.champion-stats-trend-rate')[0].text.replace('\n\t\t\t','').replace('\n\t\t',''),
+        'pick_rank' : soup.select('.champion-stats-trend-rank')[1].find('b').text + soup.select('.champion-stats-trend-rank')[1].find('span').text,
+        'pick_rate' : soup.select('.champion-stats-trend-rate')[1].text.replace('\n\t\t\t','').replace('\n\t\t',''),
+        'trend_spell1' : [findSkill(soup.select('ul.champion-stats__list')[0].find_all('img')[0]), 
         findSkill(soup.select('ul.champion-stats__list')[0].find_all('img')[1]),
-        soup.select('.champion-overview__stats.champion-overview__stats--pick')[0].find('strong').text,
-        soup.select('.champion-overview__stats.champion-overview__stats--pick')[0].find('span').text,
-        soup.select('.champion-overview__stats.champion-overview__stats--win')[0].find('strong').text]
-    data_dict['trend_spell2'] = [findSkill(soup.select('ul.champion-stats__list')[1].find_all('img')[0]),
+        soup.select('.champion-overview__stats.champion-overview__stats--pick')[0].find('strong').text, # 픽률
+        soup.select('.champion-overview__stats.champion-overview__stats--pick')[0].find('span').text,   # 총 표본수
+        soup.select('.champion-overview__stats.champion-overview__stats--win')[0].find('strong').text],  # 승률
+        'trend_spell2' : [findSkill(soup.select('ul.champion-stats__list')[1].find_all('img')[0]),
         findSkill(soup.select('ul.champion-stats__list')[1].find_all('img')[1]),
         soup.select('.champion-overview__stats.champion-overview__stats--pick')[1].find('strong').text,
         soup.select('.champion-overview__stats.champion-overview__stats--pick')[1].find('span').text,
-        soup.select('.champion-overview__stats.champion-overview__stats--win')[1].find('strong').text
-        ]
+        soup.select('.champion-overview__stats.champion-overview__stats--win')[1].find('strong').text],
+        'trend_skill' : [skillSeq,
+        soup.select('.champion-overview__stats.champion-overview__stats--pick')[2].find('strong').text,
+        soup.select('.champion-overview__stats.champion-overview__stats--pick')[2].find('span').text,
+        soup.select('.champion-overview__stats.champion-overview__stats--win')[2].find('strong').text],
+        'trend_items' : trend_items
+    }
+    
+
+        
     return data_dict

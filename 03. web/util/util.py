@@ -208,62 +208,7 @@ def translationSpell(eng):
 def searchEngSpell(spellKey):
     spell = spell_df['eng'][spell_df['eng'][spell_df['key'] == spellKey].index[0]]
     return spell
-# 한 매치의결과창을 불러오는 함수 현재 사용안함
-def match_record(matchId):
-    match_record = requests.get('https://kr.api.riotgames.com/lol/match/v4/matches/' + str(matchId), headers=headers).json()
-    users_record = match_record['participants']
-    users_info = match_record['participantIdentities']
-    user_list = []
-    for user_info in users_info:
-        user_name = user_info['player']['summonerName']
-        user_list.append(user_name)
-    users_champion = []
-    users_kda = []
-    users_items = []
-    users_spell = []
-    users_lane = []
-    users_ornament =[]
-    users_win =[]
-    for user_record in users_record:
-        user_champion = searchChampion(user_record['championId'])
-        user_kda = str(user_record['stats']['kills']) + '/' + str(user_record['stats']['deaths']) + '/' + str(user_record['stats']['assists'])
-        user_items = []
-        for i in range(6):
-            itemKey = user_record['stats']['item'+str(i)]
-            if itemKey == 0:
-                pass
-            else:
-                user_items.append(searchItem(user_record['stats']['item'+str(i)]))
-        user_ornament = searchItem(user_record['stats']['item6'])
-        user_items = ', '.join(user_items)
-        user_spell = [searchSpell(user_record['spell1Id']), searchSpell(user_record['spell2Id'])]
-        user_spell = ', '.join(user_spell)
-        user_lane = user_record['timeline']['lane']
-        user_win = user_record['stats']['win']
-        if user_win == True:
-            user_win = '승리'
-        else :
-            user_win = '패배'
-        users_champion.append(user_champion)
-        users_kda.append(user_kda)
-        users_items.append(user_items)
-        users_ornament.append(user_ornament)
-        users_spell.append(user_spell)
-        users_lane.append(user_lane)
-        users_win.append(user_win)
-    df = pd.DataFrame({
-    'nickname' : user_list,
-    'champion' : users_champion,
-    'spell' : users_spell,
-    'lane' : users_lane,
-    'kda' : users_kda,
-    'result_items' : users_items,
-    'ornament' : users_ornament,
-    'result' : users_win
-    })
-    # 트롤링 추가
-    df['trolling'] = df.apply(lambda r : True if str(r.result_items) == '' or str(r.result_items.split(', ')[0]) == str(r.result_items.split(', ')[-1]) else False, axis=1)
-    return df
+
 # 유저 인덱스 구하기
 def userIndex(user, users_info):
     user_list = []
@@ -278,7 +223,7 @@ def playingTime(matchId):
     playingTime = round(match_data['frames'][-1]['timestamp'] / 60000)
 
     return playingTime
-# 한 유저의 최근 매치 결과를 불러오는 함수 사용중
+# 한 유저의 최근 매치 결과를 불러오는 함수
 
 def userMatches_record(user):
     userId, userAccountId, userPuuid, nickname, userLevel, profileIconId = searchUserId(user)
@@ -501,7 +446,7 @@ def champion_statistics(lane, champion):
             msg = '추천 빌드 :'
         else:
             msg = '신발 :'
-        trend_items.append([msg + items, pickRate, pickTotal, winRate])
+        trend_items.append([msg , items, pickRate, pickTotal, winRate])
     data_dict = {
         'win_rank' : soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text,
         'win_rate' : soup.select('.champion-stats-trend-rate')[0].text.replace('\n\t\t\t','').replace('\n\t\t',''),

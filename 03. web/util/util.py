@@ -448,6 +448,7 @@ def champion_statistics(lane, champion):
             msg = '신발 :'
         trend_items.append([msg , items, pickRate, pickTotal, winRate])
     data_dict = {
+        'tier' : soup.select_one('.champion-stats-header-info__tier').find('b').text[-1],
         'win_rank' : soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text,
         'win_rate' : soup.select('.champion-stats-trend-rate')[0].text.replace('\n\t\t\t','').replace('\n\t\t',''),
         'pick_rank' : soup.select('.champion-stats-trend-rank')[1].find('b').text + soup.select('.champion-stats-trend-rank')[1].find('span').text,

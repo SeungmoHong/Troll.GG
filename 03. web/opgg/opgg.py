@@ -34,14 +34,12 @@ def statistics():
 def championStatistics(lane,champion):
     lane = lane
     champion = champion
+    data_dict = champion_statistics(lane,champion)
+    kor_lane_dict = {'top' : '탑', 'jungle' : '정글', 'mid' : '미드', 'bot' : '원딜', 'support' : '서포터'}
+    kor_lane = kor_lane_dict[lane]
+    kor_champion = translation_champion(champion)
+    champion = champion.capitalize() 
     
-    lane_dict = {'TOP' : '탑', 'JUNGLE' : '정글', 'MID' : '미드', 'ADC' : '원딜', 'SUPPORT' : '서포터' }
-    lane = lane_dict[lane]
-    url = f'https://www.op.gg/champion/{champion}/statistics/{lane}'
-    html = requests.get(url).text
-    soup = BeautifulSoup(html, 'html.parser')
-    win_rank = soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text
-    pick_rank = soup.select('.champion-stats-trend-rank')[1].find('b').text + soup.select('.champion-stats-trend-rank')[1].find('span').text
 
     return render_template('opgg/champion_statistics.html', menu=menu, version=version,
-    lane=lane, champion=champion, win_rank=win_rank, pick_rank=pick_rank)
+    kor_lane=kor_lane, kor_champion=kor_champion, data_dict=data_dict, champion=champion)

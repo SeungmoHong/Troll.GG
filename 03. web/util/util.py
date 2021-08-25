@@ -449,9 +449,9 @@ def champion_statistics(lane, champion):
         trend_items.append([msg , items, pickRate, pickTotal, winRate])
     data_dict = {
         'tier' : soup.select_one('.champion-stats-header-info__tier').find('b').text[-1],
-        'win_rank' : soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text,
+        'win_rank' : str(soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text).split('/'),
         'win_rate' : soup.select('.champion-stats-trend-rate')[0].text.replace('\n\t\t\t','').replace('\n\t\t',''),
-        'pick_rank' : soup.select('.champion-stats-trend-rank')[1].find('b').text + soup.select('.champion-stats-trend-rank')[1].find('span').text,
+        'pick_rank' : str(soup.select('.champion-stats-trend-rank')[1].find('b').text + soup.select('.champion-stats-trend-rank')[1].find('span').text).split('/'),
         'pick_rate' : soup.select('.champion-stats-trend-rate')[1].text.replace('\n\t\t\t','').replace('\n\t\t',''),
         'trend_spell1' : [findSkill(soup.select('ul.champion-stats__list')[0].find_all('img')[0]), 
         findSkill(soup.select('ul.champion-stats__list')[0].find_all('img')[1]),

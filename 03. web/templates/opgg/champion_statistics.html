@@ -24,24 +24,15 @@
                     <img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/champion/{{champion}}.png" alt="">
                 </td>
             <tr>
-                <td>챔피언 티어</td>
+                <td>챔피언 티어 : </td>
                 <td>{{data_dict['tier']}}티어</td>
             </tr>
-            <tr>
-                <td>승률</td>
-                <td> {{data_dict['win_rate']}}</td>
+                <td>{{kor_lane}} 승률 순위 : </td>
+                <td>{{data_dict['win_rank'][0]}}위 / {{data_dict['win_rank'][1]}}  ({{data_dict['win_rate']}})</td>
             </tr>
             <tr>
-                <td>픽률</td>
-                <td>{{data_dict['pick_rate']}}</td>
-            </tr>
-            <tr>
-                <td>{{kor_lane}} 승률 순위</td>
-                <td>{{data_dict['win_rank']}}</td>
-            </tr>
-            <tr>
-                <td>{{kor_lane}} 픽률 순위</td>
-                <td>{{data_dict['pick_rank']}}</td>
+                <td>{{kor_lane}} 픽률 순위 : </td>
+                <td>{{data_dict['pick_rank'][0]}}위 / {{data_dict['pick_rank'][1]}} ({{data_dict['pick_rate']}})</td>
             </tr>
         </table>
 

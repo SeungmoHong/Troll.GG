@@ -468,7 +468,8 @@ def champion_statistics(lane, champion):
         soup.select('.champion-overview__stats.champion-overview__stats--pick')[2].find('span').text,
         soup.select('.champion-overview__stats.champion-overview__stats--win')[2].find('strong').text],
         'trend_items' : trend_items,
-        'counters' : [translation_champion(champ.text.replace('\n','').replace('\t\t\t\t\t\t\t\t\t','')) for champ in soup.select('.champion-stats-header-matchup__table__champion')]
+        'counters' : [translationChampion2(translation_champion(champ.text.replace('\n','').replace('\t\t\t\t\t\t\t\t\t',''))) for champ in soup.select('.champion-stats-header-matchup__table__champion')],
+        'counters_rate' : [rate.find('b').text for rate in soup.select('.champion-stats-header-matchup__table__winrate')]
     }
     
 

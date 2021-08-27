@@ -64,9 +64,9 @@
     <div class="col-6">
         <table class="table table-bordered table-sm">
             <thead>
-                <td>추천 소환사 주문</td>
-                <td>픽률<small> (표본 수)</small></td>
-                <td>승률</td>
+                <th>추천 소환사 주문</th>
+                <th>픽률<small> (표본 수)</small></th>
+                <th>승률</td>
             </thead>
             <tr>
                 <td><img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/spell/{{data_dict['trend_spell1'][0]}}.png" alt="{{data_dict['trend_spell1'][0]}}" width="30">
@@ -90,6 +90,28 @@
                 </td>
                 <td>
                     {{data_dict['trend_spell2'][4]}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-6"></div>
+    <div class="col-6">
+        <table class="table table-bordered table-sm">
+            <thead>
+                <th>추천 스킬트리</th>
+                <th>픽률<small> (표본 수)</small></th>
+                <th>승률</td>
+            </thead>
+            <tr>
+                <td>
+                    {{data_dict['trend_skill'][0][0] | upper}} -> {{data_dict['trend_skill'][0][1] | upper}} -> {{data_dict['trend_skill'][0][2] | upper}}
+                </td>
+                <td>
+                    {{data_dict['trend_skill'][1]}}
+                    <small>({{data_dict['trend_skill'][2]}})</small>
+                </td>
+                <td>
+                    {{data_dict['trend_skill'][3]}}
                 </td>
             </tr>
         </table>

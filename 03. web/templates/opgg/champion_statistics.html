@@ -53,7 +53,7 @@
                 <td><img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/champion/{{data_dict['counters'][i]}}.png" alt="{{data_dict['counters'][i]}}" width="30">
                     승률 : {{data_dict['counters_rate'][i]}}</td>
                 <td><img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/champion/{{data_dict['counters'][i+3]}}.png" alt="{{data_dict['counters'][i+3]}}" width="30">
-                    승률 :{{data_dict['counters_rate'][i+3]}}</td>
+                    승률 : {{data_dict['counters_rate'][i+3]}}</td>
             </tr>
             {% endfor %}
         </table>
@@ -61,12 +61,12 @@
 </div>
 <hr>
 <div class="row">
-    <div class="col-6">
+    <div class="col-11">
         <table class="table table-bordered table-sm">
             <thead>
-                <th>추천 소환사 주문</th>
-                <th>픽률<small> (표본 수)</small></th>
-                <th>승률</td>
+                <th class="col-6">추천 소환사 주문</th>
+                <th class="col-3">픽률<small> (표본 수)</small></th>
+                <th class="col-3">승률</td>
             </thead>
             <tr>
                 <td><img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/spell/{{data_dict['trend_spell1'][0]}}.png" alt="{{data_dict['trend_spell1'][0]}}" width="30">
@@ -94,13 +94,13 @@
             </tr>
         </table>
     </div>
-    <div class="col-6"></div>
-    <div class="col-6">
+    <div class="col-1"></div>
+    <div class="col-11">
         <table class="table table-bordered table-sm">
             <thead>
-                <th>추천 스킬트리</th>
-                <th>픽률<small> (표본 수)</small></th>
-                <th>승률</td>
+                <th class="col-6">추천 스킬트리</th>
+                <th class="col-3">픽률<small> (표본 수)</small></th>
+                <th class="col-3">승률</td>
             </thead>
             <tr>
                 <td>
@@ -116,6 +116,18 @@
             </tr>
         </table>
     </div>
+    <div class="col-1"></div>
+    <div class="col-11">
+        <table class="table table-bordered table-sm">
+            <thead>
+                <th class="col-6" rowspan="2">추천 아이템 빌드</th>
+                <th class="col-3">픽률<small> (표본 수)</small></th>
+                <th class="col-3">승률</td>
+            </thead>
+        </table>
+
+    </div>
+    <div class="col-1"></div>
 </div>
 
 </div>

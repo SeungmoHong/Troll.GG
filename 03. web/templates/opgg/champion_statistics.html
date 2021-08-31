@@ -119,11 +119,35 @@
     <div class="col-1"></div>
     <div class="col-11">
         <table class="table table-bordered table-sm">
-            <thead>
-                <th class="col-6" rowspan="2">추천 아이템 빌드</th>
-                <th class="col-3">픽률<small> (표본 수)</small></th>
-                <th class="col-3">승률</td>
-            </thead>
+            <th class="col-6" colspan="2">추천 아이템 빌드</th>
+            <th class="col-3">픽률<small> (표본 수)</small></th>
+            <th class="col-3">승률</td>
+            {% for i in range(10) %}
+            <tr>
+                {% if i == 0 %}
+                <td rowspan="2">시작 아이템</td>
+                {% elif i == 2 %}
+                <td rowspan="5">추천 빌드</td>
+                {% elif i == 7 %}
+                <td rowspan="3">신발</td>
+                {% endif %}
+                <td>
+                    {% for k in data_dict['trend_items'][i][0]%}
+                    <img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/item/{{k}}.png" alt="k" width="30">
+                    {% endfor %}
+                </td>
+                <td>
+                    {{data_dict['trend_items'][i][1]}}
+                    <small>({{data_dict['trend_items'][i][2]}})</small>
+                </td>
+                <td>
+                    {{data_dict['trend_items'][i][3]}}
+                </td>
+            </tr>
+            {% endfor %}
+            
+
+
         </table>
 
     </div>

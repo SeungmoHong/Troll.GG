@@ -35,10 +35,11 @@ def championStatistics(lane,champion):
     lane = lane
     champion = champion
     data_dict = champion_statistics(lane,champion)
-    kor_lane_dict = {'top' : '탑', 'jungle' : '정글', 'mid' : '미드', 'bot' : '원딜', 'support' : '서포터'}
+    kor_lane_dict = {'top' : '탑', 'jungle' : '정글', 'mid' : '미드', 'adc' : '원딜', 'support' : '서포터'}
     kor_lane = kor_lane_dict[lane]
     kor_champion = translation_champion(champion)
-    champion = champion.capitalize() 
+    champion = champion.capitalize()
+    
     
 
     return render_template('opgg/champion_statistics.html', menu=menu, version=version,

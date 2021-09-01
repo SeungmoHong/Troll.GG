@@ -29,9 +29,9 @@
             <tr>
                 <td>{{i+1}}</td>
                 <td><img data-toggle="tooltip" title="{{champion_dict['TOP'][i]}}" src="{{img_link + eng_champion_dict['TOP'][i]+'.png'}}" alt="{{champion_dict['TOP'][i]}}" width="20"></td>
-                <td>{{winRate_dict['TOP'][i]}}</td>
-                <td>{{pickRate_dict['TOP'][i]}}</td>
-                <td>{{tier_dict['TOP'][i]}}</td>
+                <td data-toggle="tooltip" title="승률">{{winRate_dict['TOP'][i]}}</td>
+                <td data-toggle="tooltip" title="픽률">{{pickRate_dict['TOP'][i]}}</td>
+                <td data-toggle="tooltip" title="티어">{{tier_dict['TOP'][i]}}</td>
             </tr>
             {% endfor %}
         </table>
@@ -47,9 +47,9 @@
             <tr>
                 <td>{{i+1}}</td>
                 <td><img data-toggle="tooltip" title="{{champion_dict['JUNGLE'][i]}}" src="{{img_link + eng_champion_dict['JUNGLE'][i]+'.png'}}" alt="{{champion_dict['JUNGLE'][i]}}" width="20"></td>
-                <td>{{winRate_dict['JUNGLE'][i]}}</td>
-                <td>{{pickRate_dict['JUNGLE'][i]}}</td>
-                <td>{{tier_dict['JUNGLE'][i]}}</td>
+                <td data-toggle="tooltip" title="승률">{{winRate_dict['JUNGLE'][i]}}</td>
+                <td data-toggle="tooltip" title="픽률">{{pickRate_dict['JUNGLE'][i]}}</td>
+                <td data-toggle="tooltip" title="티어">{{tier_dict['JUNGLE'][i]}}</td>
             </tr>
             {% endfor %}
         </table>
@@ -65,9 +65,9 @@
             <tr>
                 <td>{{i+1}}</td>
                 <td><img data-toggle="tooltip" title="{{champion_dict['MID'][i]}}" src="{{img_link + eng_champion_dict['MID'][i]+'.png'}}" alt="{{champion_dict['MID'][i]}}" width="20"></td>
-                <td>{{winRate_dict['MID'][i]}}</td>
-                <td>{{pickRate_dict['MID'][i]}}</td>
-                <td>{{tier_dict['MID'][i]}}</td>
+                <td data-toggle="tooltip" title="승률">{{winRate_dict['MID'][i]}}</td>
+                <td data-toggle="tooltip" title="픽률">{{pickRate_dict['MID'][i]}}</td>
+                <td data-toggle="tooltip" title="티어">{{tier_dict['MID'][i]}}</td>
             </tr>
             {% endfor %}
         </table>
@@ -83,9 +83,9 @@
             <tr>
                 <td>{{i+1}}</td>
                 <td><img data-toggle="tooltip" title="{{champion_dict['ADC'][i]}}" src="{{img_link + eng_champion_dict['ADC'][i]+'.png'}}" alt="{{champion_dict['ADC'][i]}}" width="20"></td>
-                <td>{{winRate_dict['ADC'][i]}}</td>
-                <td>{{pickRate_dict['ADC'][i]}}</td>
-                <td>{{tier_dict['ADC'][i]}}</td>
+                <td data-toggle="tooltip" title="승률">{{winRate_dict['ADC'][i]}}</td>
+                <td data-toggle="tooltip" title="픽률">{{pickRate_dict['ADC'][i]}}</td>
+                <td data-toggle="tooltip" title="티어">{{tier_dict['ADC'][i]}}</td>
             </tr>
             {% endfor %}
         </table>
@@ -101,9 +101,9 @@
             <tr>
                 <td>{{i+1}}</td>
                 <td><img data-toggle="tooltip" title="{{champion_dict['SUPPORT'][i]}}" src="{{img_link + eng_champion_dict['SUPPORT'][i]+'.png'}}" alt="{{champion_dict['SUPPORT'][i]}}" width="20"></td>
-                <td>{{winRate_dict['SUPPORT'][i]}}</td>
-                <td>{{pickRate_dict['SUPPORT'][i]}}</td>
-                <td>{{tier_dict['SUPPORT'][i]}}</td>
+                <td data-toggle="tooltip" title="승률">{{winRate_dict['SUPPORT'][i]}}</td>
+                <td data-toggle="tooltip" title="픽률">{{pickRate_dict['SUPPORT'][i]}}</td>
+                <td data-toggle="tooltip" title="티어">{{tier_dict['SUPPORT'][i]}}</td>
             </tr>
             {% endfor %}
         </table>

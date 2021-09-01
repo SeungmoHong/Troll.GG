@@ -429,8 +429,8 @@ def champion_statistics(lane, champion):
     soup = BeautifulSoup(html, 'html.parser')
     skillSeq = []
     for i in range(3):
-        skill = findSkill(soup.select('ul.champion-stats__list')[2].find_all('img')[i*2])
-        skillSeq.append(skill.lower().split(champion)[1])
+        skill = soup.select('ul.champion-stats__list')[2].find_all('span')[i].text
+        skillSeq.append(skill)
     trend_items = []
     for i in range(10):
         tmp = soup.select('td.champion-overview__data.champion-overview__border.champion-overview__border--first')[i].find_all('img')
@@ -443,6 +443,10 @@ def champion_statistics(lane, champion):
         winRate = soup.select('.champion-overview__stats.champion-overview__stats--win.champion-overview__border')[i].find('strong').text
 
         trend_items.append([ items, pickRate, pickTotal, winRate])
+
+    
+    
+
     data_dict = {
         'tier' : soup.select_one('.champion-stats-header-info__tier').find('b').text[-1],
         'win_rank' : str(soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text).split('/'),

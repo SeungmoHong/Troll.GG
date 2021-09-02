@@ -5,6 +5,7 @@ datas/
 test.ipynb
 test.py
 test2/
+opgg/
 imgs/
 fontawesome-free-5.15.1-web/
 # gitignore template for Jupyter Notebooks

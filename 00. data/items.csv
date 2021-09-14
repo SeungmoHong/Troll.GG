@@ -109,7 +109,7 @@
 107,공허의 지팡이,3135,2700,"MagicPenetration, SpellDamage"
 108,헤르메스의 시미터,3139,3000,"SpellBlock, Damage, CriticalStrike, Active, NonbootsMovement, Tenacity"
 109,수은 장식띠,3140,1300,"Active, SpellBlock"
-110,요우무의 유령검,3142,3000,"Damage, Active, NonbootsMovement, ArmorPenetration"
+110,요우무의 유령검,3142,2900,"Damage, Active, NonbootsMovement, ArmorPenetration"
 111,란두인의 예언,3143,2700,"Health, Armor, Active, CooldownReduction, Slow, AbilityHaste"
 112,마법공학 교류 발전기,3145,1050,SpellDamage
 113,마법공학 로켓 벨트,3152,3200,"Health, SpellDamage, Active, CooldownReduction, NonbootsMovement, MagicPenetration, AbilityHaste"
@@ -120,7 +120,7 @@
 118,명석함의 아이오니아 장화,3158,950,"Boots, CooldownReduction"
 119,모렐로노미콘,3165,2500,"Health, SpellDamage"
 120,수호자의 검,3177,950,"Health, Damage, Lane, AbilityHaste"
-121,그림자 검,3179,2600,"Damage, Vision, CooldownReduction, ArmorPenetration, AbilityHaste"
+121,그림자 검,3179,2400,"Damage, Vision, CooldownReduction, ArmorPenetration, AbilityHaste"
 122,선체파괴자,3181,2800,"Health, SpellBlock, Armor, Damage"
 123,수호자의 망치,3184,950,"Health, Damage, LifeSteal, Lane"
 124,강철의 솔라리 펜던트,3190,2500,"Health, SpellBlock, Armor, Aura, Active, CooldownReduction, AbilityHaste"

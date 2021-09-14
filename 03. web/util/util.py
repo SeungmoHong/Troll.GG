@@ -187,6 +187,7 @@ def searchChampion(championKey):
 # 영문 챔피언 이름으로 챔피언 이름을 불러오는 함수
 def translationChampion(championKey):
     champ = champion_df['name'][champion_df['name'][champion_df['eng_name'] == championKey].index[0]]
+    
     return champ  
 # 챔피언 이름으로 영문 챔피언 이름을 불러오는 함수
 def translationChampion2(kor):
@@ -361,7 +362,7 @@ def translation_champion(eng):
     try :
         if eng == 'Wukong' :
             champion = '오공'
-        elif eng == 'Nunu &amp; Willump':
+        elif eng == 'Nunu & Willump' or eng == 'Nunu &amp; Willump':
             champion = '누누와 윌럼프'
         else :
             eng = eng.lower().replace(' ','').replace('.','')
@@ -448,6 +449,7 @@ def champion_statistics(lane, champion):
     
 
     data_dict = {
+        'img' : soup.select_one('.champion-stats-header-info__image').find('img').attrs['src'],
         'tier' : soup.select_one('.champion-stats-header-info__tier').find('b').text[-1],
         'win_rank' : str(soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text).split('/'),
         'win_rate' : soup.select('.champion-stats-trend-rate')[0].text.replace('\n\t\t\t','').replace('\n\t\t',''),
@@ -468,7 +470,7 @@ def champion_statistics(lane, champion):
         soup.select('.champion-overview__stats.champion-overview__stats--pick')[2].find('span').text,
         soup.select('.champion-overview__stats.champion-overview__stats--win')[2].find('strong').text],
         'trend_items' : trend_items,
-        'counters' : [translationChampion2(translation_champion(champ.text.replace('\n','').replace('\t\t\t\t\t\t\t\t\t',''))) for champ in soup.select('.champion-stats-header-matchup__table__champion')],
+        'counters' : [translationChampion2(translation_champion(champ.text.replace('\n','').replace('\t\t\t\t\t\t\t\t\t','').replace("'",''))) for champ in soup.select('.champion-stats-header-matchup__table__champion')],
         'counters_rate' : [rate.find('b').text for rate in soup.select('.champion-stats-header-matchup__table__winrate')]
     }
     

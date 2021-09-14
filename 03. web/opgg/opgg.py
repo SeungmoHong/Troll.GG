@@ -38,7 +38,7 @@ def championStatistics(lane,champion):
     kor_lane_dict = {'top' : '탑', 'jungle' : '정글', 'mid' : '미드', 'adc' : '원딜', 'support' : '서포터'}
     kor_lane = kor_lane_dict[lane]
     kor_champion = translation_champion(champion)
-    champion = champion.capitalize()
+    #champion = champion.capitalize()
     
     
 

@@ -41,6 +41,9 @@ def championStatistics(lane,champion):
     #champion = champion.capitalize()
     
     
-
-    return render_template('opgg/champion_statistics.html', menu=menu, version=version,
-    kor_lane=kor_lane, kor_champion=kor_champion, data_dict=data_dict, champion=champion)
+    if champion == 'Cassiopeia':
+        return render_template('opgg/champion_statistics(cassiopeia).html', menu=menu, version=version,
+        kor_lane=kor_lane, kor_champion=kor_champion, data_dict=data_dict, champion=champion)
+    else:
+        return render_template('opgg/champion_statistics.html', menu=menu, version=version,
+        kor_lane=kor_lane, kor_champion=kor_champion, data_dict=data_dict, champion=champion)

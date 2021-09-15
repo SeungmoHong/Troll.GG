@@ -433,7 +433,11 @@ def champion_statistics(lane, champion):
         skill = soup.select('ul.champion-stats__list')[2].find_all('span')[i].text
         skillSeq.append(skill)
     trend_items = []
-    for i in range(10):
+    if champion == 'Cassiopeia': # 신발이 없는 챔피언
+        item_num = 7
+    else:
+        item_num = 10
+    for i in range(item_num):
         tmp = soup.select('td.champion-overview__data.champion-overview__border.champion-overview__border--first')[i].find_all('img')
         items = ','.join(findItem(tmp))
         items = items.split(',')

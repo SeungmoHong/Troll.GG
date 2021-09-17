@@ -4,11 +4,9 @@ datas/
 99. test/
 test.ipynb
 test.py
-test2/
 opgg/
 imgs/
 logs/
-flask.py/
 fontawesome-free-5.15.1-web/
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/

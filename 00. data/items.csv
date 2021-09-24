@@ -180,7 +180,7 @@
 178,발걸음 분쇄기,6631,3300,"Health, Damage, AttackSpeed, Active, CooldownReduction, Slow, NonbootsMovement, AbilityHaste"
 179,신성한 파괴자,6632,3300,"Health, Damage, LifeSteal, CooldownReduction, OnHit, MagicPenetration, ArmorPenetration, AbilityHaste"
 180,리안드리의 고뇌,6653,3200,"SpellDamage, Mana, CooldownReduction, AbilityHaste"
-181,루덴의 폭풍,6655,3200,"SpellDamage, Mana, CooldownReduction, MagicPenetration, AbilityHaste"
+181,루덴의 폭풍,6655,3200,"SpellDamage, Mana, CooldownReduction, NonbootsMovement, MagicPenetration, AbilityHaste"
 182,만년서리,6656,3200,"Health, SpellDamage, Mana, Active, CooldownReduction, Slow, AbilityHaste"
 183,바미의 불씨,6660,1100,Health
 184,서리불꽃 건틀릿,6662,2800,"Health, SpellBlock, Armor, Aura, CooldownReduction, Slow, AbilityHaste"

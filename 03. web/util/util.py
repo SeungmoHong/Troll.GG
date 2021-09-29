@@ -391,8 +391,9 @@ def findSkill(link):
 
 # 라인별 티어리스트를 가져오는 함수
 def tier_list():
+    headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
     url = 'https://www.op.gg/champion/statistics'
-    html = requests.get(url).text
+    html = requests.get(url, headers = headers).text
     soup = BeautifulSoup(html, 'html.parser')
     lanes = ['TOP', 'JUNGLE', 'MID', 'ADC', 'SUPPORT']
     champion_dict ={}
@@ -425,8 +426,9 @@ def tier_list():
     return champion_dict, winRate_dict, pickRate_dict, tier_dict
 
 def champion_statistics(lane, champion):
+    headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
     url = f'https://www.op.gg/champion/{champion}/statistics/{lane}'
-    html = requests.get(url).text
+    html = requests.get(url, headers = headers).text
     soup = BeautifulSoup(html, 'html.parser')
     skillSeq = []
     for i in range(3):

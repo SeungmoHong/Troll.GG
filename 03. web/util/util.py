@@ -173,20 +173,16 @@ def searchChampMatchId(accountId, champion): # 한유저의 특정 챔피언 매
         match_list.append(match)
     return match_list
 # 한유저의 매치 ID들을 불러오는 함수
-def searchMatchId(accountId):
-    match_data = requests.get("https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + accountId  + '?queue=420' ,headers=headers).json()['matches']
-    match_list = []
-    for i in range(len(match_data)):
-        match = match_data[i]['gameId']
-        match_list.append(match)
+def searchMatchId(puuId):
+    match_list = requests.get(f"https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuId}/ids?type=ranked&start=0&count=100",headers=headers).json()
     return match_list
 # 챔피언키로 챔피언 영문이름을 불러오는 함수
 def searchChampion(championKey):
     champ = champion_df['eng_name'][champion_df['eng_name'][champion_df['key'] == championKey].index[0]]
     return champ  
 # 영문 챔피언 이름으로 챔피언 이름을 불러오는 함수
-def translationChampion(championKey):
-    champ = champion_df['name'][champion_df['name'][champion_df['eng_name'] == championKey].index[0]]
+def translationChampion(eng):
+    champ = champion_df['name'][champion_df['name'][champion_df['eng_name'] == eng].index[0]]
     
     return champ  
 # 챔피언 이름으로 영문 챔피언 이름을 불러오는 함수
@@ -195,6 +191,8 @@ def translationChampion2(kor):
     return champ 
 # 아이템키로 아이템 이름 불러오는 함수
 def searchItem(itemKey):
+    if itemKey == 7013:
+        itemKey = 6655
     item = item_df['name'][item_df['name'][item_df['key'] == itemKey].index[0]]
     return item 
 # 스펠키로 스펠 이름 불러오는 함수
@@ -210,14 +208,7 @@ def searchEngSpell(spellKey):
     spell = spell_df['eng'][spell_df['eng'][spell_df['key'] == spellKey].index[0]]
     return spell
 
-# 유저 인덱스 구하기
-def userIndex(user, users_info):
-    user_list = []
-    for user_info in users_info:
-        user_name = user_info['player']['summonerName']
-        user_list.append(user_name)
-    user_index = user_list.index(user)
-    return user_index
+
 # 매치의 플레이시간을 불러오는 함수
 def playingTime(matchId):
     match_data = requests.get('https://kr.api.riotgames.com/lol/match/v4/timelines/by-match/' + str(matchId), headers=headers).json()
@@ -228,7 +219,7 @@ def playingTime(matchId):
 
 def userMatches_record(user):
     userId, userAccountId, userPuuid, nickname, userLevel, profileIconId = searchUserId(user)
-    match_list = searchMatchId(userAccountId)[:30] 
+    match_list = searchMatchId(userPuuid)[:30] 
     users_champion = []
     all_champions = []
     users_kda = []
@@ -246,47 +237,47 @@ def userMatches_record(user):
     users_wardsKilled = []
     users_trolling = []
 
-    #users_playingTimes = [] #시간이 너무 오래걸려서 생략
+    
 
-    for match in match_list:
-        match_info = requests.get('https://kr.api.riotgames.com/lol/match/v4/matches/' + str(match), headers=headers).json()
-        users_info = match_info['participantIdentities']
-        
-        user_index = userIndex(user, users_info)
-        user_record = match_info['participants'][user_index]
-        user_champion = searchChampion(user_record['championId'])
-        user_kda = str(user_record['stats']['kills']) + '/' + str(user_record['stats']['deaths']) + '/' + str(user_record['stats']['assists'])
+    for matchId in match_list:
+        match_record = requests.get('https://asia.api.riotgames.com/lol/match/v5/matches/' + str(matchId), headers=headers).json()
+        for i in range(10):
+            if match_record['info']['participants'][i]['summonerName'] ==  nickname:
+                userIndex = i
+                break
+        user_data = match_record['info']['participants'][userIndex]
+        user_champion = user_data['championName']
+        user_kda = str(user_data['kills']) + '/' + str(user_data['deaths']) + '/' + str(user_data['assists'])
         user_items = []
         for i in range(6):
-            itemKey = user_record['stats']['item'+str(i)]
+            itemKey = user_data['item'+str(i)]
             if itemKey == 0:
                 user_items.append('0')
             else:
                 user_items.append(str(itemKey) + '.png')
         champion_list = []
         for i in range(10):
-            champId = match_info['participants'][i]['championId']
+            champId = match_record['info']['participants'][i]['championId']
             champion_list.append(champId)
         champion_list = [searchChampion(champ) for champ in champion_list]          
-        if user_record['stats']['item6'] == 0:
+        if user_data['item6'] == 0:
             user_ornament = '0'
         else:
-            user_ornament = str(user_record['stats']['item6']) + '.png'
-        user_spell = [searchEngSpell(user_record['spell1Id']), searchEngSpell(user_record['spell2Id'])]
-        user_runes = [str(user_record['stats']['perkPrimaryStyle']) + '.png', str(user_record['stats']['perkSubStyle']) + '.png']
-        user_lane = user_record['timeline']['lane']
-        user_win = user_record['stats']['win']
+            user_ornament = str(user_data['item6']) + '.png'
+        user_spell = [searchEngSpell(user_data['summoner1Id']), searchEngSpell(user_data['summoner2Id'])]
+        user_runes = [str(user_data['perks']['styles'][0]['style']) + '.png', str(user_data['perks']['styles'][1]['style']) + '.png']
+        user_lane = user_data['lane']
+        user_win = user_data['win']
         if user_win == True: 
             user_win = '승'
         else :
             user_win = '패'
-        user_gold = user_record['stats']['goldEarned']
-        user_level = user_record['stats']['champLevel']
-        user_cs = user_record['stats']['totalMinionsKilled'] + user_record['stats']['neutralMinionsKilled']
-        user_visionWardsBoughtInGame = user_record['stats']['visionWardsBoughtInGame']
-        user_wardsPlaced = user_record['stats']['wardsPlaced']
-        user_wardsKilled = user_record['stats']['wardsKilled']
-        # user_playingTime = playingTime(match) #시간이 너무 오래걸려서 생략
+        user_gold = user_data['goldEarned']
+        user_level = user_data['champLevel']
+        user_cs = user_data['totalMinionsKilled']
+        user_visionWardsBoughtInGame = user_data['visionWardsBoughtInGame']
+        user_wardsPlaced = user_data['wardsPlaced']
+        user_wardsKilled = user_data['wardsKilled']
         if user_items.count(0) == 6 or user_items.count(user_items[0]) == 6:
             user_trolling = True
         else:

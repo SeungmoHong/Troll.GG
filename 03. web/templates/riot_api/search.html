@@ -67,7 +67,8 @@
             <tr style="{% if matches_info['result'][i] == '승' %} background:#D4E4FE; {% else %} background:#FFEEEE; {% endif %}">
                 <td><img data-toggle="tooltip" title="{{kor_champions[i]}}" src="{{url_list[0] + url_list[1] + matches_info['champion'][i]+ '.png'}}" 
                     alt="{{kor_champions[i]}}" width="40"></td>
-                <td>{{matches_info['result'][i]}}</td>
+                <td>{{matches_info['result'][i]}} <br>
+                    <small>{{matches_info['playingTime'][i]}}</small></td>
                 <td>{{matches_info['lane'][i]}}</td>
                 <td>{{matches_info['kda'][i]}}</td>
                 <td>
@@ -118,7 +119,6 @@
                 일반와드 설치  : {{matches_info['wardsPlaced'][i]}} <br>
                 와드 제거 : {{matches_info['wardsKilled'][i]}}
                 </td>
-                
             </tr>
             {% endfor %}
         </table>

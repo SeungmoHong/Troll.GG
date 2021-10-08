@@ -3,6 +3,7 @@ from urllib import parse
 import json
 import pandas as pd
 import re
+import math
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
@@ -209,13 +210,14 @@ def searchEngSpell(spellKey):
     return spell
 
 
-# 매치의 플레이시간을 불러오는 함수
-def playingTime(matchId):
-    match_data = requests.get('https://kr.api.riotgames.com/lol/match/v4/timelines/by-match/' + str(matchId), headers=headers).json()
-    playingTime = round(match_data['frames'][-1]['timestamp'] / 60000)
-
-    return playingTime
-# 한 유저의 최근 매치 결과를 불러오는 함수
+# 매치의 플레이시간 계산해주는 함수
+def playingTime(playingTime):
+    total_time = round(playingTime / 60000, 2)
+    minutes = math.trunc(total_time)
+    sec = math.trunc((total_time - minutes) / 100 * 60 * 100)
+    time = f'{minutes}분 {sec}초'
+    return time
+# 한 유저의 최근 매치 결과를 불러오는 함수s
 
 def userMatches_record(user):
     userId, userAccountId, userPuuid, nickname, userLevel, profileIconId = searchUserId(user)
@@ -236,7 +238,7 @@ def userMatches_record(user):
     users_wardsPlaced = []
     users_wardsKilled = []
     users_trolling = []
-
+    playing_times = []
     
 
     for matchId in match_list:
@@ -253,6 +255,8 @@ def userMatches_record(user):
             itemKey = user_data['item'+str(i)]
             if itemKey == 0:
                 user_items.append('0')
+            elif itemKey == 7013:
+                user_items.append('6655' + '.png')
             else:
                 user_items.append(str(itemKey) + '.png')
         champion_list = []
@@ -266,7 +270,7 @@ def userMatches_record(user):
             user_ornament = str(user_data['item6']) + '.png'
         user_spell = [searchEngSpell(user_data['summoner1Id']), searchEngSpell(user_data['summoner2Id'])]
         user_runes = [str(user_data['perks']['styles'][0]['style']) + '.png', str(user_data['perks']['styles'][1]['style']) + '.png']
-        user_lane = user_data['lane']
+        user_lane = user_data['teamPosition']
         user_win = user_data['win']
         if user_win == True: 
             user_win = '승'
@@ -283,6 +287,8 @@ def userMatches_record(user):
         else:
             user_trolling = False
         
+        time_stamp = requests.get(f'https://asia.api.riotgames.com/lol/match/v5/matches/{matchId}/timeline', headers=headers).json()['info']['frames'][-1]['timestamp']
+        playing_time = playingTime(time_stamp)
 
 
         users_champion.append(user_champion)
@@ -301,7 +307,8 @@ def userMatches_record(user):
         users_wardsPlaced.append(user_wardsPlaced)
         users_wardsKilled.append(user_wardsKilled)
         users_trolling.append(user_trolling)
-        #users_playingTimes.append(user_playingTime) #시간이 너무 오래걸려서 생략
+        playing_times.append(playing_time)
+        
 
     
 
@@ -320,7 +327,7 @@ def userMatches_record(user):
     'kda' : users_kda,
     'result_items' : users_items,
     'ornament' : users_ornament,
-    #'playingTime' : users_playingTimes,
+    'playingTime' : playing_times,
     'trolling' : users_trolling,
     'result' : users_win
     }

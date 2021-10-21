@@ -175,7 +175,7 @@ def searchChampMatchId(accountId, champion): # 한유저의 특정 챔피언 매
     return match_list
 # 한유저의 매치 ID들을 불러오는 함수
 def searchMatchId(puuId):
-    match_list = requests.get(f"https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuId}/ids?type=ranked&start=0&count=100",headers=headers).json()
+    match_list = requests.get(f"https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuId}/ids?queue=420&type=ranked&start=0&count=100",headers=headers).json()
     return match_list
 # 챔피언키로 챔피언 영문이름을 불러오는 함수
 def searchChampion(championKey):

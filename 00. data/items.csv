@@ -176,7 +176,7 @@
 174,화공 펑크 사슬검,6609,2600,"Health, Damage, CooldownReduction, AbilityHaste"
 175,흐르는 물의 지팡이,6616,2300,"SpellDamage, ManaRegen, AbilityHaste"
 176,월석 재생기,6617,2500,"Health, SpellDamage, CooldownReduction"
-177,선혈포식자,6630,3300,"Health, HealthRegen, Damage, Active, CooldownReduction, AbilityHaste"
+177,선혈포식자,6630,3300,"Health, Damage, LifeSteal, Active, CooldownReduction, SpellVamp, AbilityHaste"
 178,발걸음 분쇄기,6631,3300,"Health, Damage, AttackSpeed, Active, CooldownReduction, Slow, NonbootsMovement, AbilityHaste"
 179,신성한 파괴자,6632,3300,"Health, Damage, LifeSteal, CooldownReduction, OnHit, MagicPenetration, ArmorPenetration, AbilityHaste"
 180,리안드리의 고뇌,6653,3200,"SpellDamage, Mana, CooldownReduction, AbilityHaste"

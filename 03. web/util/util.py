@@ -481,3 +481,33 @@ def champion_statistics(lane, champion):
 
         
     return data_dict
+
+def counter_matchup(lane, champion):
+    headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
+    url = f'https://www.op.gg/champion/{champion}/statistics/{lane}/matchup'
+    html = requests.get(url, headers = headers).text
+    soup = BeautifulSoup(html, 'html.parser')
+    champ_len = len(soup.select('.champion-matchup-list__champion'))
+    enemy_champions = []
+    win_rates = []
+    totalPlay = []
+    totalPlay_rate = []
+    for i in range(champ_len):
+        champ = soup.select('.champion-matchup-list__champion')[i].find('span').text
+        winRate = soup.select('.champion-matchup-list__champion')[i].find_all('span')[1].string
+        winRate = [item.strip() for item in winRate if str(item)]
+        winRate = ''.join(winRate)
+        play_rate = soup.select('.champion-matchup-list__totalplayed')[i].find('span').text
+        play_num = soup.select('.champion-matchup-list__totalplayed')[i].find('small').text
+        enemy_champions.append(champ)
+        win_rates.append(winRate)
+        totalPlay.append(play_num)
+        totalPlay_rate.append(play_rate)
+    data_dict = {
+        'enemy_champions' : enemy_champions,
+        'win_rates' : win_rates,
+        'totalPlay' : totalPlay,
+        'totalPlay_rate' : totalPlay_rate
+    }
+
+    return data_dict

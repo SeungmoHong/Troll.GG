@@ -1,16 +1,17 @@
 <!-- <img  class="bg-primary" src="//opgg-static.akamaized.net/logo/20210726052915.87be48acb5b84220b84e73b16c3e4c82.png" alt="" width="200px"><br> -->
 {% extends "base.html" %}
 {% block additional_head %}
-    <style>
-        th, td {
-            text-align: center;
-        }
-    </style>
-    <script>
-        $(document).ready(function(){
-          $('[data-toggle="tooltip"]').tooltip();   
-        });
-    </script>
+<style>
+    th,
+    td {
+        text-align: center;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 {% endblock %}
 {% block subtitle %}
 <strong>OP.GG {{kor_lane}} {{kor_champion}} 통계</strong>
@@ -27,15 +28,15 @@
                 <td>챔피언 티어 : </td>
                 <td>{{data_dict['tier']}}티어</td>
             </tr>
-                <td>{{kor_lane}} 승률 순위 : </td>
-                <td>{{data_dict['win_rank'][0]}}위 / {{data_dict['win_rank'][1]}}  ({{data_dict['win_rate']}})</td>
+            <td>{{kor_lane}} 승률 순위 : </td>
+            <td>{{data_dict['win_rank'][0]}}위 / {{data_dict['win_rank'][1]}} ({{data_dict['win_rate']}})</td>
             </tr>
             <tr>
                 <td>{{kor_lane}} 픽률 순위 : </td>
                 <td>{{data_dict['pick_rank'][0]}}위 / {{data_dict['pick_rank'][1]}} ({{data_dict['pick_rate']}})</td>
             </tr>
         </table>
-    
+
     </div>
     <div class="col-2"></div>
     <div class="col-4">
@@ -50,9 +51,11 @@
             </tr>
             {% for i in range(3) %}
             <tr>
-                <td><img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/champion/{{data_dict['counters'][i]}}.png" alt="{{data_dict['counters'][i]}}" width="30">
+                <td><img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/champion/{{data_dict['counters'][i]}}.png"
+                        alt="{{data_dict['counters'][i]}}" width="30">
                     승률 : {{data_dict['counters_rate'][i]}}</td>
-                <td><img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/champion/{{data_dict['counters'][i+3]}}.png" alt="{{data_dict['counters'][i+3]}}" width="30">
+                <td><img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/champion/{{data_dict['counters'][i+3]}}.png"
+                        alt="{{data_dict['counters'][i+3]}}" width="30">
                     승률 : {{data_dict['counters_rate'][i+3]}}</td>
             </tr>
             {% endfor %}
@@ -69,8 +72,10 @@
                 <th class="col-3">승률</td>
             </thead>
             <tr>
-                <td><img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/spell/{{data_dict['trend_spell1'][0]}}.png" alt="{{data_dict['trend_spell1'][0]}}" width="30">
-                    <img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/spell/{{data_dict['trend_spell1'][1]}}.png" alt="{{data_dict['trend_spell1'][1]}}" width="30">
+                <td><img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/spell/{{data_dict['trend_spell1'][0]}}.png"
+                        alt="{{data_dict['trend_spell1'][0]}}" width="30">
+                    <img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/spell/{{data_dict['trend_spell1'][1]}}.png"
+                        alt="{{data_dict['trend_spell1'][1]}}" width="30">
                 </td>
                 <td>
                     {{data_dict['trend_spell1'][2]}}
@@ -81,8 +86,10 @@
                 </td>
             </tr>
             <tr>
-                <td><img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/spell/{{data_dict['trend_spell2'][0]}}.png" alt="{{data_dict['trend_spell2'][0]}}" width="30">
-                    <img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/spell/{{data_dict['trend_spell2'][1]}}.png" alt="{{data_dict['trend_spell2'][1]}}" width="30">
+                <td><img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/spell/{{data_dict['trend_spell2'][0]}}.png"
+                        alt="{{data_dict['trend_spell2'][0]}}" width="30">
+                    <img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/spell/{{data_dict['trend_spell2'][1]}}.png"
+                        alt="{{data_dict['trend_spell2'][1]}}" width="30">
                 </td>
                 <td>
                     {{data_dict['trend_spell2'][2]}}
@@ -104,7 +111,8 @@
             </thead>
             <tr>
                 <td>
-                    {{data_dict['trend_skill'][0][0] | upper}} -> {{data_dict['trend_skill'][0][1] | upper}} -> {{data_dict['trend_skill'][0][2] | upper}}
+                    {{data_dict['trend_skill'][0][0] | upper}} -> {{data_dict['trend_skill'][0][1] | upper}} ->
+                    {{data_dict['trend_skill'][0][2] | upper}}
                 </td>
                 <td>
                     {{data_dict['trend_skill'][1]}}
@@ -122,28 +130,29 @@
             <th class="col-6" colspan="2">추천 아이템 빌드</th>
             <th class="col-3">픽률<small> (표본 수)</small></th>
             <th class="col-3">승률</td>
-            {% for i in range(7) %}
-            <tr>
-                {% if i == 0 %}
-                <td rowspan="2">시작 아이템</td>
-                {% elif i == 2 %}
-                <td rowspan="5">추천 빌드</td>
-                {% endif %}
-                <td>
-                    {% for k in data_dict['trend_items'][i][0]%}
-                    <img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/item/{{k}}.png" alt="k" width="30">
-                    {% endfor %}
-                </td>
-                <td>
-                    {{data_dict['trend_items'][i][1]}}
-                    <small>({{data_dict['trend_items'][i][2]}})</small>
-                </td>
-                <td>
-                    {{data_dict['trend_items'][i][3]}}
-                </td>
-            </tr>
-            {% endfor %}
-            
+                {% for i in range(7) %}
+                <tr>
+                    {% if i == 0 %}
+                    <td rowspan="2">시작 아이템</td>
+                    {% elif i == 2 %}
+                    <td rowspan="5">추천 빌드</td>
+                    {% endif %}
+                    <td>
+                        {% for k in data_dict['trend_items'][i][0]%}
+                        <img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/item/{{k}}.png" alt="k"
+                            width="30">
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {{data_dict['trend_items'][i][1]}}
+                        <small>({{data_dict['trend_items'][i][2]}})</small>
+                    </td>
+                    <td>
+                        {{data_dict['trend_items'][i][3]}}
+                    </td>
+                </tr>
+                {% endfor %}
+
 
 
         </table>

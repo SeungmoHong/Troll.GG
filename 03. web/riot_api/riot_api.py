@@ -3,19 +3,20 @@ from flask import current_app
 from util.util import *
 
 
-
 riot_api = Blueprint('riot_api', __name__)
 
 
 champion_df, item_df, spell_df, rune_df = new_datas()
-menu = {'ho':0, 'ri' :1, 'op' : 0, 'ris' : 1, 'opg' : 0}
+menu = {'ho': 0, 'ri': 1, 'op': 0, 'ris': 1, 'opg': 0}
 version = check_version()
+
 
 @riot_api.route('/search', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
         nickname = request.form['nickname']
-        userId, userAccountId, userPuuid, userNickname, userLevel, profileIconId = searchUserId(nickname)
+        userId, userAccountId, userPuuid, userNickname, userLevel, profileIconId = searchUserId(
+            nickname)
         tier, rank, wins, losses, leaguePoints = userInfo(userId)
         tier = tier.lower().capitalize()
         winning_rate = round(wins / (wins + losses) * 100, 2)
@@ -25,53 +26,60 @@ def search():
         champion_url = '/img/champion/'
         item_url = '/img/item/'
         spell_url = '/img/spell/'
-        
+
         url_list = [data_url, champion_url, item_url, spell_url]
-        
+
         tier_img = f"/static/img/Emblem_{tier}.png"
-        img_url = f"/static/img/" 
-        result = [userNickname, userLevel, tier, rank, wins, losses, winning_rate, leaguePoints ,profileIcon]
+        img_url = f"/static/img/"
+        result = [userNickname, userLevel, tier, rank, wins,
+                  losses, winning_rate, leaguePoints, profileIcon]
         matches_info = userMatches_record(userNickname)
 
-        kor_champions = [translationChampion(champ) for champ in matches_info['champion']]
+        kor_champions = [translationChampion(
+            champ) for champ in matches_info['champion']]
         kor_all_champions = []
         for i in range(len(matches_info['all_champions'])):
-            kor_all_champion = [translationChampion(champ) for champ in matches_info['all_champions'][i]]
+            kor_all_champion = [translationChampion(
+                champ) for champ in matches_info['all_champions'][i]]
             kor_all_champions.append(kor_all_champion)
-        main_runes = {'8000.png' : '정밀', '8100.png' : '지배', '8200.png' : '마법', '8300.png' : '영감', '8400.png' : '결의'}
+        main_runes = {'8000.png': '정밀', '8100.png': '지배',
+                      '8200.png': '마법', '8300.png': '영감', '8400.png': '결의'}
         kor_main_spells = []
-        for i  in range(len(matches_info['spell'])):
-            kor_main_spell = [translationSpell(eng) for eng in matches_info['spell'][i]]
+        for i in range(len(matches_info['spell'])):
+            kor_main_spell = [translationSpell(
+                eng) for eng in matches_info['spell'][i]]
             kor_main_spells.append(kor_main_spell)
 
         kor_items = []
         for i in range(len(matches_info['result_items'])):
-            tmp =[]
+            tmp = []
             for item in matches_info['result_items'][i]:
                 if item == '0':
                     kor = '0'
                 else:
-                    kor = searchItem(int(item.replace('.png','')))
+                    kor = searchItem(int(item.replace('.png', '')))
                 tmp.append(kor)
-            
+
             kor_items.append(tmp)
         kor_ornaments = []
         for ornament in matches_info['ornament']:
             if ornament == '0':
                 kor = '0'
             else:
-                kor = searchItem(int(ornament.replace('.png','')))
+                kor = searchItem(int(ornament.replace('.png', '')))
             kor_ornaments.append(kor)
 
         if matches_info['result'].count('승') == 0:
             winning_rate = 0
         else:
-            winning_rate = round(matches_info['result'].count('승') / len(matches_info['result']) * 100,2)
+            winning_rate = round(matches_info['result'].count(
+                '승') / len(matches_info['result']) * 100, 2)
 
         if matches_info['trolling'].count(True) == 0:
             trolling = 0
         else:
-            trolling = round(matches_info['trolling'].count(True) / len(matches_info['trolling']) * 100,2)
+            trolling = round(matches_info['trolling'].count(
+                True) / len(matches_info['trolling']) * 100, 2)
 
         win_consecutive = 0
         for recentData in matches_info['result']:
@@ -80,11 +88,10 @@ def search():
             else:
                 break
 
-        recentHistory = [matches_info['result'].count('승'), matches_info['result'].count('패'), winning_rate, win_consecutive, trolling]
+        recentHistory = [matches_info['result'].count('승'), matches_info['result'].count(
+            '패'), winning_rate, win_consecutive, trolling]
 
-        
-        return render_template('riot_api/search.html', menu=menu, version= version, 
-        result = result, tier_img=tier_img, matches_info=matches_info, url_list = url_list, img_url = img_url, recentHistory=recentHistory,
-        kor_champions= kor_champions, kor_all_champions=kor_all_champions, main_runes=main_runes, kor_main_spells=kor_main_spells,
-        kor_items=kor_items, kor_ornaments=kor_ornaments)
-
+        return render_template('riot_api/search.html', menu=menu, version=version,
+                               result=result, tier_img=tier_img, matches_info=matches_info, url_list=url_list, img_url=img_url, recentHistory=recentHistory,
+                               kor_champions=kor_champions, kor_all_champions=kor_all_champions, main_runes=main_runes, kor_main_spells=kor_main_spells,
+                               kor_items=kor_items, kor_ornaments=kor_ornaments)

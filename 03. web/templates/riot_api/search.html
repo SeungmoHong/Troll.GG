@@ -1,18 +1,19 @@
 {% extends "base.html" %}
 {% block additional_head %}
-    <style>
-        th, td {
-            text-align: center;
-        }
-    </style>
-    <script>
-        $(document).ready(function(){
-          $('[data-toggle="tooltip"]').tooltip();   
-        });
-    </script>
+<style>
+    th,
+    td {
+        text-align: center;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 {% endblock %}
 {% block subtitle %}
-    <strong>검색 결과</strong>
+<strong>검색 결과</strong>
 {% endblock %}
 {% block content %}
 <div class="row">
@@ -35,9 +36,9 @@
                     {{result[4]}}승 {{result[5]}}패 ({{result[6]}}%)
                 </td>
                 <td class="col-1.5">
-                     최근 30전<br>
+                    최근 30전<br>
                     {{recentHistory[0]}}승 {{recentHistory[1]}}패 ({{recentHistory[2]}}%) <br>
-                     최근 {{recentHistory[3]}}연{{matches_info['result'][0]}}중
+                    최근 {{recentHistory[3]}}연{{matches_info['result'][0]}}중
                 </td>
                 <td class="col-2">
                     최근트롤링 <br>
@@ -64,45 +65,56 @@
                 </tr>
             </thead>
             {% for i in range(30) %}
-            <tr style="{% if matches_info['result'][i] == '승' %} background:#D4E4FE; {% else %} background:#FFEEEE; {% endif %}">
-                <td><img data-toggle="tooltip" title="{{kor_champions[i]}}" src="{{url_list[0] + url_list[1] + matches_info['champion'][i]+ '.png'}}" 
-                    alt="{{kor_champions[i]}}" width="40"></td>
+            <tr
+                style="{% if matches_info['result'][i] == '승' %} background:#D4E4FE; {% else %} background:#FFEEEE; {% endif %}">
+                <td><img data-toggle="tooltip" title="{{kor_champions[i]}}"
+                        src="{{url_list[0] + url_list[1] + matches_info['champion'][i]+ '.png'}}"
+                        alt="{{kor_champions[i]}}" width="40"></td>
                 <td>{{matches_info['result'][i]}} <br>
                     <small>{{matches_info['playingTime'][i]}}</small></td>
                 <td>{{matches_info['lane'][i]}}</td>
                 <td>{{matches_info['kda'][i]}}</td>
                 <td>
                     {% for k in range(10) %}
-                    <img data-toggle="tooltip" title="{{kor_all_champions[i][k]}}" src="{{url_list[0] + url_list[1] + matches_info['all_champions'][i][k]+ '.png'}}" 
-                    alt="{{kor_all_champions[i][k]}}" width="20">
+                    <img data-toggle="tooltip" title="{{kor_all_champions[i][k]}}"
+                        src="{{url_list[0] + url_list[1] + matches_info['all_champions'][i][k]+ '.png'}}"
+                        alt="{{kor_all_champions[i][k]}}" width="20">
                     {% if k == 4 %}
                     <br>
                     {% endif %}
                     {% endfor %}
                 </td>
                 <td>
-                    <img data-toggle="tooltip" title="{{main_runes[matches_info['runes'][i][0]]}}" src="{{img_url + matches_info['runes'][i][0] | safe()}}" 
-                    alt="{{main_runes[matches_info['runes'][i][0]]}}" width="20">
-                    <img data-toggle="tooltip" title="{{kor_main_spells[i][0]}}" src="{{url_list[0] + url_list[3] + matches_info['spell'][i][0] + '.png'}}" alt="{{kor_main_spells[i][0]}}"  width="20"><br>
-                    <img data-toggle="tooltip" title="{{main_runes[matches_info['runes'][i][1]]}}" src="{{img_url + matches_info['runes'][i][1] | safe()}}" 
-                    alt="{{main_runes[matches_info['runes'][i][1]]}}" width="20">
-                    <img data-toggle="tooltip" title="{{kor_main_spells[i][1]}}" src="{{url_list[0] + url_list[3] + matches_info['spell'][i][1] + '.png'}}" alt="{{kor_main_spells[i][1]}}"  width="20">
+                    <img data-toggle="tooltip" title="{{main_runes[matches_info['runes'][i][0]]}}"
+                        src="{{img_url + matches_info['runes'][i][0] | safe()}}"
+                        alt="{{main_runes[matches_info['runes'][i][0]]}}" width="20">
+                    <img data-toggle="tooltip" title="{{kor_main_spells[i][0]}}"
+                        src="{{url_list[0] + url_list[3] + matches_info['spell'][i][0] + '.png'}}"
+                        alt="{{kor_main_spells[i][0]}}" width="20"><br>
+                    <img data-toggle="tooltip" title="{{main_runes[matches_info['runes'][i][1]]}}"
+                        src="{{img_url + matches_info['runes'][i][1] | safe()}}"
+                        alt="{{main_runes[matches_info['runes'][i][1]]}}" width="20">
+                    <img data-toggle="tooltip" title="{{kor_main_spells[i][1]}}"
+                        src="{{url_list[0] + url_list[3] + matches_info['spell'][i][1] + '.png'}}"
+                        alt="{{kor_main_spells[i][1]}}" width="20">
                 </td>
                 <td>
                     {% for k in range(6) %}
                     {% if matches_info['result_items'][i][k] == '0' %}
                     <img src="/static/img/blank.png" alt="blank" width="20">
                     {% else %}
-                    <img data-toggle="tooltip" title="{{kor_items[i][k]}}" src="{{url_list[0] + url_list[2] + matches_info['result_items'][i][k]  | safe()}}" 
-                    alt="{{kor_items[i][k]}}" width="20">
+                    <img data-toggle="tooltip" title="{{kor_items[i][k]}}"
+                        src="{{url_list[0] + url_list[2] + matches_info['result_items'][i][k]  | safe()}}"
+                        alt="{{kor_items[i][k]}}" width="20">
                     {% endif %}
                     {% if k == 2 %}
                     {% if kor_ornaments[i] == '0' %}
                     <img src="/static/img/blank.png" alt="blank" width="20">
                     <br>
                     {% else %}
-                    <img data-toggle="tooltip" title="{{kor_ornaments[i]}}" src="{{url_list[0] + url_list[2] + matches_info['ornament'][i] | safe()}}" 
-                    alt="{{kor_ornaments[i]}}" width="20">
+                    <img data-toggle="tooltip" title="{{kor_ornaments[i]}}"
+                        src="{{url_list[0] + url_list[2] + matches_info['ornament'][i] | safe()}}"
+                        alt="{{kor_ornaments[i]}}" width="20">
                     <br>
                     {% endif %}
                     {% endif %}
@@ -110,14 +122,14 @@
                     <img src="/static/img/blank.png" alt="blank" width="20">
                 </td>
                 <td style="font-size: 12px;">
-                레벨: <strong>{{matches_info['level'][i]}}</strong> <br>
-                골드: <strong>{{matches_info['gold'][i]}}</strong> <br>
-                cs: <strong>{{matches_info['cs'][i]}}</strong>
+                    레벨: <strong>{{matches_info['level'][i]}}</strong> <br>
+                    골드: <strong>{{matches_info['gold'][i]}}</strong> <br>
+                    cs: <strong>{{matches_info['cs'][i]}}</strong>
                 </td>
                 <td style="font-size: 12px;">
-                제어와드 구매  : {{matches_info['visionWardsBoughtInGame'][i]}} <br>
-                일반와드 설치  : {{matches_info['wardsPlaced'][i]}} <br>
-                와드 제거 : {{matches_info['wardsKilled'][i]}}
+                    제어와드 구매 : {{matches_info['visionWardsBoughtInGame'][i]}} <br>
+                    일반와드 설치 : {{matches_info['wardsPlaced'][i]}} <br>
+                    와드 제거 : {{matches_info['wardsKilled'][i]}}
                 </td>
             </tr>
             {% endfor %}

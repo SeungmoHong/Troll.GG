@@ -1,24 +1,25 @@
 <!-- <img  class="bg-primary" src="//opgg-static.akamaized.net/logo/20210726052915.87be48acb5b84220b84e73b16c3e4c82.png" alt="" width="200px"><br> -->
 {% extends "base.html" %}
 {% block additional_head %}
-    <style>
-        th, td {
-            text-align: center;
-        }
-    </style>
-    <script>
-        $(document).ready(function(){
-          $('[data-toggle="tooltip"]').tooltip();   
-        });
-    </script>
+<style>
+    th,
+    td {
+        text-align: center;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 {% endblock %}
 {% block subtitle %}
 <strong>OP.GG 챔피언 라인별 총통계</strong> <small>승률 / 픽률 / 티어</small>
-    
+
 {% endblock %}
 {% block content %}
 <div class="row" style="font-size: 11px;">
-    <div class="col-2" >
+    <div class="col-2">
         <table class="table-bordered table-sm">
             <thead>
                 <tr>
@@ -28,7 +29,9 @@
             {% for i in range(top_count) %}
             <tr>
                 <td>{{i+1}}</td>
-                <td><a href="/opgg/statistics/top/{{eng_champion_dict['TOP'][i]}}"><img data-toggle="tooltip" title="{{champion_dict['TOP'][i]}}" src="{{img_link + eng_champion_dict['TOP'][i]+'.png'}}" alt="{{champion_dict['TOP'][i]}}" width="20"></a></td>
+                <td><a href="/opgg/statistics/top/{{eng_champion_dict['TOP'][i]}}"><img data-toggle="tooltip"
+                            title="{{champion_dict['TOP'][i]}}" src="{{img_link + eng_champion_dict['TOP'][i]+'.png'}}"
+                            alt="{{champion_dict['TOP'][i]}}" width="20"></a></td>
                 <td data-toggle="tooltip" title="승률">{{winRate_dict['TOP'][i]}}</td>
                 <td data-toggle="tooltip" title="픽률">{{pickRate_dict['TOP'][i]}}</td>
                 <td data-toggle="tooltip" title="티어">{{tier_dict['TOP'][i]}}</td>
@@ -46,7 +49,10 @@
             {% for i in range(jg_count) %}
             <tr>
                 <td>{{i+1}}</td>
-                <td><a href="/opgg/statistics/jungle/{{eng_champion_dict['JUNGLE'][i]}}"><img data-toggle="tooltip" title="{{champion_dict['JUNGLE'][i]}}" src="{{img_link + eng_champion_dict['JUNGLE'][i]+'.png'}}" alt="{{champion_dict['JUNGLE'][i]}}" width="20"></a></td>
+                <td><a href="/opgg/statistics/jungle/{{eng_champion_dict['JUNGLE'][i]}}"><img data-toggle="tooltip"
+                            title="{{champion_dict['JUNGLE'][i]}}"
+                            src="{{img_link + eng_champion_dict['JUNGLE'][i]+'.png'}}"
+                            alt="{{champion_dict['JUNGLE'][i]}}" width="20"></a></td>
                 <td data-toggle="tooltip" title="승률">{{winRate_dict['JUNGLE'][i]}}</td>
                 <td data-toggle="tooltip" title="픽률">{{pickRate_dict['JUNGLE'][i]}}</td>
                 <td data-toggle="tooltip" title="티어">{{tier_dict['JUNGLE'][i]}}</td>
@@ -62,10 +68,12 @@
                 </tr>
             </thead>
             {% for i in range(mid_count) %}
-            
+
             <tr>
                 <td>{{i+1}}</td>
-                <td><a href="/opgg/statistics/mid/{{eng_champion_dict['MID'][i]}}"><img data-toggle="tooltip" title="{{champion_dict['MID'][i]}}" src="{{img_link + eng_champion_dict['MID'][i]+'.png'}}" alt="{{champion_dict['MID'][i]}}" width="20"></a></td>
+                <td><a href="/opgg/statistics/mid/{{eng_champion_dict['MID'][i]}}"><img data-toggle="tooltip"
+                            title="{{champion_dict['MID'][i]}}" src="{{img_link + eng_champion_dict['MID'][i]+'.png'}}"
+                            alt="{{champion_dict['MID'][i]}}" width="20"></a></td>
                 <td data-toggle="tooltip" title="승률">{{winRate_dict['MID'][i]}}</td>
                 <td data-toggle="tooltip" title="픽률">{{pickRate_dict['MID'][i]}}</td>
                 <td data-toggle="tooltip" title="티어">{{tier_dict['MID'][i]}}</td>
@@ -83,7 +91,9 @@
             {% for i in range(adc_count) %}
             <tr>
                 <td>{{i+1}}</td>
-                <td><a href="/opgg/statistics/adc/{{eng_champion_dict['ADC'][i]}}"><img data-toggle="tooltip" title="{{champion_dict['ADC'][i]}}" src="{{img_link + eng_champion_dict['ADC'][i]+'.png'}}" alt="{{champion_dict['ADC'][i]}}" width="20"></a></td>
+                <td><a href="/opgg/statistics/adc/{{eng_champion_dict['ADC'][i]}}"><img data-toggle="tooltip"
+                            title="{{champion_dict['ADC'][i]}}" src="{{img_link + eng_champion_dict['ADC'][i]+'.png'}}"
+                            alt="{{champion_dict['ADC'][i]}}" width="20"></a></td>
                 <td data-toggle="tooltip" title="승률">{{winRate_dict['ADC'][i]}}</td>
                 <td data-toggle="tooltip" title="픽률">{{pickRate_dict['ADC'][i]}}</td>
                 <td data-toggle="tooltip" title="티어">{{tier_dict['ADC'][i]}}</td>
@@ -101,7 +111,10 @@
             {% for i in range(sup_count) %}
             <tr>
                 <td>{{i+1}}</td>
-                <td><a href="/opgg/statistics/support/{{eng_champion_dict['SUPPORT'][i]}}"><img data-toggle="tooltip" title="{{champion_dict['SUPPORT'][i]}}" src="{{img_link + eng_champion_dict['SUPPORT'][i]+'.png'}}" alt="{{champion_dict['SUPPORT'][i]}}" width="20"></a></td>
+                <td><a href="/opgg/statistics/support/{{eng_champion_dict['SUPPORT'][i]}}"><img data-toggle="tooltip"
+                            title="{{champion_dict['SUPPORT'][i]}}"
+                            src="{{img_link + eng_champion_dict['SUPPORT'][i]+'.png'}}"
+                            alt="{{champion_dict['SUPPORT'][i]}}" width="20"></a></td>
                 <td data-toggle="tooltip" title="승률">{{winRate_dict['SUPPORT'][i]}}</td>
                 <td data-toggle="tooltip" title="픽률">{{pickRate_dict['SUPPORT'][i]}}</td>
                 <td data-toggle="tooltip" title="티어">{{tier_dict['SUPPORT'][i]}}</td>
@@ -109,11 +122,11 @@
             {% endfor %}
         </table>
     </div>
-    
 
-        
-    </div>
-    
+
+
+</div>
+
 
 </div>
 

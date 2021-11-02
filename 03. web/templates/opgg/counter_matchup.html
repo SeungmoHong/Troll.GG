@@ -1,0 +1,36 @@
+<!-- <img  class="bg-primary" src="//opgg-static.akamaized.net/logo/20210726052915.87be48acb5b84220b84e73b16c3e4c82.png" alt="" width="200px"><br> -->
+{% extends "base.html" %}
+{% block additional_head %}
+<style>
+    th,
+    td {
+        text-align: center;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+{% endblock %}
+{% block subtitle %}
+<strong>{{kor_lane}} {{champion}} 상대 챔피언별 데이터</strong>
+
+{% endblock %}
+{% block content %}
+<div class="row">
+    <table class="table table-bordered table-sm">
+        <thead>
+            <th>상대 챔피언</th>
+            <th>상대 승률</th>
+            <th>통계량(통계비율)</th>
+        </thead>
+    </table>
+
+
+
+
+
+</div>
+
+{% endblock %}

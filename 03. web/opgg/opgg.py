@@ -41,11 +41,23 @@ def championStatistics(lane, champion):
                      'mid': '미드', 'adc': '원딜', 'support': '서포터'}
     kor_lane = kor_lane_dict[lane]
     kor_champion = translation_champion(champion)
-    #champion = champion.capitalize()
 
     if champion == 'Cassiopeia':
         return render_template('opgg/champion_statistics(cassiopeia).html', menu=menu, version=version,
-                               kor_lane=kor_lane, kor_champion=kor_champion, data_dict=data_dict, champion=champion)
+                               kor_lane=kor_lane, kor_champion=kor_champion, data_dict=data_dict, champion=champion, lane=lane)
     else:
         return render_template('opgg/champion_statistics.html', menu=menu, version=version,
-                               kor_lane=kor_lane, kor_champion=kor_champion, data_dict=data_dict, champion=champion)
+                               kor_lane=kor_lane, kor_champion=kor_champion, data_dict=data_dict, champion=champion, lane=lane)
+
+
+@opgg_crawling.route('/counter_matchup/<lane>/<champion>')
+def counterMatchup(lane, champion):
+    lane = lane
+    champion = champion
+    kor_lane_dict = {'top': '탑', 'jungle': '정글',
+                     'mid': '미드', 'adc': '원딜', 'support': '서포터'}
+    kor_lane = kor_lane_dict[lane]
+    kor_champion = translation_champion(champion)
+    counter_dict = counter_matchup(lane, champion)
+
+    return render_template('opgg/counter_matchup.html', menu=menu, version=version,  kor_champion=kor_champion, kor_lane=kor_lane)

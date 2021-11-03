@@ -14,7 +14,7 @@
 </script>
 {% endblock %}
 {% block subtitle %}
-<strong>{{kor_lane}} {{champion}} 상대 챔피언별 데이터</strong>
+<strong>{{kor_lane}} {{kor_champion}} 상대 챔피언별 데이터</strong>
 
 {% endblock %}
 {% block content %}
@@ -25,6 +25,14 @@
             <th>상대 승률</th>
             <th>통계량(통계비율)</th>
         </thead>
+        {% for i in range(couter_count) %}
+        <tr>
+            <td><img src="http://ddragon.leagueoflegends.com/cdn/{{version}}/img/champion/{{counter_dict['enemy_champions'][i]}}.png"
+                    alt="#"></td>
+            <td>{{counter_dict['win_rates'][i]}}</td>
+            <td>{{counter_dict['totalPlay'][i]}}({{counter_dict['totalPlay_rate'][i]}})</td>
+        </tr>
+        {% endfor %}
     </table>
 
 

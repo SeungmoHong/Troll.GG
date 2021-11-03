@@ -59,5 +59,6 @@ def counterMatchup(lane, champion):
     kor_lane = kor_lane_dict[lane]
     kor_champion = translation_champion(champion)
     counter_dict = counter_matchup(lane, champion)
+    couter_count = len(counter_dict['enemy_champions'])
 
-    return render_template('opgg/counter_matchup.html', menu=menu, version=version,  kor_champion=kor_champion, kor_lane=kor_lane)
+    return render_template('opgg/counter_matchup.html', menu=menu, version=version,  kor_champion=kor_champion, kor_lane=kor_lane, counter_dict=counter_dict, couter_count=couter_count)

@@ -571,7 +571,7 @@ def counter_matchup(lane, champion):
         play_num = soup.select(
             '.champion-matchup-list__totalplayed')[i].find('small').text
         enemy_champions.append(
-            translationChampion2(translation_champion(champ)))
+            (translationChampion2(translation_champion(champ.replace('\n', '').replace('\t\t\t\t\t\t\t\t\t', '').replace("'", '')))))
         win_rates.append(winRate)
         totalPlay.append(play_num)
         totalPlay_rate.append(play_rate)

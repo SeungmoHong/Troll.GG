@@ -6,6 +6,7 @@ datas/
 test.ipynb
 test.py
 logs/
+updates/
 fontawesome-free-5.15.1-web/
 04. torlling/
 # gitignore template for Jupyter Notebooks

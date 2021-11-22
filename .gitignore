@@ -8,6 +8,7 @@ test.py
 logs/
 ads/
 ers/
+opgg_er/
 fontawesome-free-5.15.1-web/
 04. torlling/
 # gitignore template for Jupyter Notebooks

@@ -97,62 +97,64 @@
 95,람머스,33,"Tank, Fighter",Rammus
 96,렉사이,421,Fighter,RekSai
 97,렐,526,Tank,Rell
-98,레넥톤,58,"Fighter, Tank",Renekton
-99,렝가,107,"Assassin, Fighter",Rengar
-100,리븐,92,"Fighter, Assassin",Riven
-101,럼블,68,"Fighter, Mage",Rumble
-102,라이즈,13,"Mage, Fighter",Ryze
-103,사미라,360,Marksman,Samira
-104,세주아니,113,"Tank, Fighter",Sejuani
-105,세나,235,"Marksman, Support",Senna
-106,세라핀,147,"Mage, Support",Seraphine
-107,세트,875,"Fighter, Tank",Sett
-108,샤코,35,Assassin,Shaco
-109,쉔,98,Tank,Shen
-110,쉬바나,102,"Fighter, Tank",Shyvana
-111,신지드,27,"Tank, Fighter",Singed
-112,사이온,14,"Tank, Fighter",Sion
-113,시비르,15,Marksman,Sivir
-114,스카너,72,"Fighter, Tank",Skarner
-115,소나,37,"Support, Mage",Sona
-116,소라카,16,"Support, Mage",Soraka
-117,스웨인,50,"Mage, Fighter",Swain
-118,사일러스,517,"Mage, Assassin",Sylas
-119,신드라,134,"Mage, Support",Syndra
-120,탐 켄치,223,"Support, Tank",TahmKench
-121,탈리야,163,"Mage, Support",Taliyah
-122,탈론,91,Assassin,Talon
-123,타릭,44,"Support, Fighter",Taric
-124,티모,17,"Marksman, Assassin",Teemo
-125,쓰레쉬,412,"Support, Fighter",Thresh
-126,트리스타나,18,"Marksman, Assassin",Tristana
-127,트런들,48,"Fighter, Tank",Trundle
-128,트린다미어,23,"Fighter, Assassin",Tryndamere
-129,트위스티드 페이트,4,Mage,TwistedFate
-130,트위치,29,"Marksman, Assassin",Twitch
-131,우디르,77,"Fighter, Tank",Udyr
-132,우르곳,6,"Fighter, Tank",Urgot
-133,바루스,110,"Marksman, Mage",Varus
-134,베인,67,"Marksman, Assassin",Vayne
-135,베이가,45,Mage,Veigar
-136,벨코즈,161,Mage,Velkoz
-137,벡스,711,Mage,Vex
-138,바이,254,"Fighter, Assassin",Vi
-139,비에고,234,"Assassin, Fighter",Viego
-140,빅토르,112,Mage,Viktor
-141,블라디미르,8,Mage,Vladimir
-142,볼리베어,106,"Fighter, Tank",Volibear
-143,워윅,19,"Fighter, Tank",Warwick
-144,자야,498,Marksman,Xayah
-145,제라스,101,Mage,Xerath
-146,신 짜오,5,"Fighter, Assassin",XinZhao
-147,야스오,157,"Fighter, Assassin",Yasuo
-148,요네,777,"Assassin, Fighter",Yone
-149,요릭,83,"Fighter, Tank",Yorick
-150,유미,350,"Support, Mage",Yuumi
-151,자크,154,"Tank, Fighter",Zac
-152,제드,238,Assassin,Zed
-153,직스,115,Mage,Ziggs
-154,질리언,26,"Support, Mage",Zilean
-155,조이,142,"Mage, Support",Zoe
-156,자이라,143,"Mage, Support",Zyra
+98,레나타 글라스크,888,"Support, Mage",Renata
+99,레넥톤,58,"Fighter, Tank",Renekton
+100,렝가,107,"Assassin, Fighter",Rengar
+101,리븐,92,"Fighter, Assassin",Riven
+102,럼블,68,"Fighter, Mage",Rumble
+103,라이즈,13,"Mage, Fighter",Ryze
+104,사미라,360,Marksman,Samira
+105,세주아니,113,"Tank, Fighter",Sejuani
+106,세나,235,"Marksman, Support",Senna
+107,세라핀,147,"Mage, Support",Seraphine
+108,세트,875,"Fighter, Tank",Sett
+109,샤코,35,Assassin,Shaco
+110,쉔,98,Tank,Shen
+111,쉬바나,102,"Fighter, Tank",Shyvana
+112,신지드,27,"Tank, Fighter",Singed
+113,사이온,14,"Tank, Fighter",Sion
+114,시비르,15,Marksman,Sivir
+115,스카너,72,"Fighter, Tank",Skarner
+116,소나,37,"Support, Mage",Sona
+117,소라카,16,"Support, Mage",Soraka
+118,스웨인,50,"Mage, Fighter",Swain
+119,사일러스,517,"Mage, Assassin",Sylas
+120,신드라,134,"Mage, Support",Syndra
+121,탐 켄치,223,"Support, Tank",TahmKench
+122,탈리야,163,"Mage, Support",Taliyah
+123,탈론,91,Assassin,Talon
+124,타릭,44,"Support, Fighter",Taric
+125,티모,17,"Marksman, Assassin",Teemo
+126,쓰레쉬,412,"Support, Fighter",Thresh
+127,트리스타나,18,"Marksman, Assassin",Tristana
+128,트런들,48,"Fighter, Tank",Trundle
+129,트린다미어,23,"Fighter, Assassin",Tryndamere
+130,트위스티드 페이트,4,Mage,TwistedFate
+131,트위치,29,"Marksman, Assassin",Twitch
+132,우디르,77,"Fighter, Tank",Udyr
+133,우르곳,6,"Fighter, Tank",Urgot
+134,바루스,110,"Marksman, Mage",Varus
+135,베인,67,"Marksman, Assassin",Vayne
+136,베이가,45,Mage,Veigar
+137,벨코즈,161,Mage,Velkoz
+138,벡스,711,Mage,Vex
+139,바이,254,"Fighter, Assassin",Vi
+140,비에고,234,"Assassin, Fighter",Viego
+141,빅토르,112,Mage,Viktor
+142,블라디미르,8,Mage,Vladimir
+143,볼리베어,106,"Fighter, Tank",Volibear
+144,워윅,19,"Fighter, Tank",Warwick
+145,자야,498,Marksman,Xayah
+146,제라스,101,Mage,Xerath
+147,신 짜오,5,"Fighter, Assassin",XinZhao
+148,야스오,157,"Fighter, Assassin",Yasuo
+149,요네,777,"Assassin, Fighter",Yone
+150,요릭,83,"Fighter, Tank",Yorick
+151,유미,350,"Support, Mage",Yuumi
+152,자크,154,"Tank, Fighter",Zac
+153,제드,238,Assassin,Zed
+154,제리,221,Marksman,Zeri
+155,직스,115,Mage,Ziggs
+156,질리언,26,"Support, Mage",Zilean
+157,조이,142,"Mage, Support",Zoe
+158,자이라,143,"Mage, Support",Zyra

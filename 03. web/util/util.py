@@ -256,7 +256,7 @@ def searchEngSpell(spellKey):
 def playingTime(playingTime):
     total_time = round(playingTime / 60000, 2)
     minutes = math.trunc(total_time)
-    sec = math.trunc((total_time - minutes) / 100 * 60 * 100)
+    sec = math.trunc((total_time - minutes) / 600000)
     time = f'{minutes}분 {sec}초'
     return time
 # 한 유저의 최근 매치 결과를 불러오는 함수s

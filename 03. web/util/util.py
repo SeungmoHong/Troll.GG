@@ -259,7 +259,18 @@ def playingTime(playingTime):
     sec = math.trunc((total_time - minutes) / 600000)
     time = f'{minutes}분 {sec}초'
     return time
-# 한 유저의 최근 매치 결과를 불러오는 함수s
+# 밀리세컨드단위의 시간을 계산해주는 함수
+
+
+def date_rocord(timestamp):
+    tmp = timestamp / 1000/60/60/24/365
+    year = round(tmp)  # 초,분,시,일,년
+    day = round((tmp - year)*365)
+    hour = round(((tmp - year)*365 - day)*24)
+
+    return [year, day, hour]
+
+# 한 유저의 최근 매치 결과를 불러오는 함수
 
 
 def userMatches_record(user):

@@ -263,12 +263,12 @@ def playingTime(playingTime):
 
 
 def date_rocord(timestamp):
-    tmp = timestamp / 1000/60/60/24/365
-    year = round(tmp)  # 초,분,시,일,년
+    tmp = timestamp / 1000/60/60/24/365  # 초,분,시,일,년
+    year = round(tmp)
     day = round((tmp - year)*365)
     hour = round(((tmp - year)*365 - day)*24)
 
-    return [year, day, hour]
+    return [year + 1970, day, hour]
 
 # 한 유저의 최근 매치 결과를 불러오는 함수
 

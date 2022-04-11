@@ -259,7 +259,8 @@ def playingTime(playingTime):
     sec = math.trunc((total_time - minutes) / 600000)
     time = f'{minutes}분 {sec}초'
     return time
-# 밀리세컨드단위의 시간을 계산해주는 함수
+
+# 밀리세컨드단위의 시간을 계산해주는 함수 (보완필요)
 
 
 def date_rocord(timestamp):

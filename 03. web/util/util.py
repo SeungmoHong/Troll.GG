@@ -6,6 +6,7 @@ import re
 import math
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
+import datetime
 
 champion_df = pd.read_csv('../00. data/champions.csv', index_col=0)
 champion_df['lower_name'] = champion_df['eng_name'].apply(
@@ -254,22 +255,23 @@ def searchEngSpell(spellKey):
 
 # 매치의 플레이시간 계산해주는 함수
 def playingTime(playingTime):
-    total_time = round(playingTime / 60000, 2)
-    minutes = math.trunc(total_time)
-    sec = math.trunc((total_time - minutes) / 600000)
-    time = f'{minutes}분 {sec}초'
+    tmp = datetime.timedelta(milliseconds=playingTime)
+    total_time = str(tmp).split(':')
+    if total_time[0] == '0':
+        time = f'{total_time[1]}분 {total_time[2].split(".")[0]}초'
+    else:
+        time = f'{total_time[0]}시간 {total_time[1]}분 {total_time[2].split(".")[0]}초'
+
     return time
 
-# 밀리세컨드단위의 시간을 계산해주는 함수 (보완필요)
+# 밀리세컨드단위의 시간을 날짜로 계산하는 함수
 
 
 def date_rocord(timestamp):
-    tmp = timestamp / 1000/60/60/24/365  # 초,분,시,일,년
-    year = round(tmp)
-    day = round((tmp - year)*365)
-    hour = round(((tmp - year)*365 - day)*24)
+    tmp = datetime.datetime(1970, 1, 1)
+    date_rocord = tmp - datetime.timedelta(milliseconds=-timestamp, hours=-9)
 
-    return [year + 1970, day, hour]
+    return str(date_rocord.date())
 
 # 한 유저의 최근 매치 결과를 불러오는 함수
 

@@ -297,6 +297,7 @@ def userMatches_record(user):
     users_wardsKilled = []
     users_trolling = []
     playing_times = []
+    matches_timestamp = []
 
     for matchId in match_list:
         match_record = requests.get(
@@ -352,6 +353,9 @@ def userMatches_record(user):
             f'https://asia.api.riotgames.com/lol/match/v5/matches/{matchId}/timeline', headers=headers).json()['info']['frames'][-1]['timestamp']
         playing_time = playingTime(time_stamp)
 
+        match_timestamp = date_rocord(
+            match_record['info']['gameStartTimestamp'])
+
         users_champion.append(user_champion)
         all_champions.append(champion_list)
         users_kda.append(user_kda)
@@ -369,6 +373,7 @@ def userMatches_record(user):
         users_wardsKilled.append(user_wardsKilled)
         users_trolling.append(user_trolling)
         playing_times.append(playing_time)
+        matches_timestamp.append(match_timestamp)
 
     result = {
         'champion': users_champion,
@@ -386,6 +391,7 @@ def userMatches_record(user):
         'result_items': users_items,
         'ornament': users_ornament,
         'playingTime': playing_times,
+        'gameStartTimestamp': matches_timestamp,
         'trolling': users_trolling,
         'result': users_win
     }

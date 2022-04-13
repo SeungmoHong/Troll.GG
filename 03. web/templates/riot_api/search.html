@@ -62,6 +62,7 @@
                     <td>아이템</td>
                     <td>레벨/골드/cs</td>
                     <td>와드관여</td>
+                    <td>날짜</td>
                 </tr>
             </thead>
             {% for i in range(30) %}
@@ -131,6 +132,7 @@
                     일반와드 설치 : {{matches_info['wardsPlaced'][i]}} <br>
                     와드 제거 : {{matches_info['wardsKilled'][i]}}
                 </td>
+                <td><small>{{matches_info['gameStartTimestamp'][i]}}</small></td>
             </tr>
             {% endfor %}
         </table>

@@ -128,9 +128,11 @@
                     cs: <strong>{{matches_info['cs'][i]}}</strong>
                 </td>
                 <td style="font-size: 12px;">
-                    제어와드 구매 : {{matches_info['visionWardsBoughtInGame'][i]}} <br>
-                    일반와드 설치 : {{matches_info['wardsPlaced'][i]}} <br>
-                    와드 제거 : {{matches_info['wardsKilled'][i]}}
+                    <small>
+                        제어와드 구매 : {{matches_info['visionWardsBoughtInGame'][i]}} <br>
+                        일반와드 설치 : {{matches_info['wardsPlaced'][i]}} <br>
+                        와드 제거 : {{matches_info['wardsKilled'][i]}}
+                    </small>
                 </td>
                 <td><small>{{matches_info['gameStartTimestamp'][i]}}</small></td>
             </tr>

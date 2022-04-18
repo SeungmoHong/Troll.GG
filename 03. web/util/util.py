@@ -374,12 +374,28 @@ def userMatches_record(user):
         users_trolling.append(user_trolling)
         playing_times.append(playing_time)
         matches_timestamp.append(match_timestamp)
-
+    # 포지션 한국어로
+    kor_usersLane = []
+    for lane in users_lane:
+        if lane == 'TOP':
+            kor_lane = '탑'
+        elif lane == 'JUNGLE':
+            kor_lane = '정글'
+        elif lane == 'MIDDLE':
+            kor_lane = '미드'
+        elif lane == 'BOTTOM':
+            kor_lane = '원딜'
+        elif lane == 'UTILITY':
+            kor_lane = '서포터'
+        else:
+            kor_lane = lane
+        kor_usersLane.append(kor_lane)
     result = {
         'champion': users_champion,
         'all_champions': all_champions,
         'spell': users_spell,
         'runes': users_runes,
+        'kor_lane': kor_usersLane,
         'lane': users_lane,
         'gold': users_gold,
         'level': users_level,

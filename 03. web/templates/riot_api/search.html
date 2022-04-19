@@ -13,7 +13,7 @@
 </script>
 {% endblock %}
 {% block subtitle %}
-<strong>검색 결과</strong>
+<strong>솔로랭크 전적 검색 결과</strong>
 {% endblock %}
 {% block content %}
 <div class="row">
@@ -39,10 +39,6 @@
                     최근 30전<br>
                     {{recentHistory[0]}}승 {{recentHistory[1]}}패 ({{recentHistory[2]}}%) <br>
                     최근 {{recentHistory[3]}}연{{matches_info['result'][0]}}중
-                </td>
-                <td class="col-2">
-                    최근트롤링 <br>
-                    {{recentHistory[4]}}%
                 </td>
             </tr>
         </table>

@@ -75,12 +75,6 @@ def search():
             winning_rate = round(matches_info['result'].count(
                 '승') / len(matches_info['result']) * 100, 2)
 
-        if matches_info['trolling'].count(True) == 0:
-            trolling = 0
-        else:
-            trolling = round(matches_info['trolling'].count(
-                True) / len(matches_info['trolling']) * 100, 2)
-
         win_consecutive = 0
         for recentData in matches_info['result']:
             if matches_info['result'][0] == recentData:
@@ -89,7 +83,7 @@ def search():
                 break
 
         recentHistory = [matches_info['result'].count('승'), matches_info['result'].count(
-            '패'), winning_rate, win_consecutive, trolling]
+            '패'), winning_rate, win_consecutive]
 
         return render_template('riot_api/search.html', menu=menu, version=version,
                                result=result, tier_img=tier_img, matches_info=matches_info, url_list=url_list, img_url=img_url, recentHistory=recentHistory,

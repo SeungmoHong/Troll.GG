@@ -99,7 +99,6 @@ def new_datas():  # 새버전의 데이터 불러오기(챔피언, 아이템, �
         'gold': gold_list,
         'tags': tags_list,
     })
-
     spell_names = []
     spell_descriptions = []
     spell_keys = []
@@ -122,7 +121,6 @@ def new_datas():  # 새버전의 데이터 불러오기(챔피언, 아이템, �
         'key': spell_keys,
         'eng': spells
     })
-
     name_list, key_list = [], []
     for i in range(5):
         rune_name = rune_data[i]['name']
@@ -146,7 +144,6 @@ def new_datas():  # 새버전의 데이터 불러오기(챔피언, 아이템, �
         'name': name_list,
         'key': key_list,
     })
-
     champion_df.to_csv('../00. data/champions.csv')
     item_df.to_csv('../00. data/items.csv')
     spell_df.to_csv('../00. data/spell.csv')
@@ -298,7 +295,7 @@ def userMatches_record(user):
     users_trolling = []
     playing_times = []
     matches_timestamp = []
-
+    match_results = []
     for matchId in match_list:
         match_record = requests.get(
             'https://asia.api.riotgames.com/lol/match/v5/matches/' + str(matchId), headers=headers).json()
@@ -344,10 +341,6 @@ def userMatches_record(user):
         user_visionWardsBoughtInGame = user_data['visionWardsBoughtInGame']
         user_wardsPlaced = user_data['wardsPlaced']
         user_wardsKilled = user_data['wardsKilled']
-        if user_items.count(0) == 6 or user_items.count(user_items[0]) == 6:
-            user_trolling = True
-        else:
-            user_trolling = False
 
         time_stamp = requests.get(
             f'https://asia.api.riotgames.com/lol/match/v5/matches/{matchId}/timeline', headers=headers).json()['info']['frames'][-1]['timestamp']
@@ -371,9 +364,30 @@ def userMatches_record(user):
         users_visionWardsBoughtInGame.append(user_visionWardsBoughtInGame)
         users_wardsPlaced.append(user_wardsPlaced)
         users_wardsKilled.append(user_wardsKilled)
-        users_trolling.append(user_trolling)
         playing_times.append(playing_time)
         matches_timestamp.append(match_timestamp)
+
+        # 상세정보
+
+        match_result = {
+            'all_champions': all_champions,
+            'summonerNames': [match_record['info']['participants'][i]['summonerName'] for i in range(10)],
+            'spells': [[match_record['info']['participants'][i]['summoner1Id'], match_record['info']['participants'][i]['summoner2Id']] for i in range(10)],
+            'kda': [str(match_record['info']['participants'][i]['kills']) + '/' +
+                    str(match_record['info']['participants'][i]['deaths']) + '/' + str(match_record['info']['participants'][i]['assists']) for i in range(10)],
+            'items': [[match_record['info']['participants'][i][f'item{k}'] for k in range(6)] for i in range(10)],
+            'ornaments': [match_record['info']['participants'][i]['item6'] for i in range(10)],
+            'runes': [[match_record['info']['participants'][i]['perks']['styles'][0]['style'],
+                       match_record['info']['participants'][i]['perks']['styles'][1]['style']] for i in range(10)],
+            'level': [match_record['info']['participants'][i]['champLevel'] for i in range(10)],
+            'gold': [match_record['info']['participants'][i]['goldEarned'] for i in range(10)],
+            'cs': [match_record['info']['participants'][i]['totalMinionsKilled'] for i in range(10)],
+            'visionWardsBoughtInGame': [match_record['info']['participants'][i]['visionWardsBoughtInGame'] for i in range(10)],
+            'wardsPlaced': [match_record['info']['participants'][i]['wardsPlaced'] for i in range(10)],
+            'user_wardsKilled': [match_record['info']['participants'][i]['wardsKilled'] for i in range(10)]
+        }
+        match_results.append(match_result)
+
     # 포지션 한국어로
     kor_usersLane = []
     for lane in users_lane:
@@ -408,11 +422,9 @@ def userMatches_record(user):
         'ornament': users_ornament,
         'playingTime': playing_times,
         'gameStartTimestamp': matches_timestamp,
-        'trolling': users_trolling,
-        'result': users_win
+        'result': users_win,
+        'match_results': match_results
     }
-
-    # df['trolling'] = df.apply(lambda r : True if str(r.result_items) == '' or str(r.result_items.split(', ')[0]) == str(r.result_items.split(', ')[-1]) else False, axis=1)
 
     return result
 

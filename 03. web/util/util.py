@@ -423,6 +423,7 @@ def userMatches_record(user):
         'playingTime': playing_times,
         'gameStartTimestamp': matches_timestamp,
         'result': users_win,
+        'match_Id': match_list,
         'match_results': match_results
     }
 

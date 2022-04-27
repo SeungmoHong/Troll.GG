@@ -11,17 +11,6 @@
         $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
-<script>
-    function openCloseToc() {
-        if (document.getElementById('toc-content').style.display === 'block') {
-            document.getElementById('toc-content').style.display = 'none';
-            document.getElementById('toc-toggle').textContent = '+';
-        } else {
-            document.getElementById('toc-content').style.display = 'block';
-            document.getElementById('toc-toggle').textContent = '-';
-        }
-    }
-</script>
 {% endblock %}
 {% block subtitle %}
 <strong>솔로랭크 전적 검색 결과</strong>
@@ -70,7 +59,6 @@
                     <td>레벨/골드/cs</td>
                     <td>와드관여</td>
                     <td>날짜</td>
-                    <td>상세정보</td>
                 </tr>
             </thead>
             {% for i in range(30) %}
@@ -143,39 +131,6 @@
                     </small>
                 </td>
                 <td><small>{{matches_info['gameStartTimestamp'][i]}}</small></td>
-                <td id="content">
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>챔피언</td>
-                                <td>닉네임</td>
-                                <td>스펠</td>
-                                <td>레벨</td>
-                                <td>KDA</td>
-                                <td>아이템</td>
-                                <td>골드</td>
-                                <td>cs</td>
-                                <td>와드</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for j in range(10) %}
-                            <tr>
-                                <td>{{matches_info['match_results'][i]['all_champions'][j]}}</td>
-                                <td>{{matches_info['match_results'][i]['summonerNames'][j]}}</td>
-                                <td>{{matches_info['match_results'][i]['spells'][j][0]}},{{matches_info['match_results'][i]['spells'][j][0]}}
-                                </td>
-                                <td>{{matches_info['match_results'][i]['level'][j]}}</td>
-                                <td>{{matches_info['match_results'][i]['kda'][j]}}</td>
-                                <td>아이템</td>
-                                <td>{{matches_info['match_results'][i]['gold'][j]}}</td>
-                                <td>{{matches_info['match_results'][i]['cs'][j]}}</td>
-                                <td>와드</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </td>
             </tr>
             {% endfor %}
         </table>

@@ -11,6 +11,20 @@
         $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
+<style>
+    #toc-content {
+        display: none;
+    }
+
+    #toc-toggle {
+        cursor: pointer;
+        color: #2962ff;
+    }
+
+    #toc-toggle:hover {
+        text-decoration: underline;
+    }
+</style>
 <script>
     function openCloseToc() {
         if (document.getElementById('toc-content').style.display === 'block') {
@@ -143,7 +157,10 @@
                     </small>
                 </td>
                 <td><small>{{matches_info['gameStartTimestamp'][i]}}</small></td>
-                <td id="content">
+                <td>
+                    [<span id="toc-toggle" onclick="openCloseToc()">+</span>]
+            <tr id="toc-content">
+                <td>
                     <table>
                         <thead>
                             <tr>
@@ -176,6 +193,8 @@
                         </tbody>
                     </table>
                 </td>
+            </tr>
+            </td>
             </tr>
             {% endfor %}
         </table>

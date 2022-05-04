@@ -6,39 +6,7 @@
         text-align: center;
     }
 </style>
-<style>
-    .answer {
-        display: none;
-        padding-bottom: 30px;
-    }
 
-    #faq-title {
-        font-size: 25px;
-    }
-
-    .faq-content {
-        border-bottom: 1px solid #e0e0e0;
-    }
-
-    .result {
-        font-size: 19px;
-        padding: 30px 0;
-        cursor: pointer;
-        border: none;
-        outline: none;
-        background: none;
-        width: 100%;
-        text-align: left;
-    }
-
-    .result:hover {
-        color: #2962ff;
-    }
-
-    [id$="-toggle"] {
-        margin-right: 15px;
-    }
-</style>
 
 {% endblock %}
 {% block subtitle %}
@@ -88,7 +56,6 @@
                     <td>레벨/골드/cs</td>
                     <td>와드관여</td>
                     <td>날짜</td>
-                    <td>상세정보</td>
                 </tr>
             </thead>
             {% for i in range(30) %}
@@ -161,42 +128,6 @@
                     </small>
                 </td>
                 <td><small>{{matches_info['gameStartTimestamp'][i]}}</small></td>
-                <td>
-                    <button class="result" id="res-{{i}}"><span id="res-{{i}}-toggle">+</span></button>
-                    <div div class="answer" id="tab-{{i}}">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>챔피언</td>
-                                    <td>닉네임</td>
-                                    <td>스펠</td>
-                                    <td>레벨</td>
-                                    <td>KDA</td>
-                                    <td>아이템</td>
-                                    <td>골드</td>
-                                    <td>cs</td>
-                                    <td>와드</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for j in range(10) %}
-                                <tr>
-                                    <td>{{matches_info['match_results'][i]['all_champions'][j]}}</td>
-                                    <td>{{matches_info['match_results'][i]['summonerNames'][j]}}</td>
-                                    <td>{{matches_info['match_results'][i]['spells'][j][0]}},{{matches_info['match_results'][i]['spells'][j][0]}}
-                                    </td>
-                                    <td>{{matches_info['match_results'][i]['level'][j]}}</td>
-                                    <td>{{matches_info['match_results'][i]['kda'][j]}}</td>
-                                    <td>아이템</td>
-                                    <td>{{matches_info['match_results'][i]['gold'][j]}}</td>
-                                    <td>{{matches_info['match_results'][i]['cs'][j]}}</td>
-                                    <td>와드</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
             </tr>
             {% endfor %}
         </table>
@@ -205,21 +136,5 @@
 
 {% endblock %}
 {% block additional_body %}
-<script>
-    let items = document.querySelectorAll('.result');
 
-    function openCloseAnswer() {
-        let answerId = this.id.replace('res', 'tab');
-
-        if (document.getElementById(answerId).style.display === 'block') {
-            document.getElementById(answerId).style.display = 'none';
-            document.getElementById(this.id + '-toggle').textContent = '+';
-        } else {
-            document.getElementById(answerId).style.display = 'block';
-            document.getElementById(this.id + '-toggle').textContent = '-';
-        }
-    }
-
-    items.forEach(item => item.addEventListener('click', openCloseAnswer));
-</script>
 {% endblock %}

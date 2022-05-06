@@ -292,10 +292,9 @@ def userMatches_record(user):
     users_visionWardsBoughtInGame = []
     users_wardsPlaced = []
     users_wardsKilled = []
-    users_trolling = []
     playing_times = []
     matches_timestamp = []
-    match_results = []
+
     for matchId in match_list:
         match_record = requests.get(
             'https://asia.api.riotgames.com/lol/match/v5/matches/' + str(matchId), headers=headers).json()
@@ -369,24 +368,24 @@ def userMatches_record(user):
 
         # 상세정보
 
-        match_result = {
-            'all_champions': all_champions,
-            'summonerNames': [match_record['info']['participants'][i]['summonerName'] for i in range(10)],
-            'spells': [[match_record['info']['participants'][i]['summoner1Id'], match_record['info']['participants'][i]['summoner2Id']] for i in range(10)],
-            'kda': [str(match_record['info']['participants'][i]['kills']) + '/' +
-                    str(match_record['info']['participants'][i]['deaths']) + '/' + str(match_record['info']['participants'][i]['assists']) for i in range(10)],
-            'items': [[match_record['info']['participants'][i][f'item{k}'] for k in range(6)] for i in range(10)],
-            'ornaments': [match_record['info']['participants'][i]['item6'] for i in range(10)],
-            'runes': [[match_record['info']['participants'][i]['perks']['styles'][0]['style'],
-                       match_record['info']['participants'][i]['perks']['styles'][1]['style']] for i in range(10)],
-            'level': [match_record['info']['participants'][i]['champLevel'] for i in range(10)],
-            'gold': [match_record['info']['participants'][i]['goldEarned'] for i in range(10)],
-            'cs': [match_record['info']['participants'][i]['totalMinionsKilled'] for i in range(10)],
-            'visionWardsBoughtInGame': [match_record['info']['participants'][i]['visionWardsBoughtInGame'] for i in range(10)],
-            'wardsPlaced': [match_record['info']['participants'][i]['wardsPlaced'] for i in range(10)],
-            'user_wardsKilled': [match_record['info']['participants'][i]['wardsKilled'] for i in range(10)]
-        }
-        match_results.append(match_result)
+        # match_result = {
+        #     'all_championsId': [match_record['info']['participants'][i]['championId'] for i in range(10)],
+        #     'summonerNames': [match_record['info']['participants'][i]['summonerName'] for i in range(10)],
+        #     'spells': [[match_record['info']['participants'][i]['summoner1Id'], match_record['info']['participants'][i]['summoner2Id']] for i in range(10)],
+        #     'kda': [str(match_record['info']['participants'][i]['kills']) + '/' +
+        #             str(match_record['info']['participants'][i]['deaths']) + '/' + str(match_record['info']['participants'][i]['assists']) for i in range(10)],
+        #     'items': [[match_record['info']['participants'][i][f'item{k}'] for k in range(6)] for i in range(10)],
+        #     'ornaments': [match_record['info']['participants'][i]['item6'] for i in range(10)],
+        #     'runes': [[match_record['info']['participants'][i]['perks']['styles'][0]['style'],
+        #                match_record['info']['participants'][i]['perks']['styles'][1]['style']] for i in range(10)],
+        #     'level': [match_record['info']['participants'][i]['champLevel'] for i in range(10)],
+        #     'gold': [match_record['info']['participants'][i]['goldEarned'] for i in range(10)],
+        #     'cs': [match_record['info']['participants'][i]['totalMinionsKilled'] for i in range(10)],
+        #     'visionWardsBoughtInGame': [match_record['info']['participants'][i]['visionWardsBoughtInGame'] for i in range(10)],
+        #     'wardsPlaced': [match_record['info']['participants'][i]['wardsPlaced'] for i in range(10)],
+        #     'user_wardsKilled': [match_record['info']['participants'][i]['wardsKilled'] for i in range(10)]
+        # }
+        # match_results.append(match_result)
 
     # 포지션 한국어로
     kor_usersLane = []
@@ -424,7 +423,6 @@ def userMatches_record(user):
         'gameStartTimestamp': matches_timestamp,
         'result': users_win,
         'match_Id': match_list,
-        'match_results': match_results
     }
 
     return result

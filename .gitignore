@@ -4,12 +4,9 @@ datas/
 test.ipynb
 test.py
 test.html
-tmpData/
 test/
 logs/
-opgg_er/
 fontawesome-free-5.15.1-web/
-04. torlling/
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
 __pycache__/

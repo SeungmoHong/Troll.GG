@@ -366,27 +366,6 @@ def userMatches_record(user):
         playing_times.append(playing_time)
         matches_timestamp.append(match_timestamp)
 
-        # 상세정보
-
-        # match_result = {
-        #     'all_championsId': [match_record['info']['participants'][i]['championId'] for i in range(10)],
-        #     'summonerNames': [match_record['info']['participants'][i]['summonerName'] for i in range(10)],
-        #     'spells': [[match_record['info']['participants'][i]['summoner1Id'], match_record['info']['participants'][i]['summoner2Id']] for i in range(10)],
-        #     'kda': [str(match_record['info']['participants'][i]['kills']) + '/' +
-        #             str(match_record['info']['participants'][i]['deaths']) + '/' + str(match_record['info']['participants'][i]['assists']) for i in range(10)],
-        #     'items': [[match_record['info']['participants'][i][f'item{k}'] for k in range(6)] for i in range(10)],
-        #     'ornaments': [match_record['info']['participants'][i]['item6'] for i in range(10)],
-        #     'runes': [[match_record['info']['participants'][i]['perks']['styles'][0]['style'],
-        #                match_record['info']['participants'][i]['perks']['styles'][1]['style']] for i in range(10)],
-        #     'level': [match_record['info']['participants'][i]['champLevel'] for i in range(10)],
-        #     'gold': [match_record['info']['participants'][i]['goldEarned'] for i in range(10)],
-        #     'cs': [match_record['info']['participants'][i]['totalMinionsKilled'] for i in range(10)],
-        #     'visionWardsBoughtInGame': [match_record['info']['participants'][i]['visionWardsBoughtInGame'] for i in range(10)],
-        #     'wardsPlaced': [match_record['info']['participants'][i]['wardsPlaced'] for i in range(10)],
-        #     'user_wardsKilled': [match_record['info']['participants'][i]['wardsKilled'] for i in range(10)]
-        # }
-        # match_results.append(match_result)
-
     # 포지션 한국어로
     kor_usersLane = []
     for lane in users_lane:
@@ -441,9 +420,6 @@ def recentHistory(df):
                        True] / len(df) * 100)) + '%'
     recentHistory = f'최근승률 : {winningRate}, 최근 가장 많이 사용한 챔피언 : {mostChampion}, 최근 주 라인 : {mostLane}, 최근 트롤링 빈도 : {trolling}'
     return recentHistory
-
-
-# OP.GG 크롤링 ///
 
 
 # 챔피언의 영문이름을 한글로 바꿔주는 함수

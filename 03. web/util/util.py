@@ -444,7 +444,7 @@ def removeTags(strings):
                      0).strip().replace('[', '').replace(']', '')
     return strings
 
-# OP.GG 아이템이미지의 키를 구하는 함수 + 룬
+#아이템이미지의 키를 구하는 함수 + 룬
 
 
 def findItem(itemLink):
@@ -453,7 +453,7 @@ def findItem(itemLink):
 
     return items
 
-# OP.GG 스킬이미지의 영문 이름을 구하는 함수
+#스킬이미지의 영문 이름을 구하는 함수
 
 
 def findSkill(link):
@@ -463,146 +463,146 @@ def findSkill(link):
 
 
 # 라인별 티어리스트를 가져오는 함수
-def tier_list():
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
-    url = 'https://www.op.gg/champion/statistics'
-    html = requests.get(url, headers=headers).text
-    soup = BeautifulSoup(html, 'html.parser')
-    lanes = ['TOP', 'JUNGLE', 'MID', 'ADC', 'SUPPORT']
-    champion_dict = {}
-    winRate_dict = {}
-    pickRate_dict = {}
-    tier_dict = {}
-    for lane in lanes:
-        tmp = soup.find(attrs={'class': f'tabItem champion-trend-tier-{lane}'})
-        champion_tags = tmp.select('.champion-index-table__name')
-        champion_list = removeTags(champion_tags).replace("'", '')
-        champion_list = champion_list.split(', ')
-        kor_champions = [translation_champion(
-            champ) for champ in champion_list]
+# def tier_list():
+#     headers = {
+#         'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
+#     url = 'https://www.op.gg/champion/statistics'
+#     html = requests.get(url, headers=headers).text
+#     soup = BeautifulSoup(html, 'html.parser')
+#     lanes = ['TOP', 'JUNGLE', 'MID', 'ADC', 'SUPPORT']
+#     champion_dict = {}
+#     winRate_dict = {}
+#     pickRate_dict = {}
+#     tier_dict = {}
+#     for lane in lanes:
+#         tmp = soup.find(attrs={'class': f'tabItem champion-trend-tier-{lane}'})
+#         champion_tags = tmp.select('.champion-index-table__name')
+#         champion_list = removeTags(champion_tags).replace("'", '')
+#         champion_list = champion_list.split(', ')
+#         kor_champions = [translation_champion(
+#             champ) for champ in champion_list]
 
-        winRate_list = []
-        pickRate_list = []
-        tiers_list = []
-        for i in range(len(tmp.find_all('tr'))):
-            tags = tmp.find_all('tr')[i].select(
-                '.champion-index-table__cell.champion-index-table__cell--value')
-            winRate = removeTags(tags).split(', ')[0]
-            pickRate = removeTags(tags).split(', ')[1]
-            tier = tags[2].find('img').attrs['src'][-5]
-            winRate_list.append(winRate)
-            pickRate_list.append(pickRate)
-            tiers_list.append(tier)
+#         winRate_list = []
+#         pickRate_list = []
+#         tiers_list = []
+#         for i in range(len(tmp.find_all('tr'))):
+#             tags = tmp.find_all('tr')[i].select(
+#                 '.champion-index-table__cell.champion-index-table__cell--value')
+#             winRate = removeTags(tags).split(', ')[0]
+#             pickRate = removeTags(tags).split(', ')[1]
+#             tier = tags[2].find('img').attrs['src'][-5]
+#             winRate_list.append(winRate)
+#             pickRate_list.append(pickRate)
+#             tiers_list.append(tier)
 
-        champion_dict[lane] = kor_champions
-        winRate_dict[lane] = winRate_list
-        pickRate_dict[lane] = pickRate_list
-        tier_dict[lane] = tiers_list
-    return champion_dict, winRate_dict, pickRate_dict, tier_dict
-
-
-def champion_statistics(lane, champion):
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
-    url = f'https://www.op.gg/champion/{champion}/statistics/{lane}'
-    html = requests.get(url, headers=headers).text
-    soup = BeautifulSoup(html, 'html.parser')
-    skillSeq = []
-    for i in range(3):
-        skill = soup.select(
-            'ul.champion-stats__list')[2].find_all('span')[i].text
-        skillSeq.append(skill)
-    trend_items = []
-    if champion == 'Cassiopeia':  # 신발이 없는 챔피언
-        item_num = 7
-    else:
-        item_num = 10
-    for i in range(item_num):
-        tmp = soup.select(
-            'td.champion-overview__data.champion-overview__border.champion-overview__border--first')[i].find_all('img')
-        items = ','.join(findItem(tmp))
-        items = items.split(',')
-        # items = [searchItem(int(key)) for key in keys]
-        # items = ', '.join(items)
-        pickRate = soup.select(
-            '.champion-overview__stats.champion-overview__stats--pick.champion-overview__border')[i].find('strong').text
-        pickTotal = soup.select(
-            '.champion-overview__stats.champion-overview__stats--pick.champion-overview__border')[i].find('span').text
-        winRate = soup.select(
-            '.champion-overview__stats.champion-overview__stats--win.champion-overview__border')[i].find('strong').text
-
-        trend_items.append([items, pickRate, pickTotal, winRate])
-
-    data_dict = {
-        'img': soup.select_one('.champion-stats-header-info__image').find('img').attrs['src'],
-        'tier': soup.select_one('.champion-stats-header-info__tier').find('b').text[-1],
-        'win_rank': str(soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text).split('/'),
-        'win_rate': soup.select('.champion-stats-trend-rate')[0].text.replace('\n\t\t\t', '').replace('\n\t\t', ''),
-        'pick_rank': str(soup.select('.champion-stats-trend-rank')[1].find('b').text + soup.select('.champion-stats-trend-rank')[1].find('span').text).split('/'),
-        'pick_rate': soup.select('.champion-stats-trend-rate')[1].text.replace('\n\t\t\t', '').replace('\n\t\t', ''),
-        'trend_spell1': [findSkill(soup.select('ul.champion-stats__list')[0].find_all('img')[0]),
-                         findSkill(soup.select(
-                             'ul.champion-stats__list')[0].find_all('img')[1]),
-                         soup.select(
-                             '.champion-overview__stats.champion-overview__stats--pick')[0].find('strong').text,  # 픽률
-                         soup.select('.champion-overview__stats.champion-overview__stats--pick')[
-            0].find('span').text,   # 총 표본수
-            soup.select('.champion-overview__stats.champion-overview__stats--win')[0].find('strong').text],  # 승률
-        'trend_spell2': [findSkill(soup.select('ul.champion-stats__list')[1].find_all('img')[0]),
-                         findSkill(soup.select('ul.champion-stats__list')
-                                   [1].find_all('img')[1]),
-                         soup.select(
-                             '.champion-overview__stats.champion-overview__stats--pick')[1].find('strong').text,
-                         soup.select(
-            '.champion-overview__stats.champion-overview__stats--pick')[1].find('span').text,
-            soup.select('.champion-overview__stats.champion-overview__stats--win')[1].find('strong').text],
-        'trend_skill': [skillSeq,
-                        soup.select(
-                            '.champion-overview__stats.champion-overview__stats--pick')[2].find('strong').text,
-                        soup.select(
-                            '.champion-overview__stats.champion-overview__stats--pick')[2].find('span').text,
-                        soup.select('.champion-overview__stats.champion-overview__stats--win')[2].find('strong').text],
-        'trend_items': trend_items,
-        'counters': [translationChampion2(translation_champion(champ.text.replace('\n', '').replace('\t\t\t\t\t\t\t\t\t', '').replace("'", ''))) for champ in soup.select('.champion-stats-header-matchup__table__champion')],
-        'counters_rate': [rate.find('b').text for rate in soup.select('.champion-stats-header-matchup__table__winrate')]
-    }
-
-    return data_dict
+#         champion_dict[lane] = kor_champions
+#         winRate_dict[lane] = winRate_list
+#         pickRate_dict[lane] = pickRate_list
+#         tier_dict[lane] = tiers_list
+#     return champion_dict, winRate_dict, pickRate_dict, tier_dict
 
 
-def counter_matchup(lane, champion):
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
-    url = f'https://www.op.gg/champion/{champion}/statistics/{lane}/matchup'
-    html = requests.get(url, headers=headers).text
-    soup = BeautifulSoup(html, 'html.parser')
-    champ_len = len(soup.select('.champion-matchup-list__champion'))
-    enemy_champions = []
-    win_rates = []
-    totalPlay = []
-    totalPlay_rate = []
-    for i in range(champ_len):
-        champ = soup.select(
-            '.champion-matchup-list__champion')[i].find('span').text
-        winRate = soup.select(
-            '.champion-matchup-list__champion')[i].find_all('span')[1].string
-        winRate = [item.strip() for item in winRate if str(item)]
-        winRate = ''.join(winRate)
-        play_rate = soup.select(
-            '.champion-matchup-list__totalplayed')[i].find('span').text
-        play_num = soup.select(
-            '.champion-matchup-list__totalplayed')[i].find('small').text
-        enemy_champions.append(
-            (translationChampion2(translation_champion(champ.replace('\n', '').replace('\t\t\t\t\t\t\t\t\t', '').replace("'", '')))))
-        win_rates.append(winRate)
-        totalPlay.append(play_num)
-        totalPlay_rate.append(play_rate)
-    data_dict = {
-        'enemy_champions': enemy_champions,
-        'win_rates': win_rates,
-        'totalPlay': totalPlay,
-        'totalPlay_rate': totalPlay_rate
-    }
+# def champion_statistics(lane, champion):
+#     headers = {
+#         'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
+#     url = f'https://www.op.gg/champion/{champion}/statistics/{lane}'
+#     html = requests.get(url, headers=headers).text
+#     soup = BeautifulSoup(html, 'html.parser')
+#     skillSeq = []
+#     for i in range(3):
+#         skill = soup.select(
+#             'ul.champion-stats__list')[2].find_all('span')[i].text
+#         skillSeq.append(skill)
+#     trend_items = []
+#     if champion == 'Cassiopeia':  # 신발이 없는 챔피언
+#         item_num = 7
+#     else:
+#         item_num = 10
+#     for i in range(item_num):
+#         tmp = soup.select(
+#             'td.champion-overview__data.champion-overview__border.champion-overview__border--first')[i].find_all('img')
+#         items = ','.join(findItem(tmp))
+#         items = items.split(',')
+#         # items = [searchItem(int(key)) for key in keys]
+#         # items = ', '.join(items)
+#         pickRate = soup.select(
+#             '.champion-overview__stats.champion-overview__stats--pick.champion-overview__border')[i].find('strong').text
+#         pickTotal = soup.select(
+#             '.champion-overview__stats.champion-overview__stats--pick.champion-overview__border')[i].find('span').text
+#         winRate = soup.select(
+#             '.champion-overview__stats.champion-overview__stats--win.champion-overview__border')[i].find('strong').text
 
-    return data_dict
+#         trend_items.append([items, pickRate, pickTotal, winRate])
+
+#     data_dict = {
+#         'img': soup.select_one('.champion-stats-header-info__image').find('img').attrs['src'],
+#         'tier': soup.select_one('.champion-stats-header-info__tier').find('b').text[-1],
+#         'win_rank': str(soup.select('.champion-stats-trend-rank')[0].find('b').text + soup.select('.champion-stats-trend-rank')[0].find('span').text).split('/'),
+#         'win_rate': soup.select('.champion-stats-trend-rate')[0].text.replace('\n\t\t\t', '').replace('\n\t\t', ''),
+#         'pick_rank': str(soup.select('.champion-stats-trend-rank')[1].find('b').text + soup.select('.champion-stats-trend-rank')[1].find('span').text).split('/'),
+#         'pick_rate': soup.select('.champion-stats-trend-rate')[1].text.replace('\n\t\t\t', '').replace('\n\t\t', ''),
+#         'trend_spell1': [findSkill(soup.select('ul.champion-stats__list')[0].find_all('img')[0]),
+#                          findSkill(soup.select(
+#                              'ul.champion-stats__list')[0].find_all('img')[1]),
+#                          soup.select(
+#                              '.champion-overview__stats.champion-overview__stats--pick')[0].find('strong').text,  # 픽률
+#                          soup.select('.champion-overview__stats.champion-overview__stats--pick')[
+#             0].find('span').text,   # 총 표본수
+#             soup.select('.champion-overview__stats.champion-overview__stats--win')[0].find('strong').text],  # 승률
+#         'trend_spell2': [findSkill(soup.select('ul.champion-stats__list')[1].find_all('img')[0]),
+#                          findSkill(soup.select('ul.champion-stats__list')
+#                                    [1].find_all('img')[1]),
+#                          soup.select(
+#                              '.champion-overview__stats.champion-overview__stats--pick')[1].find('strong').text,
+#                          soup.select(
+#             '.champion-overview__stats.champion-overview__stats--pick')[1].find('span').text,
+#             soup.select('.champion-overview__stats.champion-overview__stats--win')[1].find('strong').text],
+#         'trend_skill': [skillSeq,
+#                         soup.select(
+#                             '.champion-overview__stats.champion-overview__stats--pick')[2].find('strong').text,
+#                         soup.select(
+#                             '.champion-overview__stats.champion-overview__stats--pick')[2].find('span').text,
+#                         soup.select('.champion-overview__stats.champion-overview__stats--win')[2].find('strong').text],
+#         'trend_items': trend_items,
+#         'counters': [translationChampion2(translation_champion(champ.text.replace('\n', '').replace('\t\t\t\t\t\t\t\t\t', '').replace("'", ''))) for champ in soup.select('.champion-stats-header-matchup__table__champion')],
+#         'counters_rate': [rate.find('b').text for rate in soup.select('.champion-stats-header-matchup__table__winrate')]
+#     }
+
+#     return data_dict
+
+
+# def counter_matchup(lane, champion):
+#     headers = {
+#         'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
+#     url = f'https://www.op.gg/champion/{champion}/statistics/{lane}/matchup'
+#     html = requests.get(url, headers=headers).text
+#     soup = BeautifulSoup(html, 'html.parser')
+#     champ_len = len(soup.select('.champion-matchup-list__champion'))
+#     enemy_champions = []
+#     win_rates = []
+#     totalPlay = []
+#     totalPlay_rate = []
+#     for i in range(champ_len):
+#         champ = soup.select(
+#             '.champion-matchup-list__champion')[i].find('span').text
+#         winRate = soup.select(
+#             '.champion-matchup-list__champion')[i].find_all('span')[1].string
+#         winRate = [item.strip() for item in winRate if str(item)]
+#         winRate = ''.join(winRate)
+#         play_rate = soup.select(
+#             '.champion-matchup-list__totalplayed')[i].find('span').text
+#         play_num = soup.select(
+#             '.champion-matchup-list__totalplayed')[i].find('small').text
+#         enemy_champions.append(
+#             (translationChampion2(translation_champion(champ.replace('\n', '').replace('\t\t\t\t\t\t\t\t\t', '').replace("'", '')))))
+#         win_rates.append(winRate)
+#         totalPlay.append(play_num)
+#         totalPlay_rate.append(play_rate)
+#     data_dict = {
+#         'enemy_champions': enemy_champions,
+#         'win_rates': win_rates,
+#         'totalPlay': totalPlay,
+#         'totalPlay_rate': totalPlay_rate
+#     }
+
+#     return data_dict

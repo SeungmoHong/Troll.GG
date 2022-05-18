@@ -43,7 +43,7 @@ def check_version():
 version = check_version()
 
 
-def new_datas():  # 새버전의 데이터 불러오기(챔피언, 아이템, 스펠, 룬)
+def new_datas():  # 새로운 버전의 데이터 불러오기(챔피언, 아이템, 스펠, 룬)
     # 챔피언 데이터
     response = urlopen(
         f"http://ddragon.leagueoflegends.com/cdn/{version}/data/ko_KR/champion.json").read().decode('utf-8')
@@ -280,6 +280,7 @@ def userMatches_record(user):
     users_champion = []
     all_champions = []
     users_kda = []
+    users_kdaRate = []
     users_items = []
     users_spell = []
     users_runes = []
@@ -306,6 +307,11 @@ def userMatches_record(user):
         user_champion = user_data['championName']
         user_kda = str(user_data['kills']) + '/' + \
             str(user_data['deaths']) + '/' + str(user_data['assists'])
+        if user_data['deaths'] == 0:
+            user_kdaRate = 'Perfect'
+        else:
+            user_kdaRate = round((user_data['kills'] +
+                                  user_data['assists']) / user_data['deaths'], 1)
         user_items = []
         for i in range(6):
             itemKey = user_data['item'+str(i)]
@@ -351,6 +357,7 @@ def userMatches_record(user):
         users_champion.append(user_champion)
         all_champions.append(champion_list)
         users_kda.append(user_kda)
+        users_kdaRate.append(user_kdaRate)
         users_items.append(user_items)
         users_ornament.append(user_ornament)
         users_spell.append(user_spell)
@@ -396,6 +403,7 @@ def userMatches_record(user):
         'wardsPlaced': users_wardsPlaced,
         'wardsKilled': users_wardsKilled,
         'kda': users_kda,
+        'kdaRate': users_kdaRate,
         'result_items': users_items,
         'ornament': users_ornament,
         'playingTime': playing_times,
@@ -444,7 +452,7 @@ def removeTags(strings):
                      0).strip().replace('[', '').replace(']', '')
     return strings
 
-#아이템이미지의 키를 구하는 함수 + 룬
+# 아이템이미지의 키를 구하는 함수 + 룬
 
 
 def findItem(itemLink):
@@ -453,7 +461,7 @@ def findItem(itemLink):
 
     return items
 
-#스킬이미지의 영문 이름을 구하는 함수
+# 스킬이미지의 영문 이름을 구하는 함수
 
 
 def findSkill(link):

@@ -67,7 +67,8 @@
                 <td>{{matches_info['result'][i]}} <br>
                     <small>{{matches_info['playingTime'][i]}}</small></td>
                 <td>{{matches_info['kor_lane'][i]}}</td>
-                <td>{{matches_info['kda'][i]}}</td>
+                <td>{{matches_info['kda'][i]}} <br>
+                    <small>평점 {{matches_info['kdaRate'][i]}}</small></td>
                 <td>
                     {% for k in range(10) %}
                     <img data-toggle="tooltip" title="{{kor_all_champions[i][k]}}"

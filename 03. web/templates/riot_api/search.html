@@ -55,7 +55,7 @@
                     <td>아이템</td>
                     <td>레벨/골드/cs</td>
                     <td>와드관여</td>
-                    <td>날짜</td>
+                    <td>날짜/버전</td>
                 </tr>
             </thead>
             {% for i in range(30) %}
@@ -128,7 +128,8 @@
                         와드 제거 : {{matches_info['wardsKilled'][i]}}
                     </small>
                 </td>
-                <td><small>{{matches_info['gameStartTimestamp'][i]}}</small></td>
+                <td><small>{{matches_info['gameStartTimestamp'][i]}}</small><br>
+                    <small>{{matches_info['gameVersion'][i]}}</small></td>
             </tr>
             {% endfor %}
         </table>

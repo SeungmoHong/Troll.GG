@@ -295,10 +295,12 @@ def userMatches_record(user):
     users_wardsKilled = []
     playing_times = []
     matches_timestamp = []
+    gameVersions = []
 
     for matchId in match_list:
         match_record = requests.get(
             'https://asia.api.riotgames.com/lol/match/v5/matches/' + str(matchId), headers=headers).json()
+        gameVersion = match_record['info']['gameVersion'][:4]
         for i in range(10):
             if match_record['info']['participants'][i]['summonerName'] == nickname:
                 userIndex = i
@@ -372,6 +374,7 @@ def userMatches_record(user):
         users_wardsKilled.append(user_wardsKilled)
         playing_times.append(playing_time)
         matches_timestamp.append(match_timestamp)
+        gameVersions.append(gameVersion)
 
     # 포지션 한국어로
     kor_usersLane = []
@@ -410,6 +413,7 @@ def userMatches_record(user):
         'gameStartTimestamp': matches_timestamp,
         'result': users_win,
         'match_Id': match_list,
+        'gameVersion': gameVersions
     }
 
     return result

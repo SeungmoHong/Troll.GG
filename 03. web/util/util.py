@@ -3,8 +3,6 @@ from urllib import parse
 import json
 import pandas as pd
 import re
-import math
-from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import datetime
 

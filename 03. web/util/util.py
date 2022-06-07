@@ -298,7 +298,8 @@ def userMatches_record(user):
     for matchId in match_list:
         match_record = requests.get(
             'https://asia.api.riotgames.com/lol/match/v5/matches/' + str(matchId), headers=headers).json()
-        gameVersion = match_record['info']['gameVersion'][:4]
+        tmp = match_record['info']['gameVersion'].split('.')
+        gameVersion = tmp[0] + '.' + tmp[1]
         for i in range(10):
             if match_record['info']['participants'][i]['summonerName'] == nickname:
                 userIndex = i

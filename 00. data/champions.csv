@@ -12,149 +12,150 @@
 10,아우렐리온 솔,136,Mage,AurelionSol
 11,아지르,268,"Mage, Marksman",Azir
 12,바드,432,"Support, Mage",Bard
-13,블리츠크랭크,53,"Tank, Fighter",Blitzcrank
-14,브랜드,63,Mage,Brand
-15,브라움,201,"Support, Tank",Braum
-16,케이틀린,51,Marksman,Caitlyn
-17,카밀,164,"Fighter, Tank",Camille
-18,카시오페아,69,Mage,Cassiopeia
-19,초가스,31,"Tank, Mage",Chogath
-20,코르키,42,Marksman,Corki
-21,다리우스,122,"Fighter, Tank",Darius
-22,다이애나,131,"Fighter, Mage",Diana
-23,드레이븐,119,Marksman,Draven
-24,문도 박사,36,"Fighter, Tank",DrMundo
-25,에코,245,"Assassin, Fighter",Ekko
-26,엘리스,60,"Mage, Fighter",Elise
-27,이블린,28,"Assassin, Mage",Evelynn
-28,이즈리얼,81,"Marksman, Mage",Ezreal
-29,피들스틱,9,"Mage, Support",Fiddlesticks
-30,피오라,114,"Fighter, Assassin",Fiora
-31,피즈,105,"Assassin, Fighter",Fizz
-32,갈리오,3,"Tank, Mage",Galio
-33,갱플랭크,41,Fighter,Gangplank
-34,가렌,86,"Fighter, Tank",Garen
-35,나르,150,"Fighter, Tank",Gnar
-36,그라가스,79,"Fighter, Mage",Gragas
-37,그레이브즈,104,Marksman,Graves
-38,그웬,887,"Fighter, Assassin",Gwen
-39,헤카림,120,"Fighter, Tank",Hecarim
-40,하이머딩거,74,"Mage, Support",Heimerdinger
-41,일라오이,420,"Fighter, Tank",Illaoi
-42,이렐리아,39,"Fighter, Assassin",Irelia
-43,아이번,427,"Support, Mage",Ivern
-44,잔나,40,"Support, Mage",Janna
-45,자르반 4세,59,"Tank, Fighter",JarvanIV
-46,잭스,24,"Fighter, Assassin",Jax
-47,제이스,126,"Fighter, Marksman",Jayce
-48,진,202,"Marksman, Mage",Jhin
-49,징크스,222,Marksman,Jinx
-50,카이사,145,Marksman,Kaisa
-51,칼리스타,429,Marksman,Kalista
-52,카르마,43,"Mage, Support",Karma
-53,카서스,30,Mage,Karthus
-54,카사딘,38,"Assassin, Mage",Kassadin
-55,카타리나,55,"Assassin, Mage",Katarina
-56,케일,10,"Fighter, Support",Kayle
-57,케인,141,"Fighter, Assassin",Kayn
-58,케넨,85,"Mage, Marksman",Kennen
-59,카직스,121,Assassin,Khazix
-60,킨드레드,203,Marksman,Kindred
-61,클레드,240,"Fighter, Tank",Kled
-62,코그모,96,"Marksman, Mage",KogMaw
-63,르블랑,7,"Assassin, Mage",Leblanc
-64,리 신,64,"Fighter, Assassin",LeeSin
-65,레오나,89,"Tank, Support",Leona
-66,릴리아,876,"Fighter, Mage",Lillia
-67,리산드라,127,Mage,Lissandra
-68,루시안,236,Marksman,Lucian
-69,룰루,117,"Support, Mage",Lulu
-70,럭스,99,"Mage, Support",Lux
-71,말파이트,54,"Tank, Fighter",Malphite
-72,말자하,90,"Mage, Assassin",Malzahar
-73,마오카이,57,"Tank, Mage",Maokai
-74,마스터 이,11,"Assassin, Fighter",MasterYi
-75,미스 포츈,21,Marksman,MissFortune
-76,오공,62,"Fighter, Tank",MonkeyKing
-77,모데카이저,82,Fighter,Mordekaiser
-78,모르가나,25,"Mage, Support",Morgana
-79,나미,267,"Support, Mage",Nami
-80,나서스,75,"Fighter, Tank",Nasus
-81,노틸러스,111,"Tank, Fighter",Nautilus
-82,니코,518,"Mage, Support",Neeko
-83,니달리,76,"Assassin, Mage",Nidalee
-84,녹턴,56,"Assassin, Fighter",Nocturne
-85,누누와 윌럼프,20,"Tank, Fighter",Nunu
-86,올라프,2,"Fighter, Tank",Olaf
-87,오리아나,61,"Mage, Support",Orianna
-88,오른,516,"Tank, Fighter",Ornn
-89,판테온,80,"Fighter, Assassin",Pantheon
-90,뽀삐,78,"Tank, Fighter",Poppy
-91,파이크,555,"Support, Assassin",Pyke
-92,키아나,246,"Assassin, Fighter",Qiyana
-93,퀸,133,"Marksman, Assassin",Quinn
-94,라칸,497,Support,Rakan
-95,람머스,33,"Tank, Fighter",Rammus
-96,렉사이,421,Fighter,RekSai
-97,렐,526,Tank,Rell
-98,레나타 글라스크,888,"Support, Mage",Renata
-99,레넥톤,58,"Fighter, Tank",Renekton
-100,렝가,107,"Assassin, Fighter",Rengar
-101,리븐,92,"Fighter, Assassin",Riven
-102,럼블,68,"Fighter, Mage",Rumble
-103,라이즈,13,"Mage, Fighter",Ryze
-104,사미라,360,Marksman,Samira
-105,세주아니,113,"Tank, Fighter",Sejuani
-106,세나,235,"Marksman, Support",Senna
-107,세라핀,147,"Mage, Support",Seraphine
-108,세트,875,"Fighter, Tank",Sett
-109,샤코,35,Assassin,Shaco
-110,쉔,98,Tank,Shen
-111,쉬바나,102,"Fighter, Tank",Shyvana
-112,신지드,27,"Tank, Fighter",Singed
-113,사이온,14,"Tank, Fighter",Sion
-114,시비르,15,Marksman,Sivir
-115,스카너,72,"Fighter, Tank",Skarner
-116,소나,37,"Support, Mage",Sona
-117,소라카,16,"Support, Mage",Soraka
-118,스웨인,50,"Mage, Fighter",Swain
-119,사일러스,517,"Mage, Assassin",Sylas
-120,신드라,134,"Mage, Support",Syndra
-121,탐 켄치,223,"Support, Tank",TahmKench
-122,탈리야,163,"Mage, Support",Taliyah
-123,탈론,91,Assassin,Talon
-124,타릭,44,"Support, Fighter",Taric
-125,티모,17,"Marksman, Assassin",Teemo
-126,쓰레쉬,412,"Support, Fighter",Thresh
-127,트리스타나,18,"Marksman, Assassin",Tristana
-128,트런들,48,"Fighter, Tank",Trundle
-129,트린다미어,23,"Fighter, Assassin",Tryndamere
-130,트위스티드 페이트,4,Mage,TwistedFate
-131,트위치,29,"Marksman, Assassin",Twitch
-132,우디르,77,"Fighter, Tank",Udyr
-133,우르곳,6,"Fighter, Tank",Urgot
-134,바루스,110,"Marksman, Mage",Varus
-135,베인,67,"Marksman, Assassin",Vayne
-136,베이가,45,Mage,Veigar
-137,벨코즈,161,Mage,Velkoz
-138,벡스,711,Mage,Vex
-139,바이,254,"Fighter, Assassin",Vi
-140,비에고,234,"Assassin, Fighter",Viego
-141,빅토르,112,Mage,Viktor
-142,블라디미르,8,Mage,Vladimir
-143,볼리베어,106,"Fighter, Tank",Volibear
-144,워윅,19,"Fighter, Tank",Warwick
-145,자야,498,Marksman,Xayah
-146,제라스,101,Mage,Xerath
-147,신 짜오,5,"Fighter, Assassin",XinZhao
-148,야스오,157,"Fighter, Assassin",Yasuo
-149,요네,777,"Assassin, Fighter",Yone
-150,요릭,83,"Fighter, Tank",Yorick
-151,유미,350,"Support, Mage",Yuumi
-152,자크,154,"Tank, Fighter",Zac
-153,제드,238,Assassin,Zed
-154,제리,221,Marksman,Zeri
-155,직스,115,Mage,Ziggs
-156,질리언,26,"Support, Mage",Zilean
-157,조이,142,"Mage, Support",Zoe
-158,자이라,143,"Mage, Support",Zyra
+13,벨베스,200,Fighter,Belveth
+14,블리츠크랭크,53,"Tank, Fighter",Blitzcrank
+15,브랜드,63,Mage,Brand
+16,브라움,201,"Support, Tank",Braum
+17,케이틀린,51,Marksman,Caitlyn
+18,카밀,164,"Fighter, Tank",Camille
+19,카시오페아,69,Mage,Cassiopeia
+20,초가스,31,"Tank, Mage",Chogath
+21,코르키,42,Marksman,Corki
+22,다리우스,122,"Fighter, Tank",Darius
+23,다이애나,131,"Fighter, Mage",Diana
+24,드레이븐,119,Marksman,Draven
+25,문도 박사,36,"Fighter, Tank",DrMundo
+26,에코,245,"Assassin, Fighter",Ekko
+27,엘리스,60,"Mage, Fighter",Elise
+28,이블린,28,"Assassin, Mage",Evelynn
+29,이즈리얼,81,"Marksman, Mage",Ezreal
+30,피들스틱,9,"Mage, Support",Fiddlesticks
+31,피오라,114,"Fighter, Assassin",Fiora
+32,피즈,105,"Assassin, Fighter",Fizz
+33,갈리오,3,"Tank, Mage",Galio
+34,갱플랭크,41,Fighter,Gangplank
+35,가렌,86,"Fighter, Tank",Garen
+36,나르,150,"Fighter, Tank",Gnar
+37,그라가스,79,"Fighter, Mage",Gragas
+38,그레이브즈,104,Marksman,Graves
+39,그웬,887,"Fighter, Assassin",Gwen
+40,헤카림,120,"Fighter, Tank",Hecarim
+41,하이머딩거,74,"Mage, Support",Heimerdinger
+42,일라오이,420,"Fighter, Tank",Illaoi
+43,이렐리아,39,"Fighter, Assassin",Irelia
+44,아이번,427,"Support, Mage",Ivern
+45,잔나,40,"Support, Mage",Janna
+46,자르반 4세,59,"Tank, Fighter",JarvanIV
+47,잭스,24,"Fighter, Assassin",Jax
+48,제이스,126,"Fighter, Marksman",Jayce
+49,진,202,"Marksman, Mage",Jhin
+50,징크스,222,Marksman,Jinx
+51,카이사,145,Marksman,Kaisa
+52,칼리스타,429,Marksman,Kalista
+53,카르마,43,"Mage, Support",Karma
+54,카서스,30,Mage,Karthus
+55,카사딘,38,"Assassin, Mage",Kassadin
+56,카타리나,55,"Assassin, Mage",Katarina
+57,케일,10,"Fighter, Support",Kayle
+58,케인,141,"Fighter, Assassin",Kayn
+59,케넨,85,"Mage, Marksman",Kennen
+60,카직스,121,Assassin,Khazix
+61,킨드레드,203,Marksman,Kindred
+62,클레드,240,"Fighter, Tank",Kled
+63,코그모,96,"Marksman, Mage",KogMaw
+64,르블랑,7,"Assassin, Mage",Leblanc
+65,리 신,64,"Fighter, Assassin",LeeSin
+66,레오나,89,"Tank, Support",Leona
+67,릴리아,876,"Fighter, Mage",Lillia
+68,리산드라,127,Mage,Lissandra
+69,루시안,236,Marksman,Lucian
+70,룰루,117,"Support, Mage",Lulu
+71,럭스,99,"Mage, Support",Lux
+72,말파이트,54,"Tank, Fighter",Malphite
+73,말자하,90,"Mage, Assassin",Malzahar
+74,마오카이,57,"Tank, Mage",Maokai
+75,마스터 이,11,"Assassin, Fighter",MasterYi
+76,미스 포츈,21,Marksman,MissFortune
+77,오공,62,"Fighter, Tank",MonkeyKing
+78,모데카이저,82,Fighter,Mordekaiser
+79,모르가나,25,"Mage, Support",Morgana
+80,나미,267,"Support, Mage",Nami
+81,나서스,75,"Fighter, Tank",Nasus
+82,노틸러스,111,"Tank, Fighter",Nautilus
+83,니코,518,"Mage, Support",Neeko
+84,니달리,76,"Assassin, Mage",Nidalee
+85,녹턴,56,"Assassin, Fighter",Nocturne
+86,누누와 윌럼프,20,"Tank, Fighter",Nunu
+87,올라프,2,"Fighter, Tank",Olaf
+88,오리아나,61,"Mage, Support",Orianna
+89,오른,516,"Tank, Fighter",Ornn
+90,판테온,80,"Fighter, Assassin",Pantheon
+91,뽀삐,78,"Tank, Fighter",Poppy
+92,파이크,555,"Support, Assassin",Pyke
+93,키아나,246,"Assassin, Fighter",Qiyana
+94,퀸,133,"Marksman, Assassin",Quinn
+95,라칸,497,Support,Rakan
+96,람머스,33,"Tank, Fighter",Rammus
+97,렉사이,421,Fighter,RekSai
+98,렐,526,Tank,Rell
+99,레나타 글라스크,888,"Support, Mage",Renata
+100,레넥톤,58,"Fighter, Tank",Renekton
+101,렝가,107,"Assassin, Fighter",Rengar
+102,리븐,92,"Fighter, Assassin",Riven
+103,럼블,68,"Fighter, Mage",Rumble
+104,라이즈,13,"Mage, Fighter",Ryze
+105,사미라,360,Marksman,Samira
+106,세주아니,113,"Tank, Fighter",Sejuani
+107,세나,235,"Marksman, Support",Senna
+108,세라핀,147,"Mage, Support",Seraphine
+109,세트,875,"Fighter, Tank",Sett
+110,샤코,35,Assassin,Shaco
+111,쉔,98,Tank,Shen
+112,쉬바나,102,"Fighter, Tank",Shyvana
+113,신지드,27,"Tank, Fighter",Singed
+114,사이온,14,"Tank, Fighter",Sion
+115,시비르,15,Marksman,Sivir
+116,스카너,72,"Fighter, Tank",Skarner
+117,소나,37,"Support, Mage",Sona
+118,소라카,16,"Support, Mage",Soraka
+119,스웨인,50,"Mage, Fighter",Swain
+120,사일러스,517,"Mage, Assassin",Sylas
+121,신드라,134,"Mage, Support",Syndra
+122,탐 켄치,223,"Support, Tank",TahmKench
+123,탈리야,163,"Mage, Support",Taliyah
+124,탈론,91,Assassin,Talon
+125,타릭,44,"Support, Fighter",Taric
+126,티모,17,"Marksman, Assassin",Teemo
+127,쓰레쉬,412,"Support, Fighter",Thresh
+128,트리스타나,18,"Marksman, Assassin",Tristana
+129,트런들,48,"Fighter, Tank",Trundle
+130,트린다미어,23,"Fighter, Assassin",Tryndamere
+131,트위스티드 페이트,4,Mage,TwistedFate
+132,트위치,29,"Marksman, Assassin",Twitch
+133,우디르,77,"Fighter, Tank",Udyr
+134,우르곳,6,"Fighter, Tank",Urgot
+135,바루스,110,"Marksman, Mage",Varus
+136,베인,67,"Marksman, Assassin",Vayne
+137,베이가,45,Mage,Veigar
+138,벨코즈,161,Mage,Velkoz
+139,벡스,711,Mage,Vex
+140,바이,254,"Fighter, Assassin",Vi
+141,비에고,234,"Assassin, Fighter",Viego
+142,빅토르,112,Mage,Viktor
+143,블라디미르,8,Mage,Vladimir
+144,볼리베어,106,"Fighter, Tank",Volibear
+145,워윅,19,"Fighter, Tank",Warwick
+146,자야,498,Marksman,Xayah
+147,제라스,101,Mage,Xerath
+148,신 짜오,5,"Fighter, Assassin",XinZhao
+149,야스오,157,"Fighter, Assassin",Yasuo
+150,요네,777,"Assassin, Fighter",Yone
+151,요릭,83,"Fighter, Tank",Yorick
+152,유미,350,"Support, Mage",Yuumi
+153,자크,154,"Tank, Fighter",Zac
+154,제드,238,Assassin,Zed
+155,제리,221,Marksman,Zeri
+156,직스,115,Mage,Ziggs
+157,질리언,26,"Support, Mage",Zilean
+158,조이,142,"Mage, Support",Zoe
+159,자이라,143,"Mage, Support",Zyra

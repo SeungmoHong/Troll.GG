@@ -209,7 +209,7 @@
 207,리안드리의 고뇌,6653,3200,"SpellDamage, Mana, CooldownReduction, AbilityHaste"
 208,루덴의 폭풍,6655,3200,"SpellDamage, Mana, CooldownReduction, NonbootsMovement, MagicPenetration, AbilityHaste"
 209,만년서리,6656,2800,"Health, SpellDamage, Mana, Active, CooldownReduction, Slow, AbilityHaste"
-210,바미의 불씨,6660,1100,Health
+210,바미의 불씨,6660,1000,Health
 211,서리불꽃 건틀릿,6662,2800,"Health, SpellBlock, Armor, Aura, CooldownReduction, Slow, AbilityHaste"
 212,터보 화공 탱크,6664,2800,"Health, SpellBlock, Armor, Aura, Active, CooldownReduction, Slow, NonbootsMovement, Tenacity, AbilityHaste"
 213,절정의 화살,6670,1300,"Damage, AttackSpeed"

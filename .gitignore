@@ -5,6 +5,8 @@ test.ipynb
 test.py
 test/
 logs/
+tmp/
+camp/
 fontawesome-free-5.15.1-web/
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
